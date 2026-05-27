@@ -182,6 +182,57 @@ This deletes the `AgentJoJoy/` directory, `CLAUDE.md`, `AGENTS.md`, and `progres
 
 ---
 
+## Upgrading
+
+AgentJoJoy is **AI-driven**, so upgrades are too — there is no install script to maintain and no package manager. Instead, you paste a canonical upgrade prompt into your AI assistant (Claude Code, Cursor, Codex, Gemini), and the AI handles the work using the project's own file-ownership rules.
+
+### Check your current version
+
+```powershell
+type VERSION
+```
+
+(The `VERSION` file lives at your workspace root and was stamped when you installed the template. If it's missing, your workspace pre-dates v1.2.0 — the upgrade prompt below handles that case.)
+
+### Check what's new
+
+See [CHANGELOG.md](CHANGELOG.md) in this repository — and the [Releases page](https://github.com/Joyperm/AgentJoJoy/releases) for human-readable highlights per version.
+
+### Canonical Upgrade Prompt
+
+Open your AI assistant in the workspace root and paste:
+
+```text
+Please upgrade this AgentJoJoy workspace to the latest published template version.
+
+Procedure:
+1. Read the VERSION file at the workspace root. If it does not exist, treat the current version as "pre-v1.2.0" and proceed.
+2. Identify the target version and source content. Try these in order:
+   a. Fetch the latest release tag from https://github.com/Joyperm/AgentJoJoy/releases and the public CHANGELOG.md.
+   b. If fetching is unavailable (no network, blocked runtime, offline session): ask me for the target version (e.g. `v1.2.0`) and a local path containing a fresh clone of that tag — for example one created with `git clone --depth 1 --branch v1.2.0 https://github.com/Joyperm/AgentJoJoy.git agentjojoy-v1.2.0`. Use that local clone as the source of truth instead of a network fetch.
+   c. If neither is possible, stop and report what's missing — do not guess content.
+3. If the local version equals the target version, stop and report "already at latest".
+4. Otherwise, read AgentJoJoy/agent-rules/file-ownership.md to know which files are template-owned, user-owned, or mixed.
+5. Walk the changes file by file:
+   - For template-owned files: propose the new content; apply after my approval (SPEC-3.1).
+   - For mixed files: show a diff focused on structural/prose changes, preserve my filled values, apply after my approval.
+   - For user-owned files: do not modify. If a structural migration is required, propose a manual edit plan with per-section approval.
+6. When done, update the VERSION file to the latest tag and log the upgrade in progress-tracker.md under Recent Actions with the date and version transition (e.g. "Upgraded AgentJoJoy template v1.1.0 -> v1.2.0").
+
+Constraints:
+- Never run git push, pull, commit, merge, or branch switch without explicit approval per SPEC-3.1.
+- Preserve all content in agent-context/, agent-decisions/, agent-runtime/, and progress-tracker.md (except the auto-sync managed block, which is template-owned).
+- If unsure about a file's ownership, ask before changing it.
+```
+
+The AI will read [`AgentJoJoy/agent-rules/file-ownership.md`](AgentJoJoy/agent-rules/file-ownership.md), follow per-file approval gates, and never touch your project content. You can stop the upgrade at any point.
+
+### Manual upgrade (alternative)
+
+If you prefer a fully manual approach, the same file-ownership table in [`AgentJoJoy/agent-rules/file-ownership.md`](AgentJoJoy/agent-rules/file-ownership.md) tells you which files are safe to overwrite from a freshly cloned latest version, which to leave alone, and which to merge by hand.
+
+---
+
 ## Features at a Glance
 
 - **Pattern (b) wrapper layout** — keeps assistant context sibling to codebase repos so private files never leak into git history.
