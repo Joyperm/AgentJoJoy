@@ -83,13 +83,13 @@ Other agents use their own name: `// CODEX:`, `// CURSOR:`, etc.
 Append a co-author trailer to every commit so authorship is durable:
 
 ```
-Co-Authored-By: <Agent Name> [Model] <noreply@<vendor>.com>
+Co-Authored-By: <Agent Name> [Model] <noreply-bot@users.noreply.github.com>
 ```
 
 Examples:
 
-- `Co-Authored-By: Claude [Opus 4.7] <noreply@anthropic.com>`
-- `Co-Authored-By: Codex [GPT-5] <noreply@openai.com>`
+- `Co-Authored-By: Claude [Opus 4.7] <claude-bot@users.noreply.github.com>`
+- `Co-Authored-By: Codex [GPT-5] <codex-bot@users.noreply.github.com>`
 
 `[Model]` must reflect the exact model running. If unsure, ask the
 owner before committing.

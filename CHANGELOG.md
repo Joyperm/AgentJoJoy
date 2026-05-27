@@ -14,6 +14,12 @@ _(no changes yet)_
 
 ---
 
+## [v1.2.3] — 2026-05-27 — Distraction-Free Mode
+
+### Added
+- Option to enable **Distraction-Free Mode** during the guided onboarding (intake) session. If selected, the AI agent dynamically configures VS Code workspace settings (`.vscode/settings.json`) to hide internal AI system files (`AgentJoJoy/`, `CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`, `VERSION`) from the explorer sidebar, keeping the workspace beautifully clean for human developers while remaining 100% operational for AI agents.
+- **Surgically Safe Clean Ejection**: Upgraded the clean ejection script (`eject.ps1`) to automatically detect and clean up Distraction-Free exclusions in `.vscode/settings.json` upon ejection. It surgically removes only the AgentJoJoy system exclusions, leaving any other developer-configured settings (like formatters, tab sizes, etc.) 100% untouched. If `.vscode/settings.json` contains no other settings, it is cleanly deleted along with the empty `.vscode/` directory.
+
 ## [v1.2.2] — 2026-05-27 — Public Template Cleanup
 
 ### Changed

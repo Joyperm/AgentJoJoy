@@ -178,7 +178,10 @@ To return a workspace to its normal, unwrapped state (e.g., before sharing or re
 powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/eject.ps1 -Action eject
 ```
 
-This deletes the `AgentJoJoy/` directory, `CLAUDE.md`, `AGENTS.md`, and `progress-tracker.md`.
+This deletes the `AgentJoJoy/` directory, `CLAUDE.md`, `AGENTS.md`, `VERSION`, and `progress-tracker.md`.
+
+> [!NOTE]
+> **Surgically Safe Settings Cleanup**: If **Distraction-Free Mode** was enabled, the script automatically parses `.vscode/settings.json` and surgically removes only the AgentJoJoy system exclusions, keeping any other project-specific editor or linter configurations 100% untouched. If no other settings remain in `.vscode/settings.json`, the script cleanly deletes the settings file and the empty `.vscode/` directory.
 
 ---
 

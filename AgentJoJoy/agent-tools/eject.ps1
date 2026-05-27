@@ -45,15 +45,38 @@ foreach ($target in $targets) {
   }
 }
 
-if ($itemsToDelete.Count -eq 0) {
-  Write-Host "No AgentJoJoy wrapper files or folders found to delete at: $root"
+# Check if VS Code settings contain Distraction-Free Mode exclusions
+$vscodeSettingsPath = Join-Path $root ".vscode\settings.json"
+$hasVSCodeCleanup = $false
+if (Test-Path -LiteralPath $vscodeSettingsPath) {
+  try {
+    $settingsContent = Get-Content -Raw -LiteralPath $vscodeSettingsPath
+    $settings = $settingsContent | ConvertFrom-Json
+    if ($settings -and $settings.PSObject.Properties.Name -contains "files.exclude") {
+      $exclude = $settings."files.exclude"
+      $keysToRemove = @("AgentJoJoy/", "CLAUDE.md", "AGENTS.md", "VERSION", "progress-tracker.md")
+      foreach ($key in $keysToRemove) {
+        if ($exclude.PSObject.Properties.Name -contains $key) {
+          $hasVSCodeCleanup = $true
+          break
+        }
+      }
+    }
+  } catch {}
+}
+
+if ($itemsToDelete.Count -eq 0 -and -not $hasVSCodeCleanup) {
+  Write-Host "No AgentJoJoy wrapper files, folders, or VS Code settings found to clean up at: $root"
   exit 0
 }
 
 if ($Action -eq "check") {
-  Write-Host "Dry-run check: The following items will be deleted during ejection:"
+  Write-Host "Dry-run check: The following items will be cleaned up during ejection:"
   foreach ($item in $itemsToDelete) {
-    Write-Host " - $item"
+    Write-Host " - $item (permanent deletion)"
+  }
+  if ($hasVSCodeCleanup) {
+    Write-Host " - $vscodeSettingsPath (will clean up Distraction-Free Mode exclusions)"
   }
   Write-Host "To execute ejection, run with -Action eject"
   exit 0
@@ -65,6 +88,9 @@ if (-not $Force) {
   Write-Host "This will permanently delete the following files and folders:"
   foreach ($item in $itemsToDelete) {
     Write-Host " - $item"
+  }
+  if ($hasVSCodeCleanup) {
+    Write-Host "And it will clean up Distraction-Free Mode exclusions from: $vscodeSettingsPath"
   }
   Write-Host ""
   $confirmation = Read-Host "Are you sure you want to proceed? (Type 'y' or 'yes' to confirm)"
@@ -85,6 +111,56 @@ foreach ($item in $itemsToDelete) {
       Write-Host "Deleting file: $item"
       Remove-Item -Force -LiteralPath $item
     }
+  }
+}
+
+# Clean up VS Code settings if present
+if ($hasVSCodeCleanup -and (Test-Path -LiteralPath $vscodeSettingsPath)) {
+  Write-Host "Cleaning up Distraction-Free Mode exclusions from $vscodeSettingsPath..."
+  try {
+    $settingsContent = Get-Content -Raw -LiteralPath $vscodeSettingsPath
+    $settings = $settingsContent | ConvertFrom-Json
+    if ($settings -and $settings.PSObject.Properties.Name -contains "files.exclude") {
+      $exclude = $settings."files.exclude"
+      $keysToRemove = @("AgentJoJoy/", "CLAUDE.md", "AGENTS.md", "VERSION", "progress-tracker.md")
+      $changed = $false
+      
+      foreach ($key in $keysToRemove) {
+        if ($exclude.PSObject.Properties.Name -contains $key) {
+          $exclude.PSObject.Properties.Remove($key)
+          $changed = $true
+        }
+      }
+      
+      if ($changed) {
+        # If files.exclude is empty, remove it completely
+        $excludePropertyCount = ($exclude.PSObject.Properties | Measure-Object).Count
+        if ($excludePropertyCount -eq 0) {
+          $settings.PSObject.Properties.Remove("files.exclude")
+        }
+        
+        # Check if the entire settings object is now empty
+        $settingsPropertyCount = ($settings.PSObject.Properties | Measure-Object).Count
+        if ($settingsPropertyCount -eq 0) {
+          Write-Host "Settings file is now empty, deleting it..."
+          Remove-Item -Force -LiteralPath $vscodeSettingsPath
+          
+          # If .vscode folder is now empty, delete it too
+          $vscodeFolder = Split-Path -Parent $vscodeSettingsPath
+          $vscodeChildren = Get-ChildItem -LiteralPath $vscodeFolder -Force -ErrorAction SilentlyContinue
+          if (-not $vscodeChildren) {
+            Write-Host "Deleting empty .vscode folder..."
+            Remove-Item -Force -LiteralPath $vscodeFolder
+          }
+        } else {
+          Write-Host "Updating settings.json..."
+          $updatedJson = $settings | ConvertTo-Json -Depth 100
+          Set-Content -Path $vscodeSettingsPath -Value $updatedJson -NoNewline
+        }
+      }
+    }
+  } catch {
+    Write-Warning "Could not parse or update .vscode/settings.json: $_"
   }
 }
 

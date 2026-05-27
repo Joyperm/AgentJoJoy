@@ -278,7 +278,7 @@ Rules:
 Append a co-author trailer to every commit message:
 
 ```
-Co-Authored-By: Claude [Opus 4.7] <noreply@anthropic.com>
+Co-Authored-By: Claude [Opus 4.7] <claude-bot@users.noreply.github.com>
 ```
 
 `[Model]` must reflect the exact model running. If unsure, ask the

@@ -170,11 +170,13 @@ To maintain both structure and agent helpfulness:
 - Conversation language: English by default (detects and adapts dynamically to other languages if spoken by the owner)
 - Engagement mode: `execute` or `teach`?
 - Shell preference: default detected shell, or a specific one?
+- **Distraction-Free Mode** (Recommended for VS Code): Configures the explorer sidebar to hide internal AI system files (`AgentJoJoy/`, `CLAUDE.md`, `AGENTS.md`, `VERSION`, `progress-tracker.md`) to keep the workspace clean and focused.
 
 Write the answers to:
 
 - `CLAUDE.md` → "Working Convention"
 - `AgentJoJoy/agent-context/engagement-mode.md`
+- `.vscode/settings.json` (create/update to add `files.exclude` if Distraction-Free Mode is enabled)
 
 ### Project Identity
 
@@ -257,6 +259,7 @@ Ask:
 - Any non-negotiable constraints?
 - Should we enable the **Automated Gap Reporter**? (This is a privacy-safe, local monitoring feature that logs workflow friction points or template gaps to `AgentJoJoy/agent-runtime/gaps/` so we can organically improve this template based on real-world usage. You can choose to enable or disable it.)
 - Should we enable the **Gap Report Collector**? (This is separate from the Reporter. It aggregates local gap reports into an ignored local index/export bundle. Default to disabled for Path 2 team repos unless the owner explicitly approves it. Remote sync/upload is not implemented; on company machines, any transfer must be manual and owner-approved.)
+- Should we enable **Distraction-Free Mode**? (Recommended for VS Code users. If enabled, the AI will create `.vscode/settings.json` to hide internal AI files from your explorer sidebar, keeping your workspace clean).
 
 ### Step 2: Propose Structure
 
@@ -513,6 +516,7 @@ Ask only what cannot be discovered:
   Which require separate approval or should never be run by AI?
 - Should we enable the **Automated Gap Reporter**? (This is a privacy-safe, local monitoring feature that logs workflow friction points or template gaps to `AgentJoJoy/agent-runtime/gaps/` so we can organically improve this template based on real-world usage. You can choose to enable or disable it.)
 - Should we enable the **Gap Report Collector**? (This is separate from the Reporter. It aggregates local gap reports into an ignored local index/export bundle. Default to disabled for Path 2 team repos unless the owner explicitly approves it. Remote sync/upload is not implemented; on company machines, any transfer must be manual and owner-approved.)
+- Should we enable **Distraction-Free Mode**? (Recommended for VS Code users. If enabled, the AI will create `.vscode/settings.json` to hide internal AI files from your explorer sidebar, keeping your workspace clean).
 
 ### Step 6: Multi-Agent Coexistence Rules Portability
 
