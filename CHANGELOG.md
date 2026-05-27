@@ -14,6 +14,13 @@ _(no changes yet)_
 
 ---
 
+## [v1.2.1] — 2026-05-27 — On-Demand Learning Patterns
+
+### Added
+- `engagement-mode.md` documents three on-demand learning patterns the AI honors in `teach` mode (or in `execute` mode if explicitly requested): **AI proposes / you type** (for muscle memory while learning), **Skeleton only / you fill** (you write the details), and **Tutor-first / code after** (concept walkthrough before any code lands). These are session-level requests — no workspace setting to configure. Origin: a learning-mode pattern from an earlier private workspace iteration; restored here without adding intake friction.
+
+---
+
 ## [v1.2.0] — 2026-05-27 — Upgrade Story Phase 1
 
 ### Added

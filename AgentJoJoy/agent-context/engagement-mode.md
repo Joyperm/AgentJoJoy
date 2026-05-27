@@ -38,6 +38,26 @@ overridable per session.
 - **Like:** pair-programming with a senior mentor who's intentionally
   showing their reasoning so the user learns.
 
+**On-demand learning patterns.** While in `teach` mode (and in
+`execute` mode if explicitly requested), the user can ask the AI to
+slow down for any task or per file. The AI honors these patterns
+without needing a config change — just say it:
+
+- **AI proposes, you type** — the AI shows the exact code/command,
+  but you type it into your own terminal/editor. Useful for muscle
+  memory while learning a new stack, or when you want full control
+  over the final keystrokes.
+- **Skeleton only, you fill** — the AI provides structure (function
+  signatures, file scaffolding, key branches) with the details left
+  for you to write. Useful when you understand the shape but want
+  the discipline of writing the body yourself.
+- **Tutor-first, code after** — the AI explains the concept and
+  walks the approach step by step *before* any code lands, so you
+  can build the mental model at your own pace.
+
+These are session-level requests, not workspace settings. Mention
+them at the start of a task, or mid-task if your needs shift.
+
 Both modes still respect SPEC-3.1 (per-action approval for
 state-changing operations) and SPEC-3.5 (strategic choices reserved
 for user).
