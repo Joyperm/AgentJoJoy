@@ -145,7 +145,7 @@ Use automatically during a session if the **Automated Gap Reporter** is `enabled
    - **Observed Friction**: Terse explanation of the obstacle (e.g., "Cursor New Agent did not load referenced skill file due to soft reference syntax").
    - **AI Workaround Applied**: How the AI bypassed the issue (e.g., "Added explicit trigger keywords to entry-point rules").
    - **Suggested Improvement for Template**: How to update the AgentJoJoy template files to permanently close this gap.
-4. **Save Locally**: Write the report to a unique file under `AgentJoJoy/agent-runtime/gaps/gap-<timestamp>.md`. Do not commit or push the report to the team repository (it resides strictly in the local wrapper runtime folder).
+4. **Save Locally and Announce**: Write the report to a unique file under `AgentJoJoy/agent-runtime/gaps/gap-<timestamp>.md`. Do not commit or push the report to the team repository (it resides strictly in the local wrapper runtime folder). **Always announce the write to the user in one short line** so the user is aware in-session — for example: `📝 Noted as gap report: gap-20260527-094530.md (redacted)`. Transparency over silent behavior — the user has the right to know whenever a report is written, even after they opted in at intake.
 5. **Collect Locally Only When Enabled**: The Gap Collector is a
    separate optional setting from the Gap Reporter. If the Collector is
    disabled or unset, do not aggregate reports. If the owner explicitly

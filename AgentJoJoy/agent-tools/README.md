@@ -9,26 +9,55 @@ approves it.
 
 ## Gap Report Collector
 
-`gap-report-collector.ps1` aggregates local redacted gap reports from:
+`gap-report-collector.ps1` is a **personal retrospective tool**. The
+Automated Gap Reporter writes redacted gap reports to
+`AgentJoJoy/agent-runtime/gaps/gap-*.md` during AI sessions; this
+collector helps the **workspace owner** inspect, summarize, and
+manage those reports to improve their own workflow.
 
-```text
-AgentJoJoy/agent-runtime/gaps/gap-*.md
-```
+It is local-only. No telemetry, no remote upload, no network calls.
 
-It writes generated collector output under:
+Generated outputs (when applicable):
 
 ```text
 AgentJoJoy/agent-runtime/gaps/_collector/
 AgentJoJoy/agent-runtime/gaps/_exports/
 ```
 
-Actions:
+### Actions for self-review
 
 ```powershell
+# Tabular listing of reports (file, last write, exportable/blocked, category)
+powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/gap-report-collector.ps1 -Action list
+
+# Pattern analysis — counts by category, recent samples, blocked items
+powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/gap-report-collector.ps1 -Action summarize
+
+# Delete all gap reports and collector outputs (requires -Force to confirm)
+powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/gap-report-collector.ps1 -Action purge -Force
+```
+
+### Actions for indexing and export
+
+```powershell
+# Count reports + show blocked count (no index write)
 powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/gap-report-collector.ps1 -Action check
+
+# Write the markdown index file under _collector/
 powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/gap-report-collector.ps1 -Action collect
+
+# Bundle exportable reports for personal archival under _exports/
 powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/gap-report-collector.ps1 -Action export
 ```
+
+### Sharing back upstream (fully optional)
+
+The `summarize` action ends with a prompt inviting you to open a
+GitHub issue with the redacted summary if you find a pattern that
+the template itself should fix. This is **opt-in by the user**;
+the script never sends anything anywhere.
+
+### Company machines
 
 On company machines, pass `-CompanyMachine`:
 

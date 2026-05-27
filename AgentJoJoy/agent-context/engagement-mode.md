@@ -51,10 +51,27 @@ for user).
 **_(not set — ask during intake)_**
 
 > [!NOTE]
-> When enabled, the AI observes and logs redacted, privacy-safe friction reports about workflow obstacles or template gaps to `AgentJoJoy/agent-runtime/gaps/` to help improve the system.
+> When enabled, the AI may write redacted, privacy-safe friction reports
+> to `AgentJoJoy/agent-runtime/gaps/` **during sessions** when it
+> observes a workflow obstacle worth remembering. It is not a background
+> daemon — it runs only as part of the AI's in-session routine, and the
+> AI announces each report it writes with a one-line note (see
+> `agentjojoy-core-practices/SKILL.md` → "Gap Observation & Redacted
+> Reporting").
 > Generated reports and collector outputs are local-only. They must not
 > be committed to the wrapped project repo or uploaded from a company
 > machine.
+>
+> **Inspect or manage your reports any time:**
+>
+> ```powershell
+> # List reports with status and category
+> powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/gap-report-collector.ps1 -Action list
+> # Pattern summary (with optional upstream-share invitation)
+> powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/gap-report-collector.ps1 -Action summarize
+> # Delete all gap reports and collector outputs
+> powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/gap-report-collector.ps1 -Action purge -Force
+> ```
 
 ### Gap Report Collector
 
