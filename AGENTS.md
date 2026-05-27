@@ -19,9 +19,6 @@ Before any other work (including generating any greeting or response), read `Age
 
 Use the loaded contents and the trigger states in [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) to classify the workspace:
 
-- **T0 — Template Development**: This checkout is the AgentJoJoy template source repo itself.
-  - *Signal*: [`AgentJoJoy/template-lab/.template-source`](AgentJoJoy/template-lab/.template-source) exists.
-  - *Action*: Do not run normal project onboarding. Use [`AgentJoJoy/template-lab/template-dev-tracker.md`](AgentJoJoy/template-lab/template-dev-tracker.md). Keep blank template files blank.
 - **T1 — Fresh Template**: Workspace is a new/copied wrapper and has not been onboarded.
   - *Signal*: Project Name/What It Is are `_(not set)_` in [`AgentJoJoy/agent-context/project-overview.md`](AgentJoJoy/agent-context/project-overview.md).
   - *Action*: Ask the owner whether to start onboarding now. Offer Path 1 (New Project), Path 2 (Existing Project), or Skip.

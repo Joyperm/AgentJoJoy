@@ -14,6 +14,17 @@ _(no changes yet)_
 
 ---
 
+## [v1.2.2] — 2026-05-27 — Public Template Cleanup
+
+### Changed
+- T0 (Template Development) classification entries are now stripped from the public template during packaging. Public users only see T1/T2/T3 workspace states — T0 is an internal dev concept that was never triggerable in public workspaces.
+- T0 signal in `intake-flow.md` generalized to match both public and private dev remotes without exposing the dev repo name.
+
+### Added
+- `AGENTJOJOY:DEV-ONLY` marker system in `release.ps1` — any content wrapped in `<!-- AGENTJOJOY:DEV-ONLY BEGIN/END -->` markers is automatically stripped from `.md` files during packaging. Used for T0 sections; extensible for future dev-only content.
+
+---
+
 ## [v1.2.1] — 2026-05-27 — On-Demand Learning Patterns
 
 ### Added

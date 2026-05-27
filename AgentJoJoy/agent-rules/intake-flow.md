@@ -34,34 +34,11 @@ Run intake when all are true:
 
 - `AgentJoJoy/agent-context/project-overview.md` has both "Project Name" and
   "What It Is" set to `_(not set)_`.
-- This checkout is not the AgentJoJoy template source repo.
 - The owner confirms they want to set up a new or existing project.
-
-Do not run normal intake in Template Development mode. Use
-`AgentJoJoy/template-lab/template-dev-tracker.md` instead.
 
 ## Trigger States
 
 At session start, classify the workspace before doing intake work.
-
-### T0 — Template Development
-
-This checkout is the AgentJoJoy template source repo itself.
-
-Signals:
-
-- `AgentJoJoy/template-lab/.template-source` exists, or
-- Remote is `Joyperm/AgentJoJoy`, or
-- README title is `AgentJoJoy — Generic AI Workspace Template`, or
-- `AgentJoJoy/template-lab/template-dev-tracker.md` exists and the repo clearly
-  matches the template source.
-
-Action:
-
-- Do not run normal intake.
-- Use `AgentJoJoy/template-lab/template-dev-tracker.md`.
-- Keep blank template files blank unless the task changes template
-  content.
 
 ### T1 — Fresh Template
 
@@ -122,11 +99,10 @@ Action:
 
 Use this order:
 
-1. Check T0 Template Development.
-2. Read `AgentJoJoy/agent-context/project-overview.md`.
-3. If T3, run Resume mode.
-4. If T2, ask to resume or restart intake.
-5. If T1, ask whether to start intake.
+1. Read `AgentJoJoy/agent-context/project-overview.md`.
+1. If T3, run Resume mode.
+1. If T2, ask to resume or restart intake.
+1. If T1, ask whether to start intake.
 
 Auto-detect may identify the state, but it must not write files by
 itself. Always ask before running intake or changing templates.
@@ -621,8 +597,6 @@ Create or update:
 - `progress-tracker.md` → Current Phase, Current Goal, In Progress,
   Next Up, Open Questions
 - `AgentJoJoy/agent-context/project-overview.md` → Active Work Areas
-- `AgentJoJoy/template-lab/template-dev-tracker.md` only when developing the
-  AgentJoJoy template source repo itself
 
 ### Planning Shape
 

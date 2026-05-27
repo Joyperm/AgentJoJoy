@@ -45,10 +45,6 @@ other work (including generating any greeting or response)**, you MUST read `Age
 Use the loaded contents and [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) →
 "Trigger States" to classify the workspace:
 
-- **T0 Template Development** → use
-  `AgentJoJoy/template-lab/template-dev-tracker.md`; explicit marker:
-  `AgentJoJoy/template-lab/.template-source`; do not run normal
-  intake.
 - **T1 Fresh Template** → ask whether to start intake, choose Path 1,
   Path 2, or Skip.
 - **T2 Partial Intake** → ask whether to resume or restart intake.
