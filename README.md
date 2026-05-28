@@ -213,20 +213,25 @@ Please upgrade this AgentJoJoy workspace to the latest published template versio
 
 Procedure:
 1. Read the VERSION file at the workspace root. If it does not exist, treat the current version as "pre-v1.2.0" and proceed.
-2. Identify the target version and source content. Try these in order:
-   a. Fetch the latest release tag from https://github.com/Joyperm/AgentJoJoy/releases and the public CHANGELOG.md.
-   b. If fetching is unavailable (no network, blocked runtime, offline session): ask me for the target version (e.g. `v1.2.0`) and a local path containing a fresh clone of that tag — for example one created with `git clone --depth 1 --branch v1.2.0 https://github.com/Joyperm/AgentJoJoy.git agentjojoy-v1.2.0`. Use that local clone as the source of truth instead of a network fetch.
-   c. If neither is possible, stop and report what's missing — do not guess content.
+2. Identify the target version and fetch the latest source content. Try these in order:
+   a. Check the latest release tag from https://github.com/Joyperm/AgentJoJoy/releases and the public CHANGELOG.md.
+   b. Clone the target tag locally to a temporary folder using a shallow clone:
+      `git clone --depth 1 --branch <tag> https://github.com/Joyperm/AgentJoJoy.git temp-agentjojoy-upgrade`
+      (Use this clone as the source of truth for the upgrade.)
+   c. If fetching or cloning is unavailable (no network, blocked runtime, offline session), ask me for the target version and a local path to a pre-existing clone of that tag.
+   d. If neither is possible, stop and report what's missing — do not guess content.
 3. If the local version equals the target version, stop and report "already at latest".
 4. Otherwise, read AgentJoJoy/agent-rules/file-ownership.md to know which files are template-owned, user-owned, or mixed.
-5. Walk the changes file by file:
+5. Walk the changes file by file (comparing the workspace files to the target clone source):
    - For template-owned files: propose the new content; apply after my approval (SPEC-3.1).
    - For mixed files: show a diff focused on structural/prose changes, preserve my filled values, apply after my approval.
    - For user-owned files: do not modify. If a structural migration is required, propose a manual edit plan with per-section approval.
 6. When done, update the VERSION file to the latest tag and log the upgrade in progress-tracker.md under Recent Actions with the date and version transition (e.g. "Upgraded AgentJoJoy template v1.1.0 -> v1.2.0").
+7. Clean up by deleting the temporary upgrade directory (e.g. `temp-agentjojoy-upgrade`) using a safe OS command (e.g. `rmdir /s /q` or `Remove-Item`).
 
 Constraints:
 - Never run git push, pull, commit, merge, or branch switch without explicit approval per SPEC-3.1.
+- Check if a remote origin is configured for the workspace root repository before attempting any Git push operations. If no remote is configured, do not attempt to push and stop after committing locally.
 - Preserve all content in agent-context/, agent-decisions/, agent-runtime/, and progress-tracker.md (except the auto-sync managed block, which is template-owned).
 - If unsure about a file's ownership, ask before changing it.
 ```
