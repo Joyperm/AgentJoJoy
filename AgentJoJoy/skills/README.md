@@ -4,9 +4,6 @@ AgentJoJoy treats skills as two layers. The layer determines what a
 skill is allowed to influence and which source of truth wins when
 skills overlap.
 
-Trigger dry-run results live in
-[`../template-lab/validation/skills-trigger-dry-run.md`](../template-lab/validation/skills-trigger-dry-run.md).
-
 ---
 
 ## Layer 1 - Personal Agent Skills

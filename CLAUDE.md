@@ -404,8 +404,6 @@ walks up the tree to find it).
 |------|---------|
 | [`progress-tracker.md`](progress-tracker.md) (at root) | **REAL WORK tracker** — active branches, PRs, worktrees, in-flight tasks. Update after every meaningful work action. Resume Check reads this first. |
 | [`AgentJoJoy/agent-context/progress-tracker-setup.md`](AgentJoJoy/agent-context/progress-tracker-setup.md) | **SETUP / workspace meta log** — spec amendments, workspace restructure events, intake completion. Update when workspace structure or workflow rules change. |
-| [`AgentJoJoy/template-lab/template-dev-tracker.md`](AgentJoJoy/template-lab/template-dev-tracker.md) | Real development tracker for the AgentJoJoy template source repo only. Do not copy as project state. |
-| [`AgentJoJoy/template-lab/validation/`](AgentJoJoy/template-lab/validation/) | Source-repo validation artifacts. Do not copy as project state. |
 | [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) | Key project decisions (one file per decision, format in folder README). |
 | [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) | Skill layer model: Personal Agent Skills vs Project Skills and precedence when both match. |
 | [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) | Portable core practices for debugging, review, post-mortems, and stakeholder communication. |

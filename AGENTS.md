@@ -85,9 +85,7 @@ Before making changes, read the relevant project knowledge from:
 - [`AgentJoJoy/agent-tools/`](AgentJoJoy/agent-tools/) — local helper tools, including the privacy-first Gap Report Collector
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts
 - [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) — key decisions log
-- [`AgentJoJoy/template-lab/template-dev-tracker.md`](AgentJoJoy/template-lab/template-dev-tracker.md) — real tracker for the AgentJoJoy template source repo only
 - [`AgentJoJoy/agent-runtime/`](AgentJoJoy/agent-runtime/) — local generated agent state, including ignored gap reports
-- [`AgentJoJoy/template-lab/validation/`](AgentJoJoy/template-lab/validation/) — source-repo validation artifacts only
 - [`progress-tracker.md`](progress-tracker.md) — current state, decisions, next steps
 
 If this file conflicts with `CLAUDE.md` on agent-specific behavior,

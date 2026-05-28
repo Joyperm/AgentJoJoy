@@ -10,7 +10,16 @@ For internal template-development history, see the private dev repo.
 
 ## [Unreleased]
 
-_(no changes yet)_
+---
+
+## [v1.2.7] — 2026-05-27 — Public Doc Link Integrity
+
+### Fixed
+- **Workflow guide packaging**: Updated the release packaging script so public releases include `AgentJoJoy/workflow-guide.md` and `AgentJoJoy/workflow-guide-th.md`, matching the README links and file-ownership map.
+- **Broken local links in public docs**: Wrapped source-repo-only references to `AgentJoJoy/template-lab/` inside `AGENTS.md`, `CLAUDE.md`, and `AgentJoJoy/skills/README.md` in `AGENTJOJOY:DEV-ONLY` markers so the release script strips them from public packages. Also corrected the workspace-root link in `AgentJoJoy/agent-context/progress-tracker-setup.md` from `../progress-tracker.md` to `../../progress-tracker.md`.
+
+### Changed
+- **Onboarding guides**: Refreshed the English and Thai workflow guides to match the current public setup story: GitHub **Use this template** for new workspaces, upgrade prompt for existing workspaces, opt-in gap reporting, test-first preference, junction links, custom skills preservation, and cross-platform helper-script guidance.
 
 ---
 
