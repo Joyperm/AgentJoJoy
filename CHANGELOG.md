@@ -14,6 +14,15 @@ _(no changes yet)_
 
 ---
 
+## [v1.2.6] — 2026-05-27 — Public README UX Polish
+
+### Changed
+- **Public README first-run flow**: Reworked the public README around GitHub's **Use this template** button as the primary setup path for new workspaces.
+- **README discoverability**: Added a short Quick Start near the top, moved the feature overview higher, reduced internal workflow jargon, and clarified that upgrades use the release-tag comparison flow rather than creating a fresh template copy.
+- **Cross-platform guidance**: Clarified that the AgentJoJoy workflow can be used across operating systems while bundled helper scripts are currently PowerShell-first and Windows-tested.
+
+---
+
 ## [v1.2.5] — 2026-05-27 — TDD Discipline & Upgrade Protection
 
 ### Added

@@ -4,6 +4,34 @@ A workspace template for working with AI coding assistants (Claude Code, Codex, 
 
 ---
 
+## Quick Start
+
+1. Click **Use this template** on GitHub to create your own AgentJoJoy workspace repository.
+2. Clone your new repository to your machine.
+3. Open Claude Code, Codex, Cursor, or Gemini at the workspace root.
+4. Ask the AI to read `CLAUDE.md` / `AGENTS.md` and start onboarding.
+5. Choose **New Project** or **Existing Project** when the AI asks.
+
+Already have an AgentJoJoy workspace? Use the [Upgrading](#upgrading) flow instead of creating a fresh template copy, so your project notes, decisions, and custom skills are preserved.
+
+---
+
+## Features at a Glance
+
+- **Private-by-default workspace wrapper** — keeps assistant context beside your project instead of inside it, so personal AI notes stay out of project commits.
+- **Auto-loading agent rules** — `CLAUDE.md` and `AGENTS.md` give Claude Code, Codex, Cursor, and Gemini a shared starting point.
+- **Guided onboarding** — choose a new project or wrap an existing repo; the AI fills only the context you approve.
+- **Dual engagement modes** — switch between `execute` for terse delivery and `teach` for pair-programming explanations.
+- **Multi-agent coexistence** — coordinate Claude Code, Codex, Cursor, and Gemini without branch or attribution confusion.
+- **Privacy-first Gap Reporter** — optional, redacted local notes for workflow friction. No telemetry, no upload.
+- **Self-service Gap Collector** — `list`, `summarize`, and `purge` actions help you review or delete local friction notes.
+- **Read-only resume checks** — refreshes local branch/worktree state without fetch, pull, push, rebase, merge, or branch switching.
+- **Junction Link Model** — supports rigid runtime folders with Windows Directory Junctions while keeping AI system files isolated.
+- **Test-first discipline** — encourages the AI to write or stub the failing/reproducing test before implementation or debugging.
+- **Portable skills** — `SKILL.md` routines for debugging, review, root-cause analysis, stakeholder updates, and design interviews.
+
+---
+
 ## Concept
 
 Each project gets its own **wrapper folder** containing:
@@ -23,14 +51,14 @@ Each project gets its own **wrapper folder** containing:
 
 ## Workspace Lifecycle
 
-The template automatically detects the workspace state at session start:
+The template automatically detects whether the workspace is new, partly configured, or ready to resume:
 
 ```mermaid
 graph TD
     A[Start Session in Workspace] --> B{Classify State}
-    B -->|T1: Un-onboarded Wrapper| D{Choose Onboarding Path}
-    B -->|T2: Onboarding Started| E[Resume Intake Flow]
-    B -->|T3: Fully Onboarded| F[Resume Check Protocol]
+    B -->|New workspace| D{Choose Onboarding Path}
+    B -->|Partly configured| E[Resume Intake Flow]
+    B -->|Ready to resume| F[Resume Check Protocol]
 
     D -->|Path 1: New Project| G[Scaffold & Auto-fill templates]
     D -->|Path 2: Existing Project| H[Read-only scan & Pre-fill templates]
@@ -47,7 +75,7 @@ graph TD
 
 ### Daily Session (Resume Phase)
 
-When a session starts in a fully onboarded workspace (**T3**), the AI reads `progress-tracker.md`, checks git status, reports active worktrees/branches, and asks whether to resume the current task or start a new one.
+When a session starts in a configured workspace, the AI reads `progress-tracker.md`, checks git status, reports active worktrees/branches, and asks whether to resume the current task or start a new one.
 
 ---
 
@@ -127,7 +155,7 @@ See [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow
 
 ### Workflow & AI Rules
 - [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md) — entry points that load automatically and define session start protocols.
-- [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) — canonical SPEC-1 to SPEC-9 rules.
+- [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) — detailed workflow rules for approvals, worktrees, verification, sync, and cleanup.
 - [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) — AI permission boundaries.
 - [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) — step-by-step Path 1 / Path 2 onboarding guide.
 - [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) — wrapper, team repo, and worktree ownership model.
@@ -146,29 +174,32 @@ See [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow
 
 ## How to Use
 
-### Option A — Initialize Directly via AI (Recommended for Empty Folders)
+### Option A — Use This Template (Recommended)
 
-If you're starting a new project in a completely empty folder, you don't need to copy files manually. Just open your AI assistant (Claude Code or Cursor) in the empty folder and paste this prompt:
+For a new workspace, use GitHub's template flow:
+
+1. Click **Use this template** on the GitHub repository page.
+2. Create a new repository under your account or organization.
+3. Clone that new repository to your machine.
+4. Open your AI assistant at the cloned workspace root.
+5. Paste:
 
 ```text
-Please clone the AgentJoJoy template here, move the files to the root, clean up template-only artifacts, and initialize a new project workspace.
-
-Commands to run:
-1. git clone https://github.com/Joyperm/AgentJoJoy.git temp_jojoy
-2. Move all files from temp_jojoy/ to current directory (including hidden files)
-3. Remove-Item -Recurse -Force temp_jojoy, .git
-4. Read CLAUDE.md / AGENTS.md and start the onboarding intake flow.
+Please read CLAUDE.md / AGENTS.md and start the AgentJoJoy onboarding intake flow.
 ```
 
-The AI will execute these commands, load the workspace rules, and guide you through onboarding.
+The AI will load the workspace rules and ask whether this is a new project, an existing project, or something to skip for now.
 
-### Option B — Manual Folder Copy
+### Option B — Existing Project Wrapper
 
-1. Clone or download this repository, then copy the wrapper folder to your desktop or workspace and rename it to your project name.
-2. Open Claude Code (or Cursor) at the workspace root.
-3. The AI detects an uninitialized workspace and prompts you to choose **Path 1** (new project) or **Path 2** (existing project).
-4. Answer the brief onboarding questions and choose your engagement mode (`execute` or `teach`).
-5. The AI fills the metadata templates and configures the workspace.
+If you already have a project repo or document folder, create an AgentJoJoy workspace first, then choose **Existing Project** during onboarding. The AI will scan the existing project read-only, explain where personal AI files live, and ask before moving, cloning, linking, or writing anything.
+
+### Option C — Local Copy Fallback
+
+If GitHub's template button is unavailable, clone or download this repository, copy the wrapper folder to your workspace, and remove the copied `.git` directory before onboarding. Prefer **Use this template** when available; it avoids the manual copy-and-cleanup step.
+
+> [!NOTE]
+> **Cross-platform note:** The AgentJoJoy workflow and documents can be used on Windows, macOS, or Linux. The bundled helper scripts are currently PowerShell-first and tested on Windows. On macOS/Linux, ask your AI assistant to translate helper commands to the local shell before running them, and approve any state-changing command first.
 
 ### Ejecting the Wrapper
 
@@ -187,7 +218,9 @@ This deletes the `AgentJoJoy/` directory, `CLAUDE.md`, `AGENTS.md`, `VERSION`, a
 
 ## Upgrading
 
-AgentJoJoy is **AI-driven**, so upgrades are too — there is no install script to maintain and no package manager. Instead, you paste a canonical upgrade prompt into your AI assistant (Claude Code, Cursor, Codex, Gemini), and the AI handles the work using the project's own file-ownership rules.
+The **Use this template** button is only for creating a new workspace. To update an existing AgentJoJoy workspace, use the upgrade prompt below. The AI compares your workspace with a specific release tag, preserves your project-owned files, and asks before applying template changes.
+
+AgentJoJoy is **AI-driven**, so upgrades are too. There is no install script to maintain and no package manager. Instead, you paste a canonical upgrade prompt into your AI assistant (Claude Code, Cursor, Codex, Gemini), and the AI handles the work using the project's own file-ownership rules.
 
 > [!WARNING]
 > **Upgrading Pre-v1.2.4 Workspaces with Custom Skills**: In template versions prior to `v1.2.4`, the file ownership rules (`AgentJoJoy/agent-rules/file-ownership.md`) classified the entire `AgentJoJoy/skills/` directory as template-owned. If your workspace contains custom project-specific skills (i.e. folders in `AgentJoJoy/skills/` other than `agentjojoy-core-practices` or `grill-me`), the upgrade agent may attempt to delete them. Before running the upgrade prompt, either manually edit your local `file-ownership.md` to classify your custom skills as user-owned, or explicitly instruct the agent: *"Preserve my custom skills in AgentJoJoy/skills/ (do not delete or overwrite them)"*.
@@ -223,14 +256,14 @@ Procedure:
 3. If the local version equals the target version, stop and report "already at latest".
 4. Otherwise, read AgentJoJoy/agent-rules/file-ownership.md to know which files are template-owned, user-owned, or mixed.
 5. Walk the changes file by file (comparing the workspace files to the target clone source):
-   - For template-owned files: propose the new content; apply after my approval (SPEC-3.1).
+   - For template-owned files: propose the new content; apply only after my approval.
    - For mixed files: show a diff focused on structural/prose changes, preserve my filled values, apply after my approval.
    - For user-owned files: do not modify. If a structural migration is required, propose a manual edit plan with per-section approval.
 6. When done, update the VERSION file to the latest tag and log the upgrade in progress-tracker.md under Recent Actions with the date and version transition (e.g. "Upgraded AgentJoJoy template v1.1.0 -> v1.2.0").
 7. Clean up by deleting the temporary upgrade directory (e.g. `temp-agentjojoy-upgrade`) using a safe OS command (e.g. `rmdir /s /q` or `Remove-Item`).
 
 Constraints:
-- Never run git push, pull, commit, merge, or branch switch without explicit approval per SPEC-3.1.
+- Never run git push, pull, commit, merge, or branch switch without explicit approval.
 - Check if a remote origin is configured for the workspace root repository before attempting any Git push operations. If no remote is configured, do not attempt to push and stop after committing locally.
 - Preserve all content in agent-context/, agent-decisions/, agent-runtime/, and progress-tracker.md (except the auto-sync managed block, which is template-owned).
 - If unsure about a file's ownership, ask before changing it.
@@ -241,23 +274,6 @@ The AI will read [`AgentJoJoy/agent-rules/file-ownership.md`](AgentJoJoy/agent-r
 ### Manual upgrade (alternative)
 
 If you prefer a fully manual approach, the same file-ownership table in [`AgentJoJoy/agent-rules/file-ownership.md`](AgentJoJoy/agent-rules/file-ownership.md) tells you which files are safe to overwrite from a freshly cloned latest version, which to leave alone, and which to merge by hand.
-
----
-
-## Features at a Glance
-
-- **Pattern (b) wrapper layout** — keeps assistant context sibling to codebase repos so private files never leak into git history.
-- **Auto-load rules** — entry files load automatically for Claude Code and Cursor (with walk-up from subdirectories).
-- **Dual engagement modes** — toggle between `execute` (result-focused, terse) and `teach` (pair programming, explains reasoning).
-- **Multi-agent coexistence** — clean coordination when Claude Code, Codex, Cursor, or Gemini work side by side.
-- **Privacy-first Gap Reporter** — captures redacted workflow friction locally with no remote sync. Opt-in only.
-- **Self-service Gap Collector** — `list` / `summarize` / `purge` actions let you review your own friction patterns and clean up.
-- **Dynamic Worktree Auto-Sync** — refreshes a managed git-state block in `progress-tracker.md` at session resume using read-only git commands.
-- **Junction Link Model (For Rigid Environments)** — decouples codebases from wrappers using Windows Directory Junctions (`mklink /j`), keeping code functional in restricted systems (e.g., MQL5 Experts) while isolating AI system files, complete with strict safety guidelines.
-- **Test-First / TDD Discipline** — integrates Test-Driven Development mindsets directly into AI execution, encouraging the AI to draft/stub reproducing unit tests (TDD Red Phase) before writing logical modules or debugging, ensuring code stability in AI-assisted workflows.
-- **Portable Skills** — drop-in `SKILL.md` routines for debugging, review, root-cause analysis, and structured design interviews.
-
----
 
 ## License
 
