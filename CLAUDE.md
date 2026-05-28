@@ -397,6 +397,7 @@ walks up the tree to find it).
 | [`AgentJoJoy/agent-context/ui-context.md`](AgentJoJoy/agent-context/ui-context.md) | UI stack quick reference (optional — UI projects) |
 | [`AgentJoJoy/agent-context/domain-language.md`](AgentJoJoy/agent-context/domain-language.md) | Optional glossary and domain-language map for project terms and ambiguities. |
 | [`AgentJoJoy/agent-context/engagement-mode.md`](AgentJoJoy/agent-context/engagement-mode.md) | Current AI engagement style |
+| [`AgentJoJoy/agent-context/technical-precedents.md`](AgentJoJoy/agent-context/technical-precedents.md) | Local technical boundary rules and validated precedents |
 
 ## State + Planning
 

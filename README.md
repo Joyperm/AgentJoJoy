@@ -127,6 +127,7 @@ See [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow
 - [`AgentJoJoy/agent-context/standards.md`](AgentJoJoy/agent-context/standards.md) — code style and testing guidelines.
 - [`AgentJoJoy/agent-context/ui-context.md`](AgentJoJoy/agent-context/ui-context.md) — UI framework context (optional).
 - [`AgentJoJoy/agent-context/domain-language.md`](AgentJoJoy/agent-context/domain-language.md) — project-specific glossary (optional).
+- [`AgentJoJoy/agent-context/technical-precedents.md`](AgentJoJoy/agent-context/technical-precedents.md) — local technical boundary rules and validated precedents.
 
 ### Workflow & AI Rules
 - [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md) — entry points that load automatically and define session start protocols.
