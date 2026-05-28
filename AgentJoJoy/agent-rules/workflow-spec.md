@@ -346,6 +346,23 @@ Raw `--force` is forbidden. If force is explicitly chosen, use
 `--force-with-lease` only, and never use it on protected/default/shared
 branches unless the owner explicitly confirms the exceptional case.
 
+### SPEC-3.7 — Block Protection (AI-NO-OVERWRITE)
+
+Any block of code or text wrapped inside these specific HTML comment tags in any file:
+
+<!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->
+...
+<!-- AGENTJOJOY:AI-NO-OVERWRITE END -->
+
+is protected from autonomous AI modification.
+
+Rules:
+- The AI must **never autonomously edit, delete, overwrite, or modify** any text or settings between these tags — not during refactoring, template upgrades, intake, or any self-initiated action.
+- The AI must **preserve the tags themselves** and everything in between exactly as-is unless the user explicitly asks for a change.
+- If the AI believes a change is needed inside a protected block, it must **describe the proposed change and wait for explicit user approval** before editing. A generic "go" or "sure" is insufficient — the user must confirm the specific change (per SPEC-3.5).
+- When the user explicitly requests a modification to protected content, the AI **may** make the change. The protection guards against autonomous AI action, not against user-directed edits.
+- This rule applies to both active session file edits and automated template upgrades.
+
 ---
 
 ## SPEC-4. Upstream Sync Protocol

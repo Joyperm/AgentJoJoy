@@ -110,6 +110,18 @@ editor settings.
 
 The Technical Precedents file (`AgentJoJoy/agent-context/technical-precedents.md`) is a flat, human-readable markdown file provided under `agent-context/` to log validated technical solutions, environment workarounds, and design decisions. The AI will proactively log issues and solutions here so future sessions bypass the same friction without repeating past mistakes.
 
+### AI-NO-OVERWRITE Block Protection
+
+To protect custom instructions, settings, or codebase sections from being changed by the AI or lost during upgrades, you can wrap them in HTML comment tags:
+
+```html
+<!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->
+... your custom rules, settings, or notes ...
+<!-- AGENTJOJOY:AI-NO-OVERWRITE END -->
+```
+
+Any text or configuration wrapped inside these tags in any file is strictly read-only for the AI. The active AI session and template upgrade agents are forbidden from altering or deleting anything in these blocks.
+
 ### Test-First / TDD Preference
 
 During onboarding, you can tell the AI whether to prefer a test-first

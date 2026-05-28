@@ -56,9 +56,9 @@ This workspace has not been used yet, or intake was never completed.
 Follow [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md). Start
 by asking the user:
 
-> "ดูเหมือนนี่จะเป็น workspace ใหม่ — เริ่มจาก
-> **โปรเจ็คใหม่** (Path 1), **โปรเจ็คที่มีอยู่แล้ว** (Path 2),
-> หรือ **ข้ามไว้ก่อน**?"
+> "It looks like this is a new workspace — start with:
+> **New Project** (Path 1), **Existing Project** (Path 2),
+> or **Skip for now**?"
 
 #### Path 1 — New project
 
@@ -187,7 +187,7 @@ These are set during intake and stored here. Update if they change.
    options (rebase vs merge, commit vs stash, force vs normal push,
    which file to delete) is reserved for the user. The AI must list
    options, explain trade-offs, and wait for the user to **name** the
-   choice — a generic "go" / "ได้เลย" is not enough. See
+   choice — a generic "go" / "sure" (Thai: "ได้เลย") is not enough. See
    [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) →
    SPEC-3.5.
 
@@ -466,7 +466,7 @@ does not vendor third-party skill text without a clear license.
 
 ## Onboarding Convention
 
-If the owner types `onboard`, `เริ่ม onboarding`, `setup workspace`, or `intake` at the start of a session or when requested, you must initiate the guided onboarding walkthrough following [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md).
+If the owner types `onboard`, `setup workspace`, `intake` (or Thai: `เริ่ม onboarding`) at the start of a session or when requested, you must initiate the guided onboarding walkthrough following [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md).
 Refer the owner to:
 - [`AgentJoJoy/workflow-guide.md`](AgentJoJoy/workflow-guide.md) (English onboarding manual)
 - [`AgentJoJoy/workflow-guide-th.md`](AgentJoJoy/workflow-guide-th.md) (Thai onboarding manual)

@@ -297,7 +297,7 @@ does not vendor third-party skill text without a clear license.
 
 ## Onboarding Convention
 
-If the owner types `onboard`, `เริ่ม onboarding`, `setup workspace`, or `intake` at the start of a session or when requested, you must initiate the guided onboarding walkthrough following [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md).
+If the owner types `onboard`, `setup workspace`, `intake` (or Thai: `เริ่ม onboarding`) at the start of a session or when requested, you must initiate the guided onboarding walkthrough following [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md).
 Refer the owner to:
 - [`AgentJoJoy/workflow-guide.md`](AgentJoJoy/workflow-guide.md) (English onboarding manual)
 - [`AgentJoJoy/workflow-guide-th.md`](AgentJoJoy/workflow-guide-th.md) (Thai onboarding manual)

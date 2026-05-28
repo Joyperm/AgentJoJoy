@@ -129,6 +129,6 @@ After those protocols are satisfied, use these boundaries:
 Ambiguous prompt rule:
 
 ```text
-"ช่วยดูแผนนี้หน่อย" with a written plan -> agentjojoy-core-practices
-"ช่วยคิด/ถาม/กดดันแผนนี้ให้ชัด" -> grill-me
+"Can you look at this plan?" (Thai: "ช่วยดูแผนนี้หน่อย") with a written plan -> agentjojoy-core-practices
+"Help me think through / pressure-test this plan" (Thai: "ช่วยคิด/ถาม/กดดันแผนนี้ให้ชัด") -> grill-me
 ```

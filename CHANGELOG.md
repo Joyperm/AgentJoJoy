@@ -12,6 +12,18 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v1.4.0] — 2026-05-28 — User-Owned Block Protection via AI-NO-OVERWRITE
+
+### Added
+- **AI-NO-OVERWRITE tag protection**: Support wrapping custom configurations, codebase rules, or files in `<!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN/END -->` HTML comment tags. The AI is prohibited from autonomously modifying anything inside these tags, but may edit protected content when the user explicitly requests it (per SPEC-3.5). Codified as SPEC-3.7.
+- **Autonomy Configuration**: Added default, safe autonomy checkboxes inside `AgentJoJoy/agent-context/engagement-mode.md` (wrapped in an `AI-NO-OVERWRITE` block) to allow users to manually customize AI execution limits post-onboarding with zero initial onboarding friction.
+
+### Changed
+- **English-first system files**: All system files now use English as the primary language. Thai trigger words (e.g. `เริ่ม onboarding`, `ได้เลย`) are preserved as secondary references in `(Thai: "...")` format for functional detection. Thai prose, UI text, and hardcoded translation blocks have been removed or replaced with dynamic language-adaptive rules.
+- **SPEC-3.7 wording clarification**: Updated AI-NO-OVERWRITE rule wording from "strictly off-limits" to "protected from autonomous AI modification" — making it clear that the user can still ask the AI to edit protected blocks (the protection guards against autonomous AI action, not user-directed edits).
+
+---
+
 ## [v1.3.1] — 2026-05-28 — Technical Precedents and Gaps Collector Removal
 
 ### Added

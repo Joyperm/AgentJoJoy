@@ -114,9 +114,9 @@ itself. Always ask before running intake or changing templates.
 The owner can start intake explicitly with:
 
 - `onboard`
-- `เริ่ม onboarding`
 - `setup workspace`
 - `intake`
+- Thai: `เริ่ม onboarding`
 
 Manual triggers bypass uncertainty about auto-detection, but still ask
 the owner to choose Path 1 or Path 2 before writing anything.
@@ -130,8 +130,7 @@ Ask in English by default, but include a note that the owner can respond in any 
 ```text
 It looks like this is a new workspace — start with:
 New Project (Path 1), Existing Project (Path 2), or Skip for now?
-(Note: You can reply and converse in any language; the system will dynamically detect and adapt to it.
-ดูเหมือนนี่จะเป็น workspace ใหม่ — เริ่มจาก โปรเจ็คใหม่ (Path 1), โปรเจ็คที่มีอยู่แล้ว (Path 2), หรือข้าม (Skip)? ท่านสามารถโต้ตอบในภาษาไทยหรือภาษาอื่น ๆ ได้ทันที)
+(Note: You can reply and converse in any language; the system will dynamically detect and adapt to it.)
 ```
 
 Wait for the owner to pick Path 1 or Path 2.
@@ -171,11 +170,12 @@ To maintain both structure and agent helpfulness:
 - Engagement mode: `execute` or `teach`?
 - Shell preference: default detected shell, or a specific one?
 - **Distraction-Free Mode** (Recommended for VS Code): Configures the explorer sidebar to hide internal AI system files (`AgentJoJoy/`, `CLAUDE.md`, `AGENTS.md`, `VERSION`, `progress-tracker.md`) to keep the workspace clean and focused.
+- **Autonomy Configuration**: Do **not** ask any questions about autonomy settings during intake to avoid onboarding fatigue. Pre-fill the default safe settings in `engagement-mode.md` automatically inside `AI-NO-OVERWRITE` comment blocks.
 
 Write the answers to:
 
 - `CLAUDE.md` → "Working Convention"
-- `AgentJoJoy/agent-context/engagement-mode.md`
+- `AgentJoJoy/agent-context/engagement-mode.md` (Update the "Current Mode" inside its `AI-NO-OVERWRITE` block; keep the default autonomy checkboxes wrapped in their own `AI-NO-OVERWRITE` block)
 - `.vscode/settings.json` (create/update to add `files.exclude` if Distraction-Free Mode is enabled)
 
 ### Project Identity
@@ -379,8 +379,8 @@ or to corporate compliance. Keeping conversations in English
 avoids surfacing a language reviewers/auditors cannot read, and
 keeps work history looking professional.
 
-The owner can still explicitly override (e.g., "พิมพ์ไทย ตอบไทย,
-ไม่ต้องห่วง"), but the agent should:
+The owner can still explicitly override (e.g., "type Thai, reply Thai,
+don't worry about it" / Thai: "พิมพ์ไทย ตอบไทย, ไม่ต้องห่วง"), but the agent should:
 
 1. Default-recommend English at Path 2 intake.
 2. Briefly state the reason once.

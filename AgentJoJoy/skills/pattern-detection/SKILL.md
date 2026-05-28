@@ -42,10 +42,10 @@ The nudge must adapt to the conversation language. Below are reference formats:
 >
 > "I noticed you've performed this workflow 3 times. To make this easier and more reliable, would you like me to draft a custom skill at `AgentJoJoy/skills/<name>/SKILL.md` to codify these steps?"
 
-#### Thai Context
-> **ตรวจพบรูปแบบซ้ำ (Pattern Detected)**: [คำอธิบายสั้นๆ ของขั้นตอนที่พบการทำซ้ำ เช่น "การตรวจสอบและย้ายไฟล์ Schema API ด้วยตนเอง"]
->
-> "ผมสังเกตเห็นว่ามีการทำขั้นตอน workflow นี้ซ้ำกัน 3 ครั้งแล้ว สนใจให้ผมร่างโครงสร้าง Custom Skill ใน `AgentJoJoy/skills/<name>/SKILL.md` เพื่อเก็บกระบวนการนี้เป็นแนวปฏิบัติที่เป็นระบบไว้ไหมครับ?"
+#### Non-English Context
+When the conversation language is not English, translate the nudge
+naturally into the active conversation language. Do not use a hardcoded
+translation — adapt dynamically based on the session language.
 
 ## Drafting the Skeleton
 

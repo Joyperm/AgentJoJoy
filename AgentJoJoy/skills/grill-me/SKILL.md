@@ -15,7 +15,7 @@ If the owner provides an already-written artifact and asks for review,
 audit, or sanity-check, use `agentjojoy-core-practices` instead unless the
 owner explicitly asks to be grilled through the artifact.
 
-If the prompt is ambiguous (e.g. "ช่วยดูแผนนี้หน่อย" where it is
+If the prompt is ambiguous (e.g. "Can you look at this plan?" / "ช่วยดูแผนนี้หน่อย" where it is
 unclear whether a written plan exists or the idea is still being
 formed), ask one short clarifying question before starting the
 interview. Do not assume Scrutinize vs grill-me silently.

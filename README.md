@@ -27,6 +27,7 @@ Already have an AgentJoJoy workspace? Use the [Upgrading](#upgrading) flow inste
 - **Read-only resume checks** — refreshes local branch/worktree state without fetch, pull, push, rebase, merge, or branch switching.
 - **Junction Link Model** — supports rigid runtime folders with Windows Directory Junctions while keeping AI system files isolated.
 - **Test-first discipline** — encourages the AI to write or stub the failing/reproducing test before implementation or debugging.
+- **AI-NO-OVERWRITE Protection** — protects custom configurations and codebase sections from being changed by the AI or lost during upgrades.
 - **Portable skills** — `SKILL.md` routines for debugging, review, root-cause analysis, stakeholder updates, and design interviews.
 
 ---
@@ -202,6 +203,9 @@ AgentJoJoy is **AI-driven**, so upgrades are too. There is no install script to 
 
 > [!WARNING]
 > **Upgrading Pre-v1.2.4 Workspaces with Custom Skills**: In template versions prior to `v1.2.4`, the file ownership rules (`AgentJoJoy/agent-rules/file-ownership.md`) classified the entire `AgentJoJoy/skills/` directory as template-owned. If your workspace contains custom project-specific skills (i.e. folders in `AgentJoJoy/skills/` other than `agentjojoy-core-practices` or `grill-me`), the upgrade agent may attempt to delete them. Before running the upgrade prompt, either manually edit your local `file-ownership.md` to classify your custom skills as user-owned, or explicitly instruct the agent: *"Preserve my custom skills in AgentJoJoy/skills/ (do not delete or overwrite them)"*.
+
+> [!TIP]
+> **Protecting Custom Content with AI-NO-OVERWRITE**: You can protect any custom settings, code, or notes in any file (even inside template-owned files) by wrapping them in HTML comment tags: `<!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->` and `<!-- AGENTJOJOY:AI-NO-OVERWRITE END -->`. The AI is strictly forbidden from altering or deleting anything inside these tags, and template upgrades will bypass them entirely.
 
 ### Check your current version
 

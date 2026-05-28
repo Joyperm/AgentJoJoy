@@ -8,8 +8,27 @@ overridable per session.
 ## Current Mode
 
 <!-- Set during intake. Values: execute | teach -->
-
+<!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->
 **_(not set — ask during intake)_**
+<!-- AGENTJOJOY:AI-NO-OVERWRITE END -->
+
+---
+
+## Autonomy Configuration
+
+These settings define what the AI is allowed to do autonomously. By default, this is pre-configured with safe, strict defaults matching `ai-workflow-rules.md`. You can manually toggle these checkboxes to adjust the trust level.
+
+<!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->
+- **File Modification:**
+  - [x] Requires approval before editing any codebase files (SPEC-3.1)
+
+- **Command Execution:**
+  - [x] Requires approval before running state-changing commands (e.g. git checkout, npm install)
+  - [ ] Requires approval before running safe read-only/verification/testing commands (e.g. git status, npm run test)
+
+- **Git & External Actions:**
+  - [x] Requires approval before remote writes or commits (e.g. git push, git commit) (SPEC-3.5)
+<!-- AGENTJOJOY:AI-NO-OVERWRITE END -->
 
 > [!NOTE]
 > If the current mode is unset and the workspace is in Template Development mode (T0), the default is assumed to be `teach`.
@@ -83,8 +102,8 @@ for all future sessions on this project.
 ### 2. Temporary (this session only) — tell the AI
 
 In conversation, say something like:
-- `"switch to execute mode"` / `"เปลี่ยนเป็น execute"`
-- `"switch to teach mode"` / `"เปลี่ยนเป็น teach"`
+- `"switch to execute mode"` (or Thai: `"เปลี่ยนเป็น execute"`)
+- `"switch to teach mode"` (or Thai: `"เปลี่ยนเป็น teach"`)
 
 The AI applies the new mode for the rest of the current session.
 Next session reverts to the project default.

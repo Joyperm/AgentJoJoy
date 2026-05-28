@@ -129,7 +129,7 @@ Examples — the AI must ask every time, regardless of session history:
 For each, the AI must:
 1. List the options
 2. Briefly explain trade-offs
-3. Wait for me to name the choice (a generic "go" / "ได้เลย" is
+3. Wait for me to name the choice (a generic "go" / "sure" (Thai: "ได้เลย") is
    insufficient — I must pick by name)
 4. Only then propose the resulting command (under SPEC-3.1)
 
@@ -287,6 +287,23 @@ default:
   `webpack.config.js`) — touch only when the task explicitly requires it
 
 Do not modify any of the above without explicit instruction.
+
+## AI-NO-OVERWRITE Block Protection
+
+Any block of text wrapped inside these specific HTML comment tags in any file in the workspace:
+
+<!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->
+...
+<!-- AGENTJOJOY:AI-NO-OVERWRITE END -->
+
+is protected from autonomous AI modification.
+
+Rules:
+- The AI must **never autonomously edit, delete, overwrite, or modify** any text or settings between these tags — not during refactoring, template upgrades, intake, or any self-initiated action.
+- The AI must **preserve the tags themselves** and everything in between exactly as-is unless the user explicitly asks for a change.
+- If the AI believes a change is needed inside a protected block, it must **describe the proposed change and wait for explicit user approval** before editing (per SPEC-3.5).
+- When the user explicitly requests a modification to protected content, the AI **may** make the change. The protection guards against autonomous AI action, not against user-directed edits.
+- This rule applies to both active session file edits and automated template upgrades.
 
 ## Keeping Personal Docs in Sync
 

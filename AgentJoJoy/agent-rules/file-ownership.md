@@ -49,6 +49,7 @@ explicit per-section approval — not a file overwrite.
 - `AgentJoJoy/agent-runtime/**` — local runtime data and context files
 - `AgentJoJoy/skills/*` (except core template skills: `agentjojoy-core-practices/`, `grill-me/`, and `README.md`) — your custom project-specific skills
 - The wrapped project folder itself (the sibling `<code-or-content>/` directory) — entirely off-limits to template upgrades
+- Any block of text or code wrapped in `<!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->` and `<!-- AGENTJOJOY:AI-NO-OVERWRITE END -->` in any file (even inside Template-owned or Mixed files) — these blocks are strictly User-owned and must be skipped and preserved exactly as-is during upgrades.
 
 ---
 
