@@ -14,6 +14,17 @@ _(no changes yet)_
 
 ---
 
+## [v1.2.5] — 2026-05-27 — TDD Discipline & Upgrade Protection
+
+### Added
+- **Test-First / TDD Discipline**: Integrated Test-Driven Development (TDD) principles directly into the AI execution flow. The agent is encouraged to draft or stub reproducing tests (TDD Red Phase) before writing core code or debugging. Added `SPEC-2.5.1` to `workflow-spec.md`, a TDD preference question to the intake flow (`intake-flow.md`), and updated the debug routine in `agentjojoy-core-practices/SKILL.md`.
+
+### Fixed
+- **Custom Skills Upgrade Protection**: Refined `file-ownership.md` to classify custom project skills under `AgentJoJoy/skills/` as user-owned (excluding core template skills `agentjojoy-core-practices/` and `grill-me/`), protecting custom skills from being deleted or overwritten during upgrades.
+- **Upgrade Cautions**: Added a warning block to the Upgrading section of the README regarding custom skills preservation for pre-v1.2.4 upgrades.
+
+---
+
 ## [v1.2.4] — 2026-05-27 — Junction Link Model
 
 ### Added

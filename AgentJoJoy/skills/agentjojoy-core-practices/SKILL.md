@@ -45,8 +45,9 @@ before committing to a routine. Do not pick silently.
 Use when something is broken, failing, throwing, flaky, or unexpected.
 
 1. Reproduce first. Capture exact steps, input, environment, and a
-   fast pass/fail signal. If there is no repro, stop and ask for
-   artifacts or access.
+   fast pass/fail signal. Prefer writing a reproducing automated unit or
+   integration test first as the pass/fail signal (TDD Red Phase) where applicable.
+   If there is no repro, stop and ask for artifacts or access.
 2. Trace the fail path before proposing a fix. Prefer debugger or
    direct execution trace; otherwise trace source paths and list every
    config, input, feature flag, timing, or environment knob that could

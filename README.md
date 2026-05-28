@@ -189,6 +189,9 @@ This deletes the `AgentJoJoy/` directory, `CLAUDE.md`, `AGENTS.md`, `VERSION`, a
 
 AgentJoJoy is **AI-driven**, so upgrades are too — there is no install script to maintain and no package manager. Instead, you paste a canonical upgrade prompt into your AI assistant (Claude Code, Cursor, Codex, Gemini), and the AI handles the work using the project's own file-ownership rules.
 
+> [!WARNING]
+> **Upgrading Pre-v1.2.4 Workspaces with Custom Skills**: In template versions prior to `v1.2.4`, the file ownership rules (`AgentJoJoy/agent-rules/file-ownership.md`) classified the entire `AgentJoJoy/skills/` directory as template-owned. If your workspace contains custom project-specific skills (i.e. folders in `AgentJoJoy/skills/` other than `agentjojoy-core-practices` or `grill-me`), the upgrade agent may attempt to delete them. Before running the upgrade prompt, either manually edit your local `file-ownership.md` to classify your custom skills as user-owned, or explicitly instruct the agent: *"Preserve my custom skills in AgentJoJoy/skills/ (do not delete or overwrite them)"*.
+
 ### Check your current version
 
 ```powershell
@@ -246,6 +249,7 @@ If you prefer a fully manual approach, the same file-ownership table in [`AgentJ
 - **Self-service Gap Collector** — `list` / `summarize` / `purge` actions let you review your own friction patterns and clean up.
 - **Dynamic Worktree Auto-Sync** — refreshes a managed git-state block in `progress-tracker.md` at session resume using read-only git commands.
 - **Junction Link Model (For Rigid Environments)** — decouples codebases from wrappers using Windows Directory Junctions (`mklink /j`), keeping code functional in restricted systems (e.g., MQL5 Experts) while isolating AI system files, complete with strict safety guidelines.
+- **Test-First / TDD Discipline** — integrates Test-Driven Development mindsets directly into AI execution, encouraging the AI to draft/stub reproducing unit tests (TDD Red Phase) before writing logical modules or debugging, ensuring code stability in AI-assisted workflows.
 - **Portable Skills** — drop-in `SKILL.md` routines for debugging, review, root-cause analysis, and structured design interviews.
 
 ---

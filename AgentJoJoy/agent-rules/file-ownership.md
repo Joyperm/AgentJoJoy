@@ -24,7 +24,9 @@ deliberately.
 - `AgentJoJoy/agent-rules/*` — all rule files (SPEC, intake-flow, workflow-notes, workspace-model, file-ownership, ai-workflow-rules)
 - `AgentJoJoy/agent-tools/*` — all helper scripts and their README
 - `AgentJoJoy/agent-templates/*` — reusable snippets
-- `AgentJoJoy/skills/**/*` — all `SKILL.md` files and their folders
+- `AgentJoJoy/skills/README.md`
+- `AgentJoJoy/skills/agentjojoy-core-practices/**/*` — core template skills
+- `AgentJoJoy/skills/grill-me/**/*` — core template skills
 - `AgentJoJoy/workflow-guide.md`
 - `AgentJoJoy/workflow-guide-th.md`
 - `AgentJoJoy/agent-decisions/README.md` — format guide only
@@ -47,6 +49,7 @@ explicit per-section approval — not a file overwrite.
 - `AgentJoJoy/agent-context/*` — everything except files that explicitly say "Set during intake" templates with no user content yet (see Mixed below)
 - `AgentJoJoy/agent-decisions/*.md` — your project's decision log, except the format-guide `README.md`
 - `AgentJoJoy/agent-runtime/**` — local gap reports, collector outputs, exports (everything except `.gitignore` and `README.md`)
+- `AgentJoJoy/skills/*` (except core template skills: `agentjojoy-core-practices/`, `grill-me/`, and `README.md`) — your custom project-specific skills
 - The wrapped project folder itself (the sibling `<code-or-content>/` directory) — entirely off-limits to template upgrades
 
 ---

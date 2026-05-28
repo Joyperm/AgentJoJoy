@@ -1,4 +1,4 @@
-﻿# Workflow Specification — Worktree-Based Personal Workflow
+# Workflow Specification — Worktree-Based Personal Workflow
 
 Canonical, verifiable rules. This file is the source of truth for
 *what* the workflow is. Project-specific operational notes live in
@@ -105,6 +105,7 @@ loop → 2.10 Merge → 2.11 Cleanup
 
 ### SPEC-2.5 Implementation
 - The AI may freely read code, run tests, run type checks, run builds.
+- **SPEC-2.5.1 — Test-First / TDD Discipline**: When implementing new features or writing new logical modules, the AI is strongly encouraged to draft or stub test suites first (or explicitly define the correct behavior and interface contracts) to establish a verification safety net before implementing core business logic.
 - The AI proposes edits, then writes files (file edits are not in the
   same category as git operations — see SPEC-3 for the approval
   taxonomy).

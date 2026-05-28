@@ -201,6 +201,7 @@ Write the answers to:
 - Are force pushes ever allowed on this project? Default: no. If one
   seems necessary, the AI must present alternatives first and wait for
   explicit owner selection of `--force-with-lease`.
+- **Testing & TDD preferences**: Does the project have a test framework? Should the AI prioritize a **Test-Driven Development (TDD) / Test-First** methodology (writing/stubbing tests before writing core logic)?
 
 ### Secrets And Environment Safety
 
