@@ -65,6 +65,27 @@ skills out of team commits without relying on every team repo's
 
 ---
 
+## The Junction Link Variant (For Rigid Environments)
+
+For environments like MQL5 (MetaTrader 5) where the codebase folder must reside inside a specific system path (e.g. MT5 AppData), we decouple the files using a **Directory Junction Link** (`mklink /j`).
+
+```text
+MyProject-Workspace/            # Desktop Workspace (Wrapper Root)
+├─ CLAUDE.md / AGENTS.md        # Entry points
+├─ progress-tracker.md          # Wrapper progress tracker
+├─ AgentJoJoy/                  # AI context
+└─ MyProject/                   # Actual codebase folder (where .git starts)
+        ▲
+        └─ (Junction Link) ───► MT5 Terminal / MQL5 / Experts / MyProject
+```
+
+### Why it works:
+1. **Wrapper Isolation**: AI control files (`CLAUDE.md`, `AgentJoJoy/`) reside in `MyProject-Workspace/` on the Desktop. The MT5 application never scans these files, preventing editor clutter and compilation slow-downs.
+2. **Local Code Execution**: The actual source code resides in `MyProject-Workspace/MyProject/`. Because the terminal path is linked as a Junction, MT5 reads, executes, and compiles files seamlessly.
+3. **Safety Boundaries**: The git repository for the codebase is initialized inside `MyProject-Workspace/MyProject/`, so committing and pushing codebase changes never touches or leaks the outer AI wrapper files.
+
+---
+
 ## How Personal Context Can Still Leak
 
 The wrapper prevents accidental tracking in normal use, but leaks can

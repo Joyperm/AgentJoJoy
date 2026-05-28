@@ -14,6 +14,16 @@ _(no changes yet)_
 
 ---
 
+## [v1.2.4] — 2026-05-27 — Junction Link Model
+
+### Added
+- **Junction Link Workspace Model**: Official support for Directory Junction Links (`mklink /j`) to decouple the AI wrapper files from environments requiring rigid directory placement (such as MetaTrader 5 / MQL5 Experts).
+- **Junction Link Safety Rules**: Added safety warnings and step-by-step detaching guidelines inside `workflow-notes.md` to prevent Windows from follow-deleting source code recursively during link removal, directing developers to use `rmdir` on cmd.exe.
+- **Onboarding (Intake) Updates**: Integrated the Junction Link layout option into the Path 2 (Existing Projects) intake flow.
+- Added documentation for the Junction Link model layout in `workspace-model.md`.
+
+---
+
 ## [v1.2.3] — 2026-05-27 — Distraction-Free Mode
 
 ### Added

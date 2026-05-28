@@ -51,6 +51,33 @@ git update-index --skip-worktree .claude/settings.local.json
 
 ---
 
+## Junction Link Safety
+
+When using the Junction Link model (e.g. for MQL5 projects where the codebase folder is linked from the MetaTrader 5 terminal directory to the wrapper workspace):
+
+### ⚠️ The Windows Directory Junction Deletion Bug
+
+> [!CAUTION]
+> **CRITICAL DATA LOSS RISK**: Deleting a Directory Junction link (`mklink /j`) using standard Windows Explorer delete actions or file-system delete commands inside IDEs (VS Code/Cursor) can follow the junction link and recursively delete the target codebase folder. This permanently destroys your actual source code.
+
+### Safe Practices:
+
+1. **How to Safely Remove a Junction Link**:
+   To break or remove a Junction Link without deleting any files at the target location, run the `rmdir` command via Command Prompt (cmd) on Windows:
+   ```cmd
+   cmd /c rmdir "C:\path\to\junction-link"
+   ```
+   *Never* use the `Delete` key in Windows Explorer or `Remove-Item -Recurse` in PowerShell directly on the link folder unless you are sure it is handled safely by your shell version.
+
+2. **Verify Before Deletion**:
+   Before deleting any directory that may be linked, verify its LinkType in PowerShell:
+   ```powershell
+   Get-Item "C:\path\to\folder" | Format-List LinkType, Target
+   ```
+   If `LinkType` is `Junction`, use `rmdir` to safely detach it first.
+
+---
+
 ## Worktree Workflow — Full Cycle
 
 This section is **generic** and applies to any git project with a

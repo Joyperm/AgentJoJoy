@@ -419,8 +419,9 @@ If it is elsewhere, propose one of:
 - Move it under the wrapper.
 - Clone it under the wrapper.
 - Keep it where it is and add clear path notes.
+- **Junction Link Model** (For rigid environment dependencies e.g. MQL5 Experts): Move the codebase directory under the wrapper workspace, and create a Directory Junction link (`mklink /j`) pointing from the original external environment path to the new workspace codebase location. This keeps the codebase fully operational in its runtime environment while housing AI control files outside the project repository.
 
-Do not move, clone, or symlink until the owner approves.
+Do not move, clone, symlink, or establish junction links until the owner approves.
 
 ### Step 2: Explain Workspace Model
 

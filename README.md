@@ -245,6 +245,7 @@ If you prefer a fully manual approach, the same file-ownership table in [`AgentJ
 - **Privacy-first Gap Reporter** — captures redacted workflow friction locally with no remote sync. Opt-in only.
 - **Self-service Gap Collector** — `list` / `summarize` / `purge` actions let you review your own friction patterns and clean up.
 - **Dynamic Worktree Auto-Sync** — refreshes a managed git-state block in `progress-tracker.md` at session resume using read-only git commands.
+- **Junction Link Model (For Rigid Environments)** — decouples codebases from wrappers using Windows Directory Junctions (`mklink /j`), keeping code functional in restricted systems (e.g., MQL5 Experts) while isolating AI system files, complete with strict safety guidelines.
 - **Portable Skills** — drop-in `SKILL.md` routines for debugging, review, root-cause analysis, and structured design interviews.
 
 ---
