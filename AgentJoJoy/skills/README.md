@@ -1,4 +1,4 @@
-# Skill Layers
+﻿# Skill Layers
 
 AgentJoJoy treats skills as two layers. The layer determines what a
 skill is allowed to influence and which source of truth wins when

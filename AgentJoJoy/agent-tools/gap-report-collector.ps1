@@ -76,7 +76,7 @@ function Get-FieldValue {
 function New-GapRecord {
   param([System.IO.FileInfo]$File)
 
-  $text = Get-Content -LiteralPath $File.FullName -Raw
+  $text = Get-Content -LiteralPath $File.FullName -Raw -Encoding UTF8
   $lines = $text -split "`r?`n"
   $unsafe = Test-UnsafeText -Text $text
 

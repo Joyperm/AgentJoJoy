@@ -1,4 +1,4 @@
-# Intake Flow
+﻿# Intake Flow
 
 Canonical onboarding flow for turning a fresh AgentJoJoy wrapper into a
 usable personal AI workspace.

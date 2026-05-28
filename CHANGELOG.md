@@ -1,4 +1,4 @@
-# Changelog
+﻿# Changelog
 
 All notable user-facing changes to AgentJoJoy. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the
@@ -9,6 +9,13 @@ For internal template-development history, see the private dev repo.
 ---
 
 ## [Unreleased]
+
+---
+
+## [v1.2.8] — 2026-05-28 — Cross-Locale Helper Reliability
+
+### Fixed
+- **PowerShell encoding bug in helper scripts**: `Get-Content` calls in `worktree-auto-sync.ps1`, `gap-report-collector.ps1`, `release.ps1`, and `eject.ps1` did not specify `-Encoding UTF8`. On Windows PowerShell 5.1, the default falls back to the OS ANSI codepage (e.g. `windows-874` on Thai locale), which corrupts multibyte characters such as em-dash (`—`) and emoji (e.g. `🎯`) when reading. When the script then writes back with `-Encoding UTF8`, the corruption becomes permanent in the file. Added explicit `-Encoding UTF8` to all read and write paths in helper scripts. Surfaced when running the helpers on a second Windows machine with a different locale.
 
 ---
 

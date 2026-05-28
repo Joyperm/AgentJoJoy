@@ -1,4 +1,4 @@
-# AGENTS — Multi-Agent Entry Point
+﻿# AGENTS — Multi-Agent Entry Point
 
 This file is intentionally thin. It is the entry point for any
 AI coding agent (Codex, Aider, Cursor agent mode, etc.) operating

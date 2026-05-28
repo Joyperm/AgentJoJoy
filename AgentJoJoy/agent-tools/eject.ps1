@@ -50,7 +50,7 @@ $vscodeSettingsPath = Join-Path $root ".vscode\settings.json"
 $hasVSCodeCleanup = $false
 if (Test-Path -LiteralPath $vscodeSettingsPath) {
   try {
-    $settingsContent = Get-Content -Raw -LiteralPath $vscodeSettingsPath
+    $settingsContent = Get-Content -Raw -LiteralPath $vscodeSettingsPath -Encoding UTF8
     $settings = $settingsContent | ConvertFrom-Json
     if ($settings -and $settings.PSObject.Properties.Name -contains "files.exclude") {
       $exclude = $settings."files.exclude"
@@ -118,7 +118,7 @@ foreach ($item in $itemsToDelete) {
 if ($hasVSCodeCleanup -and (Test-Path -LiteralPath $vscodeSettingsPath)) {
   Write-Host "Cleaning up Distraction-Free Mode exclusions from $vscodeSettingsPath..."
   try {
-    $settingsContent = Get-Content -Raw -LiteralPath $vscodeSettingsPath
+    $settingsContent = Get-Content -Raw -LiteralPath $vscodeSettingsPath -Encoding UTF8
     $settings = $settingsContent | ConvertFrom-Json
     if ($settings -and $settings.PSObject.Properties.Name -contains "files.exclude") {
       $exclude = $settings."files.exclude"
@@ -155,7 +155,7 @@ if ($hasVSCodeCleanup -and (Test-Path -LiteralPath $vscodeSettingsPath)) {
         } else {
           Write-Host "Updating settings.json..."
           $updatedJson = $settings | ConvertTo-Json -Depth 100
-          Set-Content -Path $vscodeSettingsPath -Value $updatedJson -NoNewline
+          Set-Content -Path $vscodeSettingsPath -Value $updatedJson -NoNewline -Encoding UTF8
         }
       }
     }

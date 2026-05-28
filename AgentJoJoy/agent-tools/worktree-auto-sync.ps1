@@ -67,7 +67,7 @@ function Get-TrackerMainCheckout {
     return ""
   }
 
-  $lines = Get-Content -LiteralPath $TrackerPath
+  $lines = Get-Content -LiteralPath $TrackerPath -Encoding UTF8
   foreach ($line in $lines) {
     if ($line -match "^\s*>\s*Main checkout lives at:\s*(.+?)\s*$") {
       $value = $matches[1].Trim()
@@ -267,7 +267,7 @@ function Update-ManagedBlock {
 
   $begin = "<!-- AGENTJOJOY:WORKTREE-AUTO-SYNC BEGIN -->"
   $end = "<!-- AGENTJOJOY:WORKTREE-AUTO-SYNC END -->"
-  $text = Get-Content -LiteralPath $TrackerPath -Raw
+  $text = Get-Content -LiteralPath $TrackerPath -Raw -Encoding UTF8
   $replacement = "$begin`r`n$Block`r`n$end"
   $pattern = "(?s)<!-- AGENTJOJOY:WORKTREE-AUTO-SYNC BEGIN -->.*?<!-- AGENTJOJOY:WORKTREE-AUTO-SYNC END -->"
 

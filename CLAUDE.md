@@ -1,4 +1,4 @@
-# AgentJoJoy Workspace
+﻿# AgentJoJoy Workspace
 
 This is a generic workspace template for working with AI assistants
 (Claude Code, Cursor, etc.) on a project. The actual project content
