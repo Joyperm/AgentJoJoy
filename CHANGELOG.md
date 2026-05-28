@@ -10,6 +10,19 @@ For internal template-development history, see the private dev repo.
 
 ## [Unreleased]
 
+### Added
+- **Handoff-prompt-generator dev skill**: Added a new dev-only skill (`AgentJoJoy/template-lab/skills/handoff-prompt/SKILL.md`) that generates structured, copy-pasteable handoff prompts for session handoff. Runs strictly in **Explicit-Only** mode. Wired discoverability into `CLAUDE.md` and `AGENTS.md` (DEV-ONLY).
+
+---
+
+## [v1.3.0] — 2026-05-28 — Pattern-Detection Meta-Skill for Workflow Automation Awareness
+
+### Added
+- **Pattern-detection meta-skill**: Added a new public-facing meta-skill (`AgentJoJoy/skills/pattern-detection/SKILL.md`) that passively scans `Recent Actions` in `progress-tracker.md` and the active session's conversation history for repetitive workflows (3+ times). It nudges the user to formalize the pattern into a custom skill, offering to generate the custom skill skeleton automatically. Wired discoverability into `CLAUDE.md`, `AGENTS.md`, and documented in `AgentJoJoy/skills/README.md`.
+
+### Changed
+- **Documented skill discovery model**: Added a short note to `PUBLIC_README.md` (Portable Skills section) and both `workflow-guide.md` and `workflow-guide-th.md` explaining that AgentJoJoy skills do not appear in the `/` command palette. They are discovered by the AI reading the workspace and matching the skill description against the user's request. New skills can be added simply by dropping a folder with a `SKILL.md` into `AgentJoJoy/skills/`. Clarifies the invocation model for users coming from runtime-skill UI mental models (Claude Code/Cowork slash palette).
+
 ---
 
 ## [v1.2.9] — 2026-05-28 — Scope Discipline

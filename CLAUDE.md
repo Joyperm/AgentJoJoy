@@ -408,6 +408,7 @@ walks up the tree to find it).
 | [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) | Skill layer model: Personal Agent Skills vs Project Skills and precedence when both match. |
 | [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) | Portable core practices for debugging, review, post-mortems, and stakeholder communication. |
 | [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) | Rigorous design interview for brainstorming, planning, and pressure-testing ideas before implementation. |
+| [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) | Meta-skill that monitors the user's workflow pattern (using Recent Actions in progress-tracker.md and in-session memory). |
 
 ## Skill Layers
 
@@ -434,6 +435,9 @@ Current Personal Agent Skills:
   `challenge`, `brainstorm`, `pressure-test`, `interview me`,
   `one question at a time`; or describes a new plan / idea / project /
   workflow / architecture decision that is still being formed.
+- `AgentJoJoy/skills/pattern-detection/SKILL.md` — **read this file before
+  answering** when the user repeats steps/actions/commands, does a repetitive task,
+  or when any workflow/routine is performed 3+ times in the tracker or session.
 
 Agents without native skill auto-discovery (e.g. Cursor, Codex) must
 follow these references explicitly when a trigger keyword above

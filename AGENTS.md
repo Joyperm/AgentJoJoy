@@ -237,6 +237,9 @@ Current Personal Agent Skills:
   `challenge`, `brainstorm`, `pressure-test`, `interview me`,
   `one question at a time`; or describes a new plan / idea / project /
   workflow / architecture decision that is still being formed.
+- `AgentJoJoy/skills/pattern-detection/SKILL.md` — **read this file before
+  answering** when the user repeats steps/actions/commands, does a repetitive task,
+  or when any workflow/routine is performed 3+ times in the tracker or session.
 
 Agents without native skill auto-discovery (e.g. Cursor, Codex) must
 follow these references explicitly when a trigger keyword above

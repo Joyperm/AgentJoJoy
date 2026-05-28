@@ -170,6 +170,8 @@ See [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow
 - [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) — portable routines for Debugging, Code Review, Root Cause Analysis, and Management-Talk rewriting.
 - [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) — structured design interview for vague plans.
 
+> **Note:** AgentJoJoy skills don't appear in the `/` command palette. They're discovered by the AI reading the workspace and matching the skill description against your request — just describe what you want and the AI will pick the right skill from `AgentJoJoy/skills/`. **Adding a skill is drag-and-drop**: place a folder containing a `SKILL.md` into `AgentJoJoy/skills/` and the AI sees it via `git status` on the next interaction — no install or restart needed.
+
 ---
 
 ## How to Use

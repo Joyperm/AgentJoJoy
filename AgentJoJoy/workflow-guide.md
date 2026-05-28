@@ -148,6 +148,19 @@ AgentJoJoy includes two core skill families:
 Project-specific skills may also live under `AgentJoJoy/skills/`.
 During upgrades, custom skills are user-owned and should be preserved.
 
+> **Note on invocation.** AgentJoJoy skills don't appear in the `/`
+> command palette. They are discovered by the AI reading the
+> workspace and matching the skill description against your request.
+> Just describe what you want — the AI picks the right skill from
+> `AgentJoJoy/skills/`.
+>
+> **Adding a skill is drag-and-drop.** Drop a folder containing a
+> `SKILL.md` into `AgentJoJoy/skills/`; the AI sees it via
+> `git status` on the next interaction — no install, no restart, no
+> registry update. (Skills the AI itself generates from observed
+> patterns are discovered the same way, by definition — the
+> generator and discoverer are the same agent.)
+
 ---
 
 ## 7. Upgrading

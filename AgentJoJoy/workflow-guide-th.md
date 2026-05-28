@@ -135,6 +135,17 @@ AgentJoJoy มี core skills สองกลุ่ม:
 Project-specific skills สามารถอยู่ใต้ `AgentJoJoy/skills/` ได้เช่นกัน
 ระหว่าง upgrade custom skills ถือเป็น user-owned และควรถูก preserve
 
+> **หมายเหตุเรื่องการเรียกใช้:** AgentJoJoy skills ไม่ขึ้นใน `/` command palette
+> เพราะ AI ค้นพบ skills โดยการอ่าน workspace แล้วเทียบ description ของ skill
+> กับ request ของคุณ — บอกสิ่งที่ต้องการเป็นภาษาธรรมดา AI จะหยิบ skill
+> ที่เหมาะสมจาก `AgentJoJoy/skills/` มาใช้เอง
+>
+> **การเพิ่ม skill = drag-and-drop**: วาง folder ที่มี `SKILL.md` ลงใน
+> `AgentJoJoy/skills/` AI จะเห็นผ่าน `git status` ใน interaction ถัดไป
+> ไม่ต้อง install ไม่ต้อง restart ไม่ต้อง update registry (skill ที่ AI
+> สร้างเองจาก pattern ที่สังเกตเห็นก็ใช้กลไกนี้เหมือนกัน — เพราะ AI
+> เป็นทั้งคนสร้างและคนค้นพบ)
+
 ---
 
 ## 7. Upgrading

@@ -15,6 +15,7 @@ Examples in this repo:
 
 - `agentjojoy-core-practices`
 - `grill-me`
+- `pattern-detection`
 
 Use them for:
 
@@ -123,6 +124,7 @@ After those protocols are satisfied, use these boundaries:
 | User asks for RCA/post-mortem after validated fix | `agentjojoy-core-practices` Post-Mortem Routine |
 | User asks for PM/leadership/Slack/email/standup rewrite | `agentjojoy-core-practices` Management-Talk Routine |
 | User asks for project-specific repeated workflow | Project Skill if present; otherwise read project docs/scripts |
+| User repeats steps/actions/commands, or asks to detect patterns | `pattern-detection` |
 
 Ambiguous prompt rule:
 
