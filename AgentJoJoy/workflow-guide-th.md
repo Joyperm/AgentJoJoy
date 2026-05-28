@@ -18,7 +18,7 @@ AI assistants ทั้งกับโปรเจกต์ใหม่และ
 
 ถ้าคุณมี AgentJoJoy workspace อยู่แล้ว อย่าสร้าง template copy ใหม่เพื่ออัปเกรด
 ให้ใช้ upgrade prompt ใน `README.md` แทน เพื่อรักษา project notes,
-decisions, gap reports และ custom skills ของคุณไว้
+decisions, technical precedents และ custom skills ของคุณไว้
 
 ---
 
@@ -97,18 +97,9 @@ Secrets ควรอยู่ใน project `.env`, secret manager หรือ 
 AgentJoJoy จาก Explorer sidebar ได้ AI จะสร้างหรือแก้ `.vscode/settings.json`
 แบบระวัง โดยไม่ทับ editor settings อื่นของคุณ
 
-### Gap Reporter
-
-Gap Reporter เป็น opt-in เท่านั้น เมื่อเปิดใช้งาน AI อาจเขียน notes แบบ redacted
-ไว้ใต้ `AgentJoJoy/agent-runtime/gaps/` เมื่อเจอ friction ระหว่าง session
-AI ต้องประกาศทุกครั้งที่เขียน report รายงานเหล่านี้อยู่ local, ถูก gitignore,
-และต้องไม่มี credentials, source code, private paths, remotes, emails
-หรือรายละเอียดอ่อนไหวของโปรเจกต์
-
-### Gap Collector
-
-Collector แยกจาก Reporter เป็นเครื่องมือ local-only สำหรับ list, summarize,
-export หรือ purge gap reports โดยไม่ upload อะไรออกไป
+### Technical Precedents
+ 
+ไฟล์ Markdown แบบแบน (`AgentJoJoy/agent-context/technical-precedents.md`) ภายใต้ `agent-context/` จะถูกใช้เพื่อบันทึกข้อเท็จจริงทางเทคนิค ทางออกสำหรับการขัดข้อง และแนวทางแก้ไขที่ผ่านการพิสูจน์แล้ว AI จะทำการบันทึกปัญหาและทางออกลงในนี้โดยอัตโนมัติ เพื่อให้เอเจนต์ในเซสชันถัดไปหลีกเลี่ยงและข้ามผ่านจุดติดขัดทางเทคนิคเดิมได้ทันที เป็นไฟล์ที่โปร่งใส เปิดอ่านและแก้ไขได้ง่ายโดยมนุษย์
 
 ### Test-First / TDD Preference
 

@@ -10,8 +10,15 @@ For internal template-development history, see the private dev repo.
 
 ## [Unreleased]
 
+---
+
+## [v1.3.1] — 2026-05-28 — Technical Precedents and Gaps Collector Removal
+
 ### Added
-- **Handoff-prompt-generator dev skill**: Added a new dev-only skill (`AgentJoJoy/template-lab/skills/handoff-prompt/SKILL.md`) that generates structured, copy-pasteable handoff prompts for session handoff. Runs strictly in **Explicit-Only** mode. Wired discoverability into `CLAUDE.md` and `AGENTS.md` (DEV-ONLY).
+- **Technical precedents tracking**: Added `AgentJoJoy/agent-context/technical-precedents.md` as a unified, transparent markdown file for AI assistants to read and append local decisions, conventions, and verified workarounds.
+
+### Removed
+- **Gaps reporter and collector**: Removed the complex, script-heavy local Gaps Reporter/Collector system (`gap-report-collector.ps1` and `AgentJoJoy/agent-runtime/gaps/` directory) to simplify the template, improve privacy transparency, and remove hidden local file tracking.
 
 ---
 

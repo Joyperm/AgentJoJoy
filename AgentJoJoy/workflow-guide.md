@@ -19,7 +19,7 @@ For a new workspace, use GitHub's **Use this template** button:
 
 If you already have an AgentJoJoy workspace, do not create a fresh
 template copy to upgrade it. Use the upgrade prompt in `README.md` so
-your project notes, decisions, gap reports, and custom skills are
+your project notes, decisions, technical precedents, and custom skills are
 preserved.
 
 ---
@@ -106,19 +106,9 @@ internal AgentJoJoy files from the Explorer sidebar. The AI creates or
 updates `.vscode/settings.json` surgically, preserving unrelated
 editor settings.
 
-### Gap Reporter
+### Technical Precedents
 
-The Gap Reporter is opt-in. When enabled, the AI may write redacted
-workflow-friction notes under `AgentJoJoy/agent-runtime/gaps/` during a
-session. It must announce each report it writes. Reports are local,
-gitignored, and must not contain credentials, source code, private
-paths, remotes, emails, or project-sensitive details.
-
-### Gap Collector
-
-The collector is separate from the reporter. It is a local-only
-retrospective tool for listing, summarizing, exporting, or purging gap
-reports. It does not upload anything.
+The Technical Precedents file (`AgentJoJoy/agent-context/technical-precedents.md`) is a flat, human-readable markdown file provided under `agent-context/` to log validated technical solutions, environment workarounds, and design decisions. The AI will proactively log issues and solutions here so future sessions bypass the same friction without repeating past mistakes.
 
 ### Test-First / TDD Preference
 

@@ -78,14 +78,15 @@ Before making changes, read the relevant project knowledge from:
 - [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow-notes.md) — operational notes
 - [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) — wrapper/team repo/worktree ownership model and leak-prevention rules
 - [`AgentJoJoy/agent-context/engagement-mode.md`](AgentJoJoy/agent-context/engagement-mode.md) — current engagement style
+- [`AgentJoJoy/agent-context/technical-precedents.md`](AgentJoJoy/agent-context/technical-precedents.md) — local technical boundary rules and validated precedents
 - [`AgentJoJoy/agent-context/domain-language.md`](AgentJoJoy/agent-context/domain-language.md) — optional glossary and domain-language map for project terms and ambiguities
 - [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) — skill layer model: Personal Agent Skills vs Project Skills and precedence when both match
 - [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) — portable core practices for debugging, review, RCA, and stakeholder communication
 - [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) — rigorous design interview for brainstorming, planning, and pressure-testing ideas before implementation
-- [`AgentJoJoy/agent-tools/`](AgentJoJoy/agent-tools/) — local helper tools, including the privacy-first Gap Report Collector
+- [`AgentJoJoy/agent-tools/`](AgentJoJoy/agent-tools/) — local helper tools and sync scripts
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts
 - [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) — key decisions log
-- [`AgentJoJoy/agent-runtime/`](AgentJoJoy/agent-runtime/) — local generated agent state, including ignored gap reports
+- [`AgentJoJoy/agent-runtime/`](AgentJoJoy/agent-runtime/) — local generated agent state files
 - [`progress-tracker.md`](progress-tracker.md) — current state, decisions, next steps
 
 If this file conflicts with `CLAUDE.md` on agent-specific behavior,
@@ -113,10 +114,8 @@ repo residue. Ignore it for project state and propose removing it
 during intake/package cleanup.
 
 `AgentJoJoy/template-lab/validation/` records source-repo validation work and
-should not be treated as reusable project state. Runtime gap reports
-belong under `AgentJoJoy/agent-runtime/gaps/`; generated reports and
-collector outputs stay local-only and ignored. Remove source-repo
-validation records, generated gap reports, collector outputs, and
+should not be treated as reusable project state. Remove source-repo
+validation records, local runtime caches, and
 `AgentJoJoy/template-lab/.template-source` from copied workspaces.
 
 ---

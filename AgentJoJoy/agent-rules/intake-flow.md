@@ -258,8 +258,7 @@ Ask:
 - What is the smallest useful first version?
 - Is this code, writing, research, operations, or mixed?
 - Any non-negotiable constraints?
-- Should we enable the **Automated Gap Reporter**? (This is a privacy-safe, local monitoring feature that logs workflow friction points or template gaps to `AgentJoJoy/agent-runtime/gaps/` so we can organically improve this template based on real-world usage. You can choose to enable or disable it.)
-- Should we enable the **Gap Report Collector**? (This is separate from the Reporter. It aggregates local gap reports into an ignored local index/export bundle. Default to disabled for Path 2 team repos unless the owner explicitly approves it. Remote sync/upload is not implemented; on company machines, any transfer must be manual and owner-approved.)
+- Introduce **Technical Precedents**: Explain that a flat markdown file (`AgentJoJoy/agent-context/technical-precedents.md`) is provided under `agent-context/` to log validated technical solutions and workarounds. The AI will proactively log issues and solutions here so future sessions bypass the same friction.
 - Should we enable **Distraction-Free Mode**? (Recommended for VS Code users. If enabled, the AI will create `.vscode/settings.json` to hide internal AI files from your explorer sidebar, keeping your workspace clean).
 
 ### Step 2: Propose Structure
@@ -516,8 +515,7 @@ Ask only what cannot be discovered:
 - What is the expected verification command before pushing?
 - Which runtime/environment actions, if any, are safe to run locally?
   Which require separate approval or should never be run by AI?
-- Should we enable the **Automated Gap Reporter**? (This is a privacy-safe, local monitoring feature that logs workflow friction points or template gaps to `AgentJoJoy/agent-runtime/gaps/` so we can organically improve this template based on real-world usage. You can choose to enable or disable it.)
-- Should we enable the **Gap Report Collector**? (This is separate from the Reporter. It aggregates local gap reports into an ignored local index/export bundle. Default to disabled for Path 2 team repos unless the owner explicitly approves it. Remote sync/upload is not implemented; on company machines, any transfer must be manual and owner-approved.)
+- Introduce **Technical Precedents**: Explain that a flat markdown file (`AgentJoJoy/agent-context/technical-precedents.md`) is provided under `agent-context/` to log validated technical solutions and workarounds. The AI will proactively log issues and solutions here so future sessions bypass the same friction.
 - Should we enable **Distraction-Free Mode**? (Recommended for VS Code users. If enabled, the AI will create `.vscode/settings.json` to hide internal AI files from your explorer sidebar, keeping your workspace clean).
 
 ### Step 6: Multi-Agent Coexistence Rules Portability

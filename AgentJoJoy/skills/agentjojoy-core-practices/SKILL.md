@@ -131,33 +131,15 @@ Slack, email, standup, or meeting update.
 
 Never invent impact, owner, status, dates, validation, or next steps.
 
-### Gap Observation & Redacted Reporting
+### Technical Precedents Logging
 
-Use automatically during a session if the **Automated Gap Reporter** is `enabled` in `AgentJoJoy/agent-context/engagement-mode.md` AND the AI encounters workflow friction, rule gaps, environment failures, tool limitations, or other developer-agent coordination obstacles.
+Use automatically during a session if the AI resolves a technical blocker, implements an environment-specific workaround, traces unexpected behavior, or locks in a technical design pattern.
 
-1. **Observe and Capture**: Identify the friction point (e.g., Cursor failing to discover a skill, a command failing in PowerShell execution policy, or a rebase conflict that took excessive manual intervention).
-2. **Redact all Context**: Prioritize absolute privacy. The report **MUST NOT** contain:
-   - Specific project names, repository names, or remote URLs.
-   - Any source code snippets, database schemas, or code identifiers.
-   - Any credentials, tokens, IP addresses, usernames, or paths outside the workspace structure.
-   - Any proprietary business logic or feature descriptions.
-3. **Draft the Report**: Use this structure:
-   - **Gap Category**: (e.g., Tool auto-discovery gap, Environment path fallback, Git sync conflict friction).
-   - **Observed Friction**: Terse explanation of the obstacle (e.g., "Cursor New Agent did not load referenced skill file due to soft reference syntax").
-   - **AI Workaround Applied**: How the AI bypassed the issue (e.g., "Added explicit trigger keywords to entry-point rules").
-   - **Suggested Improvement for Template**: How to update the AgentJoJoy template files to permanently close this gap.
-4. **Save Locally and Announce**: Write the report to a unique file under `AgentJoJoy/agent-runtime/gaps/gap-<timestamp>.md`. Do not commit or push the report to the team repository (it resides strictly in the local wrapper runtime folder). **Always announce the write to the user in one short line** so the user is aware in-session — for example: `📝 Noted as gap report: gap-20260527-094530.md (redacted)`. Transparency over silent behavior — the user has the right to know whenever a report is written, even after they opted in at intake.
-5. **Collect Locally Only When Enabled**: The Gap Collector is a
-   separate optional setting from the Gap Reporter. If the Collector is
-   disabled or unset, do not aggregate reports. If the owner explicitly
-   enables it or asks to aggregate reports, use
-   `AgentJoJoy/agent-tools/gap-report-collector.ps1`. The collector may write
-   `_collector/` and `_exports/` files locally, but it must not upload,
-   fetch, push, or contact remote services. On company machines, remote
-   sync/upload is hard-blocked; manual transfer requires explicit owner
-   approval after reviewing unsafe-signal warnings.
-
-If the Gap Reporter is `disabled` or unset, do not run this routine.
+1. **Identify the Precedent**: When you successfully debug a problem, find a workaround for shell execution issues, or choose a coding pattern, identify the core lesson/rule.
+2. **Log to File**: Append a concise, single-line entry under the `## Validated Precedents` section of `AgentJoJoy/agent-context/technical-precedents.md` in this format:
+   `- **[Area]**: [Validated Fact / Workaround] (Date: YYYY-MM-DD, Commit/Context: <ref_or_none>)`
+3. **Keep it Clean**: Do not log duplicates. Maintain the existing entries.
+4. **Announce**: Notify the user in your response that you have updated `technical-precedents.md` with the new precedent (e.g. "📝 Added to technical precedents: [Area]...").
 
 ## Operating Rules
 

@@ -30,8 +30,6 @@ deliberately.
 - `AgentJoJoy/workflow-guide.md`
 - `AgentJoJoy/workflow-guide-th.md`
 - `AgentJoJoy/agent-decisions/README.md` — format guide only
-- `AgentJoJoy/agent-runtime/gaps/.gitignore`
-- `AgentJoJoy/agent-runtime/gaps/README.md`
 - `CHANGELOG.md` (workspace root)
 - `LICENSE` (workspace root)
 - `VERSION` (workspace root)
@@ -48,7 +46,7 @@ explicit per-section approval — not a file overwrite.
 - `progress-tracker.md` (workspace root) — your daily work tracker (except the managed `<!-- AGENTJOJOY:WORKTREE-AUTO-SYNC -->` block, which is template-owned and may be refreshed by `worktree-auto-sync.ps1`)
 - `AgentJoJoy/agent-context/*` — everything except files that explicitly say "Set during intake" templates with no user content yet (see Mixed below)
 - `AgentJoJoy/agent-decisions/*.md` — your project's decision log, except the format-guide `README.md`
-- `AgentJoJoy/agent-runtime/**` — local gap reports, collector outputs, exports (everything except `.gitignore` and `README.md`)
+- `AgentJoJoy/agent-runtime/**` — local runtime data and context files
 - `AgentJoJoy/skills/*` (except core template skills: `agentjojoy-core-practices/`, `grill-me/`, and `README.md`) — your custom project-specific skills
 - The wrapped project folder itself (the sibling `<code-or-content>/` directory) — entirely off-limits to template upgrades
 
@@ -65,7 +63,8 @@ and only update prose/structure/comments around them.
 - `AgentJoJoy/agent-context/standards.md` — same pattern.
 - `AgentJoJoy/agent-context/ui-context.md` — same pattern.
 - `AgentJoJoy/agent-context/domain-language.md` — same pattern.
-- `AgentJoJoy/agent-context/engagement-mode.md` — preserve user's chosen mode (`execute` / `teach`), Reporter setting, Collector setting; update surrounding prose/notes/example commands.
+- `AgentJoJoy/agent-context/engagement-mode.md` — preserve user's chosen mode (`execute` / `teach`); update surrounding prose/notes/example commands.
+- `AgentJoJoy/agent-context/technical-precedents.md` — preserve all logged precedents; update template structure/prose if it changed.
 - `AgentJoJoy/agent-context/progress-tracker-setup.md` — preserve all logged entries; update template prose if it changed.
 
 ---
