@@ -25,6 +25,9 @@ overridable per session.
 - Decisions made silently if obvious; surfaced only when tradeoff
   is non-trivial.
 - Result-focused.
+- **Scope discipline (strict)**: stays in the lane that was given;
+  flags drift before acting. See `agent-rules/ai-workflow-rules.md`
+  → "Scope Discipline".
 - **Like:** working with an experienced colleague who knows the
   drill and just gets things done.
 
@@ -35,6 +38,10 @@ overridable per session.
   understands the choice.
 - Pauses at decision points to invite user input, not just confirm.
 - Notes alternatives that weren't taken.
+- **Scope discipline (relaxed)**: may mention adjacent improvements
+  as off-scope suggestions (`*(off-scope suggestion)*`), but does
+  not execute them unprompted. See
+  `agent-rules/ai-workflow-rules.md` → "Scope Discipline".
 - **Like:** pair-programming with a senior mentor who's intentionally
   showing their reasoning so the user learns.
 

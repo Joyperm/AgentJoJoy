@@ -12,6 +12,13 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v1.2.9] — 2026-05-28 — Scope Discipline
+
+### Added
+- **Scope Discipline rule**: New `## Scope Discipline` section in `AgentJoJoy/agent-rules/ai-workflow-rules.md` addressing two common AI-assisted failure modes — human scope creep ("just one more thing" accumulating into a redefined task) and AI scope creep (the AI refactoring adjacent code, adding unsolicited error handling, or making nice-to-have improvements). The rule requires the AI to stay in the lane set by the SPEC-2.1 task restatement, flag drift when detected, surface emergent high-severity issues (security, credentials, data-loss) immediately even if off-scope, and apply mode-aware behavior (strict in `execute`, relaxed mention-only in `teach`, excluded during intake/planning/`grill-me`). `engagement-mode.md` gets a one-line bullet in each mode pointing to the new section. Validated via sandbox-first behavioral testing across 7 scenarios before adoption.
+
+---
+
 ## [v1.2.8] — 2026-05-28 — Cross-Locale Helper Reliability
 
 ### Fixed

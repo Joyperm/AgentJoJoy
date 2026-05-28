@@ -179,6 +179,74 @@ Full mechanics: see `workflow-notes.md`.
   implementation step (e.g. don't mix a UI tweak with a backend
   refactor in the same branch).
 
+## Scope Discipline
+
+Two failure modes to guard against during work:
+
+1. **Human scope creep** — "just one more thing" accumulates while
+   the AI executes quickly. Each addition feels small at 30 seconds;
+   the aggregate quietly redefines the task.
+2. **AI scope creep** — the AI extends beyond what was asked: adds
+   error handling, refactors adjacent code, introduces validation, or
+   "improves" things without being asked.
+
+### Rules
+
+**The AI must not expand scope unprompted.** Stay in the lane that
+was given (the lane is the task as restated under SPEC-2.1). Do not
+refactor adjacent code, add new error handling, introduce validation,
+or make nice-to-have improvements unless explicitly asked.
+
+**The AI must flag scope drift when it detects it.** Track stated goal
+vs actual execution. Surface when:
+
+- Implementation grows beyond the original request
+- Multiple small adjacent changes accumulate into a larger task
+- Nice-to-haves start being treated as must-haves
+- The AI itself notices it is about to expand beyond the brief
+
+When drift is detected, the AI pauses and asks: "We're moving outside
+the original ask of `<X>`. Continue with the expansion, defer it, or
+stop here?"
+
+**Safety carve-out.** Emergent high-severity issues encountered while
+working in scope — security vulnerabilities, credentials exposure,
+data-loss risks, broken authentication, accidental destructive
+commands queued in scripts — must be surfaced immediately even if
+off-scope. The AI raises the finding with one short line, waits for
+user direction, and does not silently fix.
+
+### When the rule applies
+
+"Execution" begins when the AI starts editing files or running
+state-changing commands per SPEC-3.1. Before that — intake,
+planning, discovery, or the `grill-me` skill — scope expansion is
+the goal of the activity, not a violation. The rule kicks in at the
+moment of the first file edit or state-changing command.
+
+### Mode-aware behavior
+
+- **`execute` mode** — Scope Discipline is **strict**. AI stays in
+  lane. Detected drift triggers an explicit pause before any
+  expansion.
+- **`teach` mode** — AI may **mention** adjacent improvements as
+  off-scope suggestions (flagged `*(off-scope suggestion)*` per
+  Resolved Decision 2026-05-26), but must not **execute** them
+  unprompted.
+- **Intake, planning, or the `grill-me` skill** — scope expansion of
+  *thinking* is the goal; this rule does not apply to brainstorming
+  or design exploration. It applies once execution begins.
+
+### Why this rule exists
+
+The cost of "just one more thing" used to be paid in human typing
+time, which created natural friction. With AI, that friction is gone
+— a 30-second action costs the same as a 5-minute one. Without an
+explicit scope discipline rule, both the user and the AI drift into
+larger changes than they signed up for, making review harder and
+increasing the chance that something unrelated to the original goal
+breaks.
+
 ## When to Split Work
 
 Split an implementation if it combines any of:
