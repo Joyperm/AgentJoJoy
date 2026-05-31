@@ -120,6 +120,11 @@ To ensure high portability and compatibility across multiple target runtimes, Ag
 - Tools without native filesystem auto-scanning (such as **Cursor** or **Codex**) cannot discover skills automatically. 
 - To close this gap, AgentJoJoy wires **explicit directive references and trigger keywords** into the root entry points `CLAUDE.md` and `AGENTS.md`. 
 - When a user's prompt matches a directive keyword (e.g. *debug*, *review*, *grill*), the AI is instructed by the entry point to actively locate and read the corresponding `SKILL.md` file, guaranteeing identical skill execution across all environments.
+- Cursor wrapper walk-up has been live-validated, so AgentJoJoy does
+  not create `.cursor/rules/agentjojoy.mdc` bridge files by default.
+  Use a local-only bridge only after an observed discovery failure; in
+  team repos, keep that bridge untracked via `.git/info/exclude` unless
+  the owner/team explicitly approves sharing it.
 
 ---
 

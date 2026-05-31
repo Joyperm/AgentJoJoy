@@ -546,8 +546,14 @@ the rule files that those agents read:
 
 - Claude Code reads target repo `CLAUDE.md`.
 - Codex, Aider, and generic agents read target repo `AGENTS.md`.
-- Cursor surfaces vary; if both files exist, update both. See
+- Cursor walk-up has been live-validated against the AgentJoJoy wrapper
+  root; do not create `.cursor/rules/agentjojoy.mdc` or other
+  repo-local bridge files by default. See
   `AgentJoJoy/template-lab/validation/cursor-walkup-live.md`.
+- If a real tool-specific discovery failure is observed later, propose
+  a local-only runtime bridge. In team repos, add that bridge path to
+  the repo's `.git/info/exclude` and do not track or commit it unless
+  the owner/team explicitly approves making it shared.
 
 The snippet is in `AgentJoJoy/agent-templates/multi-agent-coexistence-snippet.md`.
 Use the marker comments `<!-- AGENTJOJOY:MULTI-AGENT BEGIN -->` and

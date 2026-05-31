@@ -18,6 +18,19 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v1.4.6] — 2026-05-31 — Context Router & Runtime Bridge Discipline
+
+### Added
+- **Context-Aware Loading Policy**: Added task-specific context bundles to `CLAUDE.md` and `AGENTS.md` so agents load only the smallest relevant rule/context set for resume, edits, debug, review, onboarding, git/worktree, skills, and release-style tasks. This prevents rigid "read everything every turn" behavior while preserving safety gates and team/project precedence.
+
+### Changed
+- **Cursor Runtime Bridge Policy**: Clarified that Cursor wrapper walk-up is the default because it has been live-validated. AgentJoJoy no longer suggests `.cursor/rules/agentjojoy.mdc` or other repo-local bridge files by default; use a local-only bridge only after a real discovery failure, and keep it untracked in team repos unless the owner/team explicitly approves sharing it.
+- **Source-of-Truth Routing**: Replaced broad "read all relevant project knowledge" wording with explicit context routing and session reuse guidance: reuse loaded context unless the task type changes, the file may have changed, or the conversation was compacted.
+
+### Removed
+
+---
+
 ## [v1.4.5] — 2026-05-31 — Helper Script Hardening & Resume Check Reliability
 
 ### Changed

@@ -20,6 +20,7 @@ Already have an AgentJoJoy workspace? Use the [Upgrading](#upgrading) flow inste
 
 - **Private-by-default workspace wrapper** — keeps assistant context beside your project instead of inside it, so personal AI notes stay out of project commits.
 - **Auto-loading agent rules** — `CLAUDE.md` and `AGENTS.md` give Claude Code, Codex, Cursor, and Gemini a shared starting point.
+- **Context-aware rule loading** — agents load the smallest matching context bundle for resume, debug, review, onboarding, git/worktree, and skill work instead of re-reading every rule file every turn.
 - **4 Pillars of Workspace Governance** — structures AI permissions, budgets, scope limits, and execution safety into a logical 4-pillar model.
 - **3 Onboarding Gateways** — channels the onboarding process into New Project, Existing Project, or Resume flows under strict security guardrails.
 - **Consolidated Workspace & Operations Model** — merges structural rules, Directory Junction rules, and local git-sync decisions into one cohesive guide.
@@ -27,6 +28,7 @@ Already have an AgentJoJoy workspace? Use the [Upgrading](#upgrading) flow inste
 - **Guided onboarding** — choose a new project or wrap an existing repo; the AI fills only the context you approve.
 - **Dual engagement modes** — switch between `execute` for terse delivery and `teach` for pair-programming explanations.
 - **Multi-agent coexistence** — coordinate Claude Code, Codex, Cursor, and Gemini without branch or attribution confusion.
+- **Cursor bridge fallback discipline** — Cursor wrapper walk-up is the default; repo-local bridge files are fallback-only after a real discovery failure and stay local-only in team repos unless explicitly approved.
 - **Technical Precedents Logging** — AI proactively logs resolved technical blockers and workarounds to a transparent markdown file.
 - **Read-only resume checks** — refreshes local branch/worktree state without fetch, pull, push, rebase, merge, or branch switching.
 - **Junction Link Model** — supports rigid runtime folders with Windows Directory Junctions while keeping AI system files isolated.
@@ -80,6 +82,10 @@ graph TD
 ### Daily Session (Resume Phase)
 
 When a session starts in a configured workspace, the AI reads `progress-tracker.md`, checks git status, reports active worktrees/branches, and asks whether to resume the current task or start a new one.
+
+### Context Loading
+
+AgentJoJoy routes each task to a small context bundle instead of asking the AI to re-read every rule file on every turn. Resume, debug, review, onboarding, git/worktree, and skill tasks each have a focused reading path; mutable state such as git status, the active tracker, and current diffs is refreshed only when relevant.
 
 ---
 

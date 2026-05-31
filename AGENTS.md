@@ -20,7 +20,9 @@ rules.
 
 ## Session Start — Run the Resume Check First
 
-Before any other work (including generating any greeting or response), read `progress-tracker.md` to classify the workspace state (and only read `AgentJoJoy/agent-context/project-overview.md` during fresh T1/T2 onboarding sessions, as project overview is already known in T3 Resume mode) and retrieve in-flight context.
+Before any other work (including generating any greeting or response), classify the workspace state and retrieve in-flight context.
+
+For non-T0 workspaces, read `progress-tracker.md` to classify the workspace state (and only read `AgentJoJoy/agent-context/project-overview.md` during fresh T1/T2 onboarding sessions, as project overview is already known in T3 Resume mode).
 
 ### Step 1 — Classify Workspace State
 
@@ -53,8 +55,8 @@ If templates are filled, run these checks before doing any new work:
 4. Report to the user:
    - Current branch + working tree state
    - Active worktrees (if any)
-   - In-progress task from [`progress-tracker.md`](progress-tracker.md)
-   - Any open questions or blockers
+   - In-progress task from the active tracker
+   - Any open questions or blockers from the active tracker
 5. Ask the user: continue an existing task, or start a new one?
 
 ### Step 3 — Git & Multi-Agent Safety Rules
@@ -70,7 +72,32 @@ If templates are filled, run these checks before doing any new work:
 
 ## Source of Truth
 
-Before making changes, read the relevant project knowledge from:
+Load the smallest context bundle that matches the current task. Do not read
+every file in this list on every turn. Reuse context already loaded in the
+same session unless the task type changes, the file may have changed, or the
+conversation was compacted.
+
+Always obey safety gates and team/project precedence once loaded. Refresh only
+the mutable state needed for the task, such as git status, the active tracker,
+or the current diff.
+
+### Context Bundles
+
+- **Resume / session start**: active tracker only (`template-dev-tracker.md`
+  in T0, otherwise `progress-tracker.md`) plus git state from the Resume Check.
+- **Before edits**: `workflow-spec.md`, `ai-workflow-rules.md`, and the
+  project/team context directly relevant to the files being edited.
+- **Debug**: matching core practice skill, `technical-precedents.md`, and the
+  smallest runnable/test context needed to reproduce or trace the failure.
+- **Review / audit**: the immediate diff/artifact, matching core practice skill,
+  and touched call paths only.
+- **Onboarding / intake**: `intake-flow.md`, `project-overview.md`,
+  `engagement-mode.md`, and `workspace-model.md`.
+- **Git / worktree operations**: `workspace-model.md`, `workflow-spec.md`, and
+  the active tracker.
+- **Skills**: `skills/README.md` plus only the specific matching `SKILL.md`.
+
+Available sources:
 
 - [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) — canonical workflow rules (SPEC-1 → SPEC-9)
 - [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) — AI permission boundaries & 4 Pillars of Workspace Governance

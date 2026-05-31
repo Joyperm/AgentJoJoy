@@ -17,8 +17,11 @@ needing the AgentJoJoy wrapper above it.
 3. Based on selection, AI picks the target rule files:
    - Claude Code -> target repo `CLAUDE.md`
    - Codex, Aider, generic agents -> target repo `AGENTS.md`
-   - Cursor -> both `CLAUDE.md` and `AGENTS.md` if both exist (Cursor
-     surfaces vary; see `AgentJoJoy/template-lab/validation/cursor-walkup-live.md`)
+   - Cursor -> rely on the validated AgentJoJoy wrapper walk-up by
+     default; do not create `.cursor/rules/agentjojoy.mdc` or other
+     repo-local bridge files unless a real discovery failure is
+     observed and the owner approves a local-only fallback. See
+     `AgentJoJoy/template-lab/validation/cursor-walkup-live.md`.
 4. AI inserts the snippet body between the marker comments below. If
    the markers already exist, the AI replaces the section between
    them - never duplicates.
