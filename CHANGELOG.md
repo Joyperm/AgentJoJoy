@@ -18,6 +18,13 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v1.4.4] — 2026-05-31 — Anti-Guessing Guardrails & Subagent Context Optimization
+
+### Added
+- **Help-First Command Discipline (Anti-Guessing)**: Added a new execution guideline inside `ai-workflow-rules.md` requiring the AI to run help flags (`--help` or `-h`) or read instruction manuals before calling new, unfamiliar, or newly-installed tools/CLIs. This check is enforced as a one-time onboarding action per tool/session to prevent redundant CLI executions, saving context window resources, and defines specific context-minimization criteria for spawning subagents.
+
+---
+
 ## [v1.4.3] — 2026-05-30 — Cognitive Scaffolding & Rules Consolidation
 
 ### Added

@@ -1,4 +1,4 @@
-# Technical Precedents
+﻿# Technical Precedents
 
 List of technical facts, validated solutions, and workarounds discovered during work in this workspace. Future AI sessions read this file to avoid repeating past mistakes.
 
@@ -9,4 +9,3 @@ List of technical facts, validated solutions, and workarounds discovered during 
 <!-- Format:
 - **[Area]**: [Validated Fact / Precedent] (Date: YYYY-MM-DD, Commit/Context: <ref>)
 -->
-
