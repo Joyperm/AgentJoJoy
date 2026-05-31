@@ -132,24 +132,16 @@ before doing any new work:
 1. Read `progress-tracker.md` (workspace root) to understand current
    in-flight state. Only read `AgentJoJoy/agent-context/progress-tracker-setup.md`
    if the user asks about setup history or recent workflow changes.
-2. If this is not T0 Template Development, run the local Worktree
-   Auto-Sync helper to refresh the managed git-state block in
-   `progress-tracker.md`:
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/worktree-auto-sync.ps1 -Action sync
-   ```
-   If the helper is absent or fails, continue with the manual
-   read-only checks below and report the failure.
-3. If `<code-or-content>/` is a git repo, run a single combined command to discover git state (no approval needed — read-only per SPEC-3.2, counts as 1 tool call):
+2. If `<code-or-content>/` is a git repo, run a single combined command to discover git state (no approval needed — read-only per SPEC-3.2, counts as 1 tool call):
    ```powershell
    git -C "<code-or-content>" status && git -C "<code-or-content>" worktree list && git -C "<code-or-content>" branch --show-current
    ```
-4. Report to the user:
+3. Report to the user:
    - Current branch + working tree state
    - Active worktrees (if any)
    - In-progress task from the active tracker (if any)
    - Any open questions or blockers from the active tracker
-5. Ask the user: continue an existing task, or start a new one?
+4. Ask the user: continue an existing task, or start a new one?
 
 ---
 

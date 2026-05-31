@@ -231,16 +231,6 @@ one task = one branch = one worktree
 
 This section is **generic** and applies to any git project with a remote. Project-specific commands (install, test, build) appear in the "Running the Stack Locally" section below.
 
-### 0. Resume Check Auto-Sync
-
-On T3 Resume Check, refresh the generated git-state block in `progress-tracker.md`:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/worktree-auto-sync.ps1 -Action sync
-```
-
-This sync is local and read-only from git's perspective. It does not fetch, pull, push, rebase, merge, switch branches, create worktrees, or remove worktrees. It only replaces the managed `AGENTJOJOY:WORKTREE-AUTO-SYNC` block so the tracker shows the current local branch/worktree picture before the owner chooses what to do next.
-
 ### 1. Create a worktree for a new task
 
 ```powershell

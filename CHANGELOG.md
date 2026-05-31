@@ -18,6 +18,16 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v1.4.7] — 2026-05-31 — Resume Check Simplification
+
+### Changed
+- **Simplified Resume Checks**: Streamlined the startup check process in `CLAUDE.md` and `AGENTS.md` to utilize only read-only CLI commands (like `git status`) instead of running file-writing scripts, resulting in faster and conflict-free onboarding resume sessions.
+
+### Removed
+- **Worktree Auto-Sync Script**: Deleted `worktree-auto-sync.ps1` and removed the auto-generated git status table from `progress-tracker.md` to eliminate human/AI edit race conditions and reduce filesystem mutations.
+
+---
+
 ## [v1.4.6] — 2026-05-31 — Context Router & Runtime Bridge Discipline
 
 ### Added

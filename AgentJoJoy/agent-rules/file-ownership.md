@@ -43,7 +43,7 @@ modify them. If a new template version requires a structural change
 to one of these, the upgrade should propose a manual migration with
 explicit per-section approval — not a file overwrite.
 
-- `progress-tracker.md` (workspace root) — your daily work tracker (except the managed `<!-- AGENTJOJOY:WORKTREE-AUTO-SYNC -->` block, which is template-owned and may be refreshed by `worktree-auto-sync.ps1`)
+- `progress-tracker.md` (workspace root) — your daily work tracker
 - `AgentJoJoy/agent-context/*` — everything except files that explicitly say "Set during intake" templates with no user content yet (see Mixed below)
 - `AgentJoJoy/agent-decisions/*.md` — your project's decision log, except the format-guide `README.md`
 - `AgentJoJoy/agent-runtime/**` — local runtime data and context files

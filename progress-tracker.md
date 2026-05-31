@@ -31,14 +31,6 @@ _(not set)_
 
 ---
 
-## Auto-Synced Git State
-
-<!-- AGENTJOJOY:WORKTREE-AUTO-SYNC BEGIN -->
-_(not synced yet — populated during T3 Resume Check)_
-<!-- AGENTJOJOY:WORKTREE-AUTO-SYNC END -->
-
----
-
 ## Active Branches
 
 | Branch | Location | Status | PR | Notes |

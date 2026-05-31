@@ -555,25 +555,16 @@ When SPEC-2, SPEC-4, SPEC-7, etc. say "update `progress-tracker.md`",
 they refer to the WORK tracker at root unless the action is
 explicitly about workspace meta.
 
-### SPEC-8.1.1 Dynamic Worktree Auto-Sync
+### SPEC-8.1.1 Git Discovery on Resume Check
 
-During T3 Resume Check, the AI should refresh the managed
-`AGENTJOJOY:WORKTREE-AUTO-SYNC` block in `progress-tracker.md` using
-the local helper in `AgentJoJoy/agent-tools/`.
+During T3 Resume Check, the AI discovers git state using read-only git CLI inspection commands such as `git status`, `git worktree list`, and `git branch --show-current`.
 
 Rules:
 
-- The sync may use only read-only git inspection commands such as
-  `git status --short --branch`, `git worktree list --porcelain`, and
-  `git branch --show-current`.
-- It must not run `git fetch`, `git pull`, `git push`, `git merge`,
-  `git rebase`, `git switch`, `git checkout`, `git worktree add`, or
-  `git worktree remove`.
-- It may replace only the managed auto-sync block. Human task notes,
-  current goals, open questions, and recent actions remain manually
-  maintained.
-- In T0 Template Development mode, do not sync the reusable blank
-  `progress-tracker.md` unless intentionally testing the helper.
+- The discovery process may use only read-only git inspection commands.
+- It must not run `git fetch`, `git pull`, `git push`, `git merge`, `git rebase`, `git switch`, `git checkout`, `git worktree add`, or `git worktree remove`.
+- Human task notes, current goals, open questions, and recent actions in `progress-tracker.md` remain manually maintained.
+- The AI must not run background scripts that mutate the tracker files during the resume check.
 
 ### SPEC-8.2 workflow-spec.md
 This file (the spec) is updated only by deliberate revision, not as

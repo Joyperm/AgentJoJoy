@@ -43,21 +43,16 @@ Use the loaded contents and the trigger states in [`AgentJoJoy/agent-rules/intak
 If templates are filled, run these checks before doing any new work:
 
 1. Read [`progress-tracker.md`](progress-tracker.md) (workspace root) to understand current in-flight state.
-2. If this is not T0 Template Development, run Worktree Auto-Sync to refresh the managed git-state block in [`progress-tracker.md`](progress-tracker.md):
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/worktree-auto-sync.ps1 -Action sync
-   ```
-   If the helper is absent or fails, continue with manual read-only discovery and report the failure.
-3. If the project contains a git repo, run a single combined command to discover git state (no approval needed — read-only, counts as 1 tool call):
+2. If the project contains a git repo, run a single combined command to discover git state (no approval needed — read-only, counts as 1 tool call):
    ```powershell
    git status && git worktree list && git branch --show-current
    ```
-4. Report to the user:
+3. Report to the user:
    - Current branch + working tree state
    - Active worktrees (if any)
    - In-progress task from the active tracker
    - Any open questions or blockers from the active tracker
-5. Ask the user: continue an existing task, or start a new one?
+4. Ask the user: continue an existing task, or start a new one?
 
 ### Step 3 — Git & Multi-Agent Safety Rules
 
