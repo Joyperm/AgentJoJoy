@@ -62,7 +62,16 @@ if (Test-Path -LiteralPath $vscodeSettingsPath) {
         }
       }
     }
-  } catch {}
+  } catch {
+    # If JSON parsing fails (e.g. due to comments), do a simple string search fallback
+    $keysToRemove = @("AgentJoJoy/", "CLAUDE.md", "AGENTS.md", "VERSION", "progress-tracker.md")
+    foreach ($key in $keysToRemove) {
+      if ($settingsContent -match "`"$([regex]::Escape($key))`"\s*:\s*true") {
+        $hasVSCodeCleanup = $true
+        break
+      }
+    }
+  }
 }
 
 if ($itemsToDelete.Count -eq 0 -and -not $hasVSCodeCleanup) {
@@ -160,7 +169,39 @@ if ($hasVSCodeCleanup -and (Test-Path -LiteralPath $vscodeSettingsPath)) {
       }
     }
   } catch {
-    Write-Warning "Could not parse or update .vscode/settings.json: $_"
+    Write-Warning "Could not parse .vscode/settings.json as standard JSON (likely due to comments). Falling back to string-based surgical removal..."
+    try {
+      $keysToRemove = @("AgentJoJoy/", "CLAUDE.md", "AGENTS.md", "VERSION", "progress-tracker.md")
+      $updatedContent = $settingsContent
+      foreach ($key in $keysToRemove) {
+        $escaped = [regex]::Escape($key)
+        # Replace line and any trailing comma/newlines
+        $updatedContent = $updatedContent -replace "(?m)^\s*`"$escaped`"\s*:\s*true,?\r?\n?", ""
+      }
+      # Clean up empty files.exclude block if it became empty
+      $updatedContent = $updatedContent -replace '(?s)"files.exclude"\s*:\s*\{\s*\}\s*,?\r?\n?', ""
+      # Fix any trailing comma before closing brace that might be left
+      $updatedContent = $updatedContent -replace ',\s*\}', "`r`n}"
+      
+      # If settings.json is now practically empty (just contains { }), delete it
+      if ($updatedContent -match '^\s*\{\s*\}\s*$') {
+        Write-Host "Settings file is now empty, deleting it..."
+        Remove-Item -Force -LiteralPath $vscodeSettingsPath
+        
+        # If .vscode folder is now empty, delete it too
+        $vscodeFolder = Split-Path -Parent $vscodeSettingsPath
+        $vscodeChildren = Get-ChildItem -LiteralPath $vscodeFolder -Force -ErrorAction SilentlyContinue
+        if (-not $vscodeChildren) {
+          Write-Host "Deleting empty .vscode folder..."
+          Remove-Item -Force -LiteralPath $vscodeFolder
+        }
+      } else {
+        Write-Host "Updating settings.json surgically..."
+        Set-Content -Path $vscodeSettingsPath -Value $updatedContent -NoNewline -Encoding UTF8
+      }
+    } catch {
+      Write-Warning "Surgical fallback removal failed: $_"
+    }
   }
 }
 

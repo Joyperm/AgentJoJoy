@@ -34,17 +34,29 @@ function Invoke-Git {
     [string[]]$GitArgs
   )
 
+  # Create a unique temp file in the system temp directory to capture stderr
+  # This prevents untracked temp files from polluting the git status output
+  $tempDir = [System.IO.Path]::GetTempPath()
+  $stderrFile = Join-Path $tempDir "git-stderr-$([guid]::NewGuid().ToString('N')).tmp"
+
   $previousErrorActionPreference = $ErrorActionPreference
   $ErrorActionPreference = "Continue"
   try {
-    $output = & git -C $RepoPath @GitArgs 2>$null
+    $output = & git -C $RepoPath @GitArgs 2>$stderrFile
     $exitCode = $LASTEXITCODE
   } finally {
     $ErrorActionPreference = $previousErrorActionPreference
   }
 
+  $errText = ""
+  if (Test-Path -LiteralPath $stderrFile) {
+    $errText = Get-Content -LiteralPath $stderrFile -Raw -ErrorAction SilentlyContinue
+    Remove-Item -Force -LiteralPath $stderrFile -ErrorAction SilentlyContinue
+  }
+
   if ($exitCode -ne 0) {
-    throw "git failed in ${RepoPath}: git -C <repo> $($GitArgs -join ' ')"
+    $cleanErr = if ($errText) { $errText.Trim() } else { "Unknown git error" }
+    throw "git failed in ${RepoPath} (exit code ${exitCode}): git -C <repo> $($GitArgs -join ' ')`nReason: ${cleanErr}"
   }
   return @($output)
 }
@@ -195,7 +207,7 @@ function Get-ShortStatusSummary {
 
   $status = Invoke-Git -RepoPath $RepoPath -GitArgs @("status", "--short", "--branch")
   $branchLine = if ($status.Count -gt 0) { $status[0] } else { "" }
-  $changes = @($status | Select-Object -Skip 1)
+  $changes = @($status | Select-Object -Skip 1) | Where-Object { $_ }
 
   [PSCustomObject]@{
     BranchLine = $branchLine

@@ -18,6 +18,14 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v1.4.5] — 2026-05-31 — Helper Script Hardening & Resume Check Reliability
+
+### Changed
+- **Hardened Helper Scripts**: Updated `worktree-auto-sync.ps1` to capture stderr using the system temp directory (preventing untracked file pollution in git status checks), fixed a PowerShell array-count bug, and improved failure details reporting. Improved `eject.ps1` to fall back to a regex-based surgical cleanup of VS Code exclusions when `.vscode/settings.json` contains JSON comments.
+- **Aligned Onboarding Guides**: Updated `workflow-guide.md` and `workflow-guide-th.md` to document the **Help-First Command Discipline (Anti-Guessing)** policy and subagent context minimization boundaries.
+
+---
+
 ## [v1.4.4] — 2026-05-31 — Anti-Guessing Guardrails & Subagent Context Optimization
 
 ### Added

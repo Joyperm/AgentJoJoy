@@ -128,6 +128,12 @@ During onboarding, you can tell the AI whether to prefer a test-first
 workflow. When enabled or appropriate, the AI should write or stub the
 failing/reproducing test before implementation or debugging.
 
+### Help-First Command Discipline (Anti-Guessing)
+
+To prevent trial-and-error commands and minimize context window bloat, the AI must check the tool's help menu (`--help`, `-h`, `man`) or read local manuals before running new, unfamiliar, or newly-installed tools for the first time in the workspace. This is a one-time onboarding action per tool/session. Subagent spawning is optimized based on archetype:
+- **Executor Subagents** (simple command runners) receive only the exact command line and minimal context.
+- **Cognitive Subagents** (troubleshooters and code generators) are pre-loaded with the tool's manuals.
+
 ### Junction Link Model
 
 For rigid runtime environments that require code to live in a fixed
