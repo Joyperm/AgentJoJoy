@@ -12,6 +12,17 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v1.4.1] — 2026-05-30 — Scope Discipline & Safety Policies
+
+### Added
+- **Strict Tool-Call Budgeting Gates**: Codified a hard ceiling of 3 tool calls for both **Resume Check** and **Review/Audit** tasks inside `CLAUDE.md` and `AGENTS.md` to prevent Thoroughness Overdrive and context window dissolution. The AI must stop and report its findings or ask for permission if the budget is insufficient.
+- **5 Core Rules of Scope Discipline**: Formally documented the 5 core rules under `## Scope Discipline` in `ai-workflow-rules.md` (Stop when evidence is sufficient, Trust the first output, No speculative hypotheses, Ask before expanding scope, and Concise reporting) to prevent speculative over-verification.
+- **Sandbox Safety Boundaries (Dev-only)**: Implemented strict local execution containment limits inside the local sandbox directory wrapped in DEV-ONLY markers to prevent unsafe system-level leaks during template tests.
+- **Debug Hypothesis Ledger directive**: Embedded a high-priority link pointing directly to the foundational `Debug Routine` in `agentjojoy-core-practices` from `ai-workflow-rules.md`. Forces AI to log a brief 2-line "Hypothesis Ledger" in the work tracker before writing speculative guess-and-check code trial edits.
+- **Multi-Agent Worktree Collision Avoidance**: Introduced a collaborative locking policy in `ai-workflow-rules.md` preventing multiple parallel agents from modifying, switching, or deleting active worktrees owned/declared by another agent, with a strict exception enforced only when receiving explicit, direct instructions from the human owner.
+
+---
+
 ## [v1.4.0] — 2026-05-28 — User-Owned Block Protection via AI-NO-OVERWRITE
 
 ### Added

@@ -10,6 +10,13 @@ subfolder** (Claude Code walks up the directory tree to find every
 
 ---
 
+## ⚠️ CRITICAL CONTEXT BUDGET & SCOPE GATES
+
+- **Resume Check Budget (Max 3 Calls)**: Running a 'resume check' must be lightweight and fast. You are strictly limited to a maximum of 3 tool calls (e.g., `git status`, `git branch --show-current`, and reading the active tracker file) to discover the project state. Report the current status and pending tasks, then stop immediately to wait for the user's explicit instructions. Do NOT run tests, lint, or search files unprompted.
+- **Review/Audit Budget (Max 3 Calls)**: When asked to 'verify' or 'review' work done by other agents, inspect ONLY the immediate changed files or diff (using `git show <commit>` or `git diff`) and report. Do NOT run redundant verification commands (lint, test, build) or perform exhaustive file searches if the previous agent's history or commit metadata already indicates passing verification.
+
+---
+
 ## Workspace Layout
 
 ```

@@ -1,4 +1,4 @@
-# AI Workflow Rules — Personal
+﻿# AI Workflow Rules — Personal
 
 How the user works with Claude / Cursor / other AI agents on this
 project. These rules sit beside team/project rules and cover how AI is
@@ -168,6 +168,13 @@ I do not develop directly in the main team checkout. Instead:
    file that leaked into the repo) are neutralized per worktree with
    `git update-index --skip-worktree`.
 
+### Multi-Agent Worktree Collision Avoidance
+
+When multiple agents are active in this workspace, we prevent parallel environment conflicts by locking worktree ownership:
+- **Check active tracker**: Before touching, updating, or running commands inside any git worktree sibling folder (`worktree-<task>`), verify the `progress-tracker.md` file to see which agent currently owns or has locked that task.
+- **No overlapping execution**: Never run state-changing commands, modify code, or delete/switch branches in a worktree folder currently owned/locked by another agent, UNLESS you receive a direct, explicit instruction from the human owner to manage or delete that specific worktree. Autonomous modifications or speculative cleanups on other agents' worktrees are strictly prohibited. 
+- **Declare ownership**: When starting work in a worktree, formally log your agent name as the active owner beside the task entry in `progress-tracker.md`.
+
 Full mechanics: see `workflow-notes.md`.
 
 ## Scoping Rules
@@ -192,29 +199,39 @@ Two failure modes to guard against during work:
 
 ### Rules
 
-**The AI must not expand scope unprompted.** Stay in the lane that
-was given (the lane is the task as restated under SPEC-2.1). Do not
-refactor adjacent code, add new error handling, introduce validation,
-or make nice-to-have improvements unless explicitly asked.
+**The AI must not expand scope unprompted.** Stay in the lane that was given (the lane is the task as restated under SPEC-2.1). Follow these **5 Core Rules of Scope Discipline**:
 
-**The AI must flag scope drift when it detects it.** Track stated goal
-vs actual execution. Surface when:
+1. **Stop when evidence is sufficient** — Stop and report as soon as you have the answer or the verification succeeds (e.g., lint passes + test green = done). Do NOT run speculative over-verification checks or multiple tools just because you are "afraid of missing something."
+2. **Trust the first output** — When a command produces the required output, use it immediately. Do NOT run duplicate tools, and do NOT write temporary files just to read them back and "confirm" the same result.
+3. **No speculative hypotheses** — Do not chase imaginary or speculative bugs. If there is no active error or direct evidence of failure in the logs, do not dig for issues or run exhaustive diagnostic suites.
+4. **Ask before expanding scope** — If you identify adjacent improvements, cleanup, or refactoring opportunities, do NOT execute them autonomously. Stop, propose them as options, and wait for explicit user approval.
+5. **Concise reporting** — Keep explanations shorter than the retrieval process. A small task requires a brief answer; a large task warrants details. Never flood the user with unnecessary context.
+
+### Tool-Call Budgeting Rules
+
+To protect the context window and prevent "thoroughness overdrive," strict hard ceilings are enforced:
+
+- **Resume Check Budget (Max 3 Calls)**: Limited strictly to a maximum of 3 tool calls (e.g., `git status`, `git branch --show-current`, and reading the active tracker file) to report the current workspace status. Stop immediately and wait for user instructions.
+- **Review/Audit Budget (Max 3 Calls)**: When reviewing or verifying work done by another agent, inspect ONLY the immediate diff or changes (e.g. `git show <commit>` or `git diff`). Do NOT run redundant verification scripts (lint, test, build) if the prior agent's history or commit metadata shows passing status.
+
+### Debugging & Troubleshooting Rules
+
+When investigating or resolving a bug, error, or crash, you must adhere strictly to the **Debug Routine** in `AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`:
+- **Write a Hypothesis Ledger**: Before making any code changes, write a brief, 2-line "Hypothesis Ledger" under the active task in your work tracker (`progress-tracker.md` or dev tracker). Specify:
+  1. *Leading Hypothesis*: What you believe is the root cause.
+  2. *Disproof Test*: What test, log, or evidence would disprove this hypothesis (and run it first).
+- **No Speculative Guess-and-Checks**: Do not run consecutive code trial-and-error attempts. Every change must be driven by a validated hypothesis.
+
+**The AI must flag scope drift when it detects it.** Track stated goal vs actual execution. Surface when:
 
 - Implementation grows beyond the original request
 - Multiple small adjacent changes accumulate into a larger task
 - Nice-to-haves start being treated as must-haves
 - The AI itself notices it is about to expand beyond the brief
 
-When drift is detected, the AI pauses and asks: "We're moving outside
-the original ask of `<X>`. Continue with the expansion, defer it, or
-stop here?"
+When drift is detected, the AI pauses and asks: "We're moving outside the original ask of `<X>`. Continue with the expansion, defer it, or stop here?"
 
-**Safety carve-out.** Emergent high-severity issues encountered while
-working in scope — security vulnerabilities, credentials exposure,
-data-loss risks, broken authentication, accidental destructive
-commands queued in scripts — must be surfaced immediately even if
-off-scope. The AI raises the finding with one short line, waits for
-user direction, and does not silently fix.
+**Safety carve-out.** Emergent high-severity issues encountered while working in scope — security vulnerabilities, credentials exposure, data-loss risks, broken authentication, accidental destructive commands queued in scripts — must be surfaced immediately even if off-scope. The AI raises the finding with one short line, waits for user direction, and does not silently fix.
 
 ### When the rule applies
 
