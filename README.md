@@ -2,6 +2,13 @@
 
 A workspace template for working with AI coding assistants (Claude Code, Codex, Cursor, Gemini) across multiple projects — both brand-new projects and existing repositories. Designed to feel like working with a **senior dev mentor** who knows when to just execute and when to teach.
 
+AgentJoJoy gives AI agents a safe operating manual, memory, and handoff system for your local projects.
+
+Use it to:
+- Resume work without losing context.
+- Let Claude, Codex, Cursor, and Gemini share one workspace safely.
+- Upgrade AI operating rules without overwriting project memory.
+
 ---
 
 ## Quick Start
