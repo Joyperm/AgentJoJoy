@@ -217,8 +217,8 @@ Ask and record:
 Default safety rule:
 
 ```text
-Detect secret files by path/name, but do not print secret values.
-If environment is unclear, assume it is unsafe and ask.
+Zero-Leak Secrets Policy: The AI must never request, input, write, or handle raw, real credentials. Only templates or placeholders are allowed; the user must manually insert raw values locally. Proactively check and append secrets files to .gitignore before ever writing them.
+Detect secret files by path/name, but do not print secret values. If environment is unclear, assume it is unsafe and ask.
 ```
 
 Write the answers to:

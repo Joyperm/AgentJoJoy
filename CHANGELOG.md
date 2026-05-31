@@ -12,6 +12,23 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v1.4.2] — 2026-05-30 — Safety & Policy Upgrades
+
+### Added
+- **Infinite Loop Circuit Breaker**: Introduced the "Rule of Two" loop prevention policy in `ai-workflow-rules.md`. If any terminal command, test execution, or tool call fails twice with a similar error or output, the AI is strictly prohibited from making a third attempt, preventing autonomous "ping-pong" loops.
+- **Direct Chat Loop Reflection**: Upon hitting the circuit breaker (2 failures), the AI must immediately halt execution and present a structured "Self-Reflection Loop Interruption" directly in the chat to the user, proposing 2-3 alternative directions.
+- **Critical Command Blacklist**: Codified a hard blacklist of destructive git and shell commands (`git clean`, raw `git reset --hard`, local/remote branch deletions, `git push --force`, and `rm -rf` targeting pre-existing folders) that AI is strictly prohibited from running autonomously, even in `execute` mode.
+- **Zero-Leak Secrets Policy**: Establishes a zero-leak credentials policy in `ai-workflow-rules.md`. The AI only creates configuration templates (e.g. `.env.example`) or placeholders, letting the user paste the actual secret. Proactively inspects and appends secrets files to `.gitignore` *before* ever writing the file to disk.
+- **Hierarchical Data Fetching**: Implemented tiered data-fetching rules in `ai-workflow-rules.md`. For files over 200 lines, the AI must use targeted tools (`grep_search` or line-range views) first rather than reading the entire file. A full-file read on large files is allowed only after a brief 1-line explanation to the user in the chat.
+
+### Changed
+- **Optimized Startup File Reads**: Clarified in `CLAUDE.md` and `AGENTS.md` that `AgentJoJoy/agent-context/project-overview.md` is only read during intake/fresh onboarding sessions, resolving a silent contradiction with the 3-tool-call limit.
+- **Combined Git State Discovery**: Merged separate git discovery commands (`git status`, `git worktree list`, `git branch --show-current`) inside `CLAUDE.md` and `AGENTS.md` into a single combined shell line, saving tool calls during session startups.
+- **Onboarding Secrets Alignment**: Aligned the default secrets protection rule inside `intake-flow.md` with the new **Zero-Leak Secrets Policy** and gitignore check.
+- **Blacklist Helper Exemptions**: Added an explicit exception to the `rm -rf` blacklist in `ai-workflow-rules.md` for official AgentJoJoy helper scripts (`eject.ps1`, `release.ps1`) running standard intended clean/ejection parameters.
+
+---
+
 ## [v1.4.1] — 2026-05-30 — Scope Discipline & Safety Policies
 
 ### Added

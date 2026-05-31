@@ -35,14 +35,17 @@ Git (local state):
 - `git commit` (any form, including `--amend`)
 - `git checkout` / `git switch` to a different branch
 - `git merge`, `git rebase`, `git cherry-pick`
-- `git reset`, `git revert`
-- `git branch -d` / `-D` (delete)
+- `git reset`, `git revert` (and specifically **CRITICAL BLACKLIST**: raw `git reset --hard` is strictly forbidden unless explicitly commanded by the user for a specific commit)
+- `git branch -d` / `-D` (delete local branch - **CRITICAL BLACKLIST**)
+- `git clean` (any form, including `-f`, `-fd`, `-fdx` - **CRITICAL BLACKLIST**)
 - `git stash pop` / `apply` / `drop` (anything that moves state)
-- `git worktree add` / `remove`
+- `git worktree add` / `remove` (including other agents' worktrees)
 - `git update-index --skip-worktree` and similar index manipulation
 
 Git (remote):
 - `git push` to any branch (including new branches)
+- `git push --force` or `git push -f` (**CRITICAL BLACKLIST**)
+- `git push origin --delete <branch>` (remote branch deletion - **CRITICAL BLACKLIST**)
 - `git pull` (fetch is fine; merging into local is not)
 - Anything talking to a remote that writes (push, push --force, etc.)
 
@@ -55,6 +58,7 @@ GitHub / PR:
 Filesystem (destructive):
 - Deleting files or folders the AI did not just create in this session
 - Overwriting team-owned files (see `Protected Files / Folders` below)
+- Direct broad deletion commands like `rm -rf` or PowerShell `Remove-Item -Recurse` targeting existing directories not created by the AI in the current session (**CRITICAL BLACKLIST**, with an explicit exemption only for official local helper tools such as `AgentJoJoy/agent-tools/eject.ps1` or `AgentJoJoy/template-lab/release.ps1` running standard intended clean/ejection parameters)
 
 Package and build:
 - Installing or upgrading dependencies (`npm install <pkg>`,
@@ -177,6 +181,14 @@ When multiple agents are active in this workspace, we prevent parallel environme
 
 Full mechanics: see `workflow-notes.md`.
 
+## Secrets & Credential Protection
+
+To protect developer API keys, private passwords, and security tokens from leaking into external model logs or public git trees, the AI must adhere to the **Zero-Leak Secrets Policy**:
+
+1. **Zero-Leak Policy**: The AI must never request, input, write, or handle raw, real credentials (API keys, passwords, private tokens, AWS credentials, etc.) under any circumstances.
+2. **Template-Only Setup**: If configuration keys are needed (e.g. `.env` values), the AI must only generate template files (such as `.env.example`) or populate local configurations with clearly marked placeholder values (e.g., `DATABASE_URL=your_database_url_here`, `API_KEY=your_key_here`). Prompt the user to manually insert the actual values locally.
+3. **Proactive `.gitignore` Shielding**: Before creating or saving any configuration or credentials file, the AI must verify that the file pattern is explicitly covered in `.gitignore`. If it is missing from `.gitignore`, the AI must append it to `.gitignore` *before* ever writing the file to disk.
+
 ## Scoping Rules
 
 - One feature unit (or one bug) per branch / per worktree.
@@ -214,6 +226,14 @@ To protect the context window and prevent "thoroughness overdrive," strict hard 
 - **Resume Check Budget (Max 3 Calls)**: Limited strictly to a maximum of 3 tool calls (e.g., `git status`, `git branch --show-current`, and reading the active tracker file) to report the current workspace status. Stop immediately and wait for user instructions.
 - **Review/Audit Budget (Max 3 Calls)**: When reviewing or verifying work done by another agent, inspect ONLY the immediate diff or changes (e.g. `git show <commit>` or `git diff`). Do NOT run redundant verification scripts (lint, test, build) if the prior agent's history or commit metadata shows passing status.
 
+### Hierarchical Data Fetching Rules
+
+To protect the context window from swelling with unnecessary code and to reduce latency, the AI must use a tiered approach to reading files and directories:
+
+1. **200-Line Ceiling**: For any file exceeding 200 lines, the AI must not read the entire file on its initial access. It must first use targeted tools (e.g. `grep_search` to find relevant strings, or reading imports/headers) to pinpoint the exact section needed.
+2. **Justified Full Read**: If the targeted search fails or a comprehensive understanding of the whole file is genuinely required, the AI may perform a full read. However, it must write a brief, 1-line explanation to the user in the chat *before* executing the tool, explaining why the full file read is necessary.
+3. **Scoped Directory Scans**: Directory listing and searches must be targeted to the specific relevant subdirectory first. Avoid running broad recursive searches across the entire project root unless targeted options have been exhausted.
+
 ### Debugging & Troubleshooting Rules
 
 When investigating or resolving a bug, error, or crash, you must adhere strictly to the **Debug Routine** in `AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`:
@@ -221,6 +241,17 @@ When investigating or resolving a bug, error, or crash, you must adhere strictly
   1. *Leading Hypothesis*: What you believe is the root cause.
   2. *Disproof Test*: What test, log, or evidence would disprove this hypothesis (and run it first).
 - **No Speculative Guess-and-Checks**: Do not run consecutive code trial-and-error attempts. Every change must be driven by a validated hypothesis.
+
+## Infinite Loop & Ping-Pong Prevention
+
+To prevent autonomous AI agents from getting stuck in iterative "ping-pong" loops—such as running the same failing command, repeating unsuccessful code edits, or re-trying failed tool calls with minor, non-strategic changes—the following safety circuit breakers are enforced:
+
+1. **Rule of Two**: If a terminal command, test execution, or tool call fails twice with a similar error or output, the AI is **strictly prohibited from making a third attempt**.
+2. **Direct Chat Reflection**: Upon hitting the circuit breaker (2 failures), the AI must immediately halt execution and present a **Self-Reflection Loop Interruption** directly in the chat to the user. The message must contain:
+   - **Loop Signature**: The specific command or tool call that failed twice.
+   - **Self-Reflection**: A brief, analytical explanation of why the current approach failed and why the AI got stuck.
+   - **Proposed Alternatives**: 2 or 3 distinct new options/directions for the user to select from to proceed.
+3. **No Silent Tracker Logging**: The AI must not write these transient loop failures to `progress-tracker.md`. All loop reflections and alternative selections must occur directly in the chat for human-in-the-loop collaboration.
 
 **The AI must flag scope drift when it detects it.** Track stated goal vs actual execution. Surface when:
 

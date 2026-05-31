@@ -45,7 +45,7 @@ on whether this is a new project (Path 1) or an existing one (Path 2).
 ## Session Start Protocol
 
 When you start a new Claude session in this workspace, **before any
-other work (including generating any greeting or response)**, you MUST read `AgentJoJoy/agent-context/project-overview.md` and `progress-tracker.md` to classify the workspace state.
+other work (including generating any greeting or response)**, you MUST read `progress-tracker.md` to classify the workspace state (and only read `AgentJoJoy/agent-context/project-overview.md` during fresh T1/T2 onboarding sessions, as project overview is already known in T3 Resume mode).
 
 ### Step 1 — Check intake state
 
@@ -134,12 +134,9 @@ before doing any new work:
    ```
    If the helper is absent or fails, continue with the manual
    read-only checks below and report the failure.
-3. If `<code-or-content>/` is a git repo, run (no approval needed —
-   read-only per SPEC-3.2):
+3. If `<code-or-content>/` is a git repo, run a single combined command to discover git state (no approval needed — read-only per SPEC-3.2, counts as 1 tool call):
    ```powershell
-   git -C "<code-or-content>" status
-   git -C "<code-or-content>" worktree list
-   git -C "<code-or-content>" branch --show-current
+   git -C "<code-or-content>" status && git -C "<code-or-content>" worktree list && git -C "<code-or-content>" branch --show-current
    ```
 4. Report to the user:
    - Current branch + working tree state

@@ -20,7 +20,7 @@ rules.
 
 ## Session Start — Run the Resume Check First
 
-Before any other work (including generating any greeting or response), read `AgentJoJoy/agent-context/project-overview.md` and `progress-tracker.md` to classify the workspace state and retrieve in-flight context.
+Before any other work (including generating any greeting or response), read `progress-tracker.md` to classify the workspace state (and only read `AgentJoJoy/agent-context/project-overview.md` during fresh T1/T2 onboarding sessions, as project overview is already known in T3 Resume mode) and retrieve in-flight context.
 
 ### Step 1 — Classify Workspace State
 
@@ -46,11 +46,9 @@ If templates are filled, run these checks before doing any new work:
    powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/worktree-auto-sync.ps1 -Action sync
    ```
    If the helper is absent or fails, continue with manual read-only discovery and report the failure.
-3. If the project contains a git repo, run read-only discovery (no approval needed):
+3. If the project contains a git repo, run a single combined command to discover git state (no approval needed — read-only, counts as 1 tool call):
    ```powershell
-   git status
-   git worktree list
-   git branch --show-current
+   git status && git worktree list && git branch --show-current
    ```
 4. Report to the user:
    - Current branch + working tree state
