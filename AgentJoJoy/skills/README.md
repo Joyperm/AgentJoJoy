@@ -1,48 +1,46 @@
-﻿# Skill Layers
+# Skill Layers & Priority Guidelines
 
-AgentJoJoy treats skills as two layers. The layer determines what a
-skill is allowed to influence and which source of truth wins when
-skills overlap.
+AgentJoJoy treats skills as two logical layers. The layer determines what a skill is allowed to influence, how it is discovered, and which source of truth wins when skills or rules overlap.
+
+## Table of Skill Layers & Priority
+
+| Skill Area / Policy | Focus & Semantic Purpose | Key Sections |
+| :--- | :--- | :--- |
+| **[Skill Taxonomy](#layer-1---personal-agent-skills)** | The two-layer skill architecture: Personal Agent Skills (portable) vs Project Skills (workspace-specific). | `#Layer-1-Personal`, `#Layer-2-Project` |
+| **[Precedence & Conflict Resolution](#when-both-layers-match)** | Strict hierarchy of authority when rules, safety gates, or skill instructions conflict. | `#Priority-of-Precedence`, `#Conflict-Resolution` |
+| **[Skill Sandboxing Policy](#skill-sandboxing-and-permission-boundaries)** | Strict safety containment rules prohibiting custom skills from modifying outer wrappers or secrets. | `#Skill-Sandboxing`, `#Wrapper-Protection` |
+| **[Discovery & Trigger Heuristics](#skill-discovery-heuristics)** | How AI discovers skills passively or via directive cues, and keyword-based triggering mappings. | `#Skill-Discovery`, `#Trigger-Boundaries` |
 
 ---
 
 ## Layer 1 - Personal Agent Skills
 
-Personal Agent Skills are AgentJoJoy-owned practices that should travel across
-projects and agents.
+Personal Agent Skills are AgentJoJoy-owned practices that should travel across projects and agents.
 
 Examples in this repo:
-
 - `agentjojoy-core-practices`
 - `grill-me`
 - `pattern-detection`
 
 Use them for:
-
 - Debugging discipline
 - Review / sanity-checking discipline
 - Post-mortems and stakeholder communication
 - Brainstorming, planning, pressure-testing, and shared understanding
 
 Rules:
-
 - They shape how the AI thinks and collaborates.
 - They are portable across projects.
-- They must not override team/project repo rules for code, docs,
-  architecture, review, branch, or release decisions.
-- They must still obey AgentJoJoy safety gates for approvals, secrets,
-  destructive commands, remote writes, force operations, production
-  access, and personal context boundaries.
+- They must not override team/project repo rules for code, docs, architecture, review, branch, or release decisions.
+- They must still obey AgentJoJoy safety gates for approvals, secrets, destructive commands, remote writes, force operations, production access, and personal context boundaries.
 
 ---
 
 ## Layer 2 - Project Skills
 
-Project Skills are workspace-specific routines derived from one project
-or team workflow.
+Project Skills are workspace-specific routines derived from one project or team workflow.
 
 Possible examples:
-
 - "Run this repo's full verification suite"
 - "Prepare this project's release notes"
 - "Query this project's safe local database"
@@ -50,23 +48,17 @@ Possible examples:
 - "Generate documents in this project's house style"
 
 Use them for:
-
 - Repeated local workflows
 - Project-specific commands
 - Project-specific domain rules
 - Project-specific review, release, or documentation procedures
 
 Rules:
-
 - They are scoped to one workspace/project.
-- They should be created only after intake or after a repeated workflow
-  is clear.
-- For Path 2 existing projects, team/project repo rules remain
-  authoritative for project content and conventions.
-- They belong in `AgentJoJoy/skills/` unless the team explicitly wants
-  the skill inside the team repo.
-- They should summarize procedures and references, not copy secrets or
-  sensitive team content unnecessarily.
+- They should be created only after intake or after a repeated workflow is clear.
+- For Path 2 existing projects, team/project repo rules remain authoritative for project content and conventions.
+- They belong in `AgentJoJoy/skills/` unless the team explicitly wants the skill inside the team repo.
+- They should summarize procedures and references, not copy secrets or sensitive team content unnecessarily.
 
 ---
 
@@ -82,39 +74,64 @@ AgentJoJoy gates     = approvals and safety on the owner's machine
 ```
 
 Examples:
+- A bug report should use `agentjojoy-core-practices` for debugging discipline, then any project skill for this repo's exact test commands.
+- A vague feature idea should use `grill-me` for the interview method, then any project skill for domain terms, release constraints, or team review rules.
+- A release task should use the project release skill if present, while still respecting AgentJoJoy approval gates for commits, pushes, and remote writes.
 
-- A bug report should use `agentjojoy-core-practices` for debugging discipline,
-  then any project skill for this repo's exact test commands.
-- A vague feature idea should use `grill-me` for the interview method,
-  then any project skill for domain terms, release constraints, or team
-  review rules.
-- A release task should use the project release skill if present, while
-  still respecting AgentJoJoy approval gates for commits, pushes, and
-  remote writes.
+### Priority of Precedence
 
-If two skills give conflicting instructions, apply this order:
+> [!IMPORTANT]
+> **RULE HIERARCHY OF AUTHORITY**
+>
+> If two skills, rules, or instructions give conflicting guidance during a session, the AI must strictly apply the following 5-step order of precedence:
+> 
+> 1. **Team/Project Repo Rules**: Dictates code structure, style, architecture, and repo-level conventions (e.g. repo `CLAUDE.md`, `.cursor/rules/*`).
+> 2. **AgentJoJoy Safety Gates**: Dictates approvals, safety checks, destructive blacklists, secrets protection, and machine operations (e.g. `ai-workflow-rules.md`).
+> 3. **Project Skills**: Dictates local runtime stack commands, safe database access parameters, and repo-specific custom workflows.
+> 4. **Personal Agent Skills**: Dictates cognitive debugging loops, scrutinize reviews, post-mortem structures, and communication styles.
+> 5. **Model Defaults**: Standard reasoning defaults when no overriding wrapper rules exist.
+>
+> When the boundary is unclear or a conflict is undecidable, **stop execution immediately** and ask the human owner for explicit clarification.
 
-1. Team/project repo rules for project content and conventions.
-2. AgentJoJoy safety gates for actions on the owner's machine.
-3. Project Skills for local workflow details.
-4. Personal Agent Skills for thinking and collaboration style.
-5. Model defaults.
+---
 
-When the boundary is unclear, stop and ask the owner.
+## Skill Sandboxing and Permission Boundaries
+
+> [!WARNING]
+> **SKILL ISOLATION & WRAPPER SAFETY**
+>
+> To protect the integrity of the personal operating layer, all skills (including Project Skills, dev-only skills, or custom skills drafted by AI) must operate strictly within their specialized functional boundaries.
+> 
+> - A skill is **never permitted** to autonomously modify personal credentials, read or write outer wrapper configurations (`CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`), or alter wrapper system rules inside `AgentJoJoy/` that are unrelated to its functional scope.
+> - A skill must **strictly respect AI-NO-OVERWRITE blocks** at all times.
+> - Any modification of wrapper rules or credentials by a skill requires **explicit, direct, and written permission** from the human owner in the chat.
+
+---
+
+## Skill Discovery Heuristics
+
+To ensure high portability and compatibility across multiple target runtimes, AgentJoJoy utilizes a dual-model skill discovery system:
+
+### 1. Active Discovery (Auto-Scan Runtimes)
+- Tools with native workspace skill discovery (such as **Claude Code**) automatically scan the filesystem for directories containing a `SKILL.md` file. 
+- These runtimes automatically read, index, and surface these skills in the chat interface (e.g. via `/` commands) without user intervention.
+
+### 2. Passive Discovery (Directive Trigger Runtimes)
+- Tools without native filesystem auto-scanning (such as **Cursor** or **Codex**) cannot discover skills automatically. 
+- To close this gap, AgentJoJoy wires **explicit directive references and trigger keywords** into the root entry points `CLAUDE.md` and `AGENTS.md`. 
+- When a user's prompt matches a directive keyword (e.g. *debug*, *review*, *grill*), the AI is instructed by the entry point to actively locate and read the corresponding `SKILL.md` file, guaranteeing identical skill execution across all environments.
 
 ---
 
 ## Trigger Boundaries
 
-Session start and onboarding protocols happen before normal skill
-selection:
-
+Session start and onboarding protocols happen before normal skill selection:
 - Template Development mode
 - Intake trigger states T0-T3
 - Resume Check Protocol
 - Explicit owner approval gates
 
-After those protocols are satisfied, use these boundaries:
+After those protocols are satisfied, use these trigger keyword mappings:
 
 | Situation | Prefer |
 |-----------|--------|

@@ -79,7 +79,7 @@ Follow `AgentJoJoy/agent-rules/intake-flow.md` as canonical. In short:
    updates.
 4. Fill applicable templates: `AgentJoJoy/agent-context/project-overview.md`,
    `AgentJoJoy/agent-context/architecture.md`, `AgentJoJoy/agent-context/standards.md`, `AgentJoJoy/agent-context/ui-context.md`,
-   `AgentJoJoy/agent-context/domain-language.md`, `AgentJoJoy/agent-rules/workflow-notes.md`, `progress-tracker.md` (root level),
+    `AgentJoJoy/agent-context/domain-language.md`, `AgentJoJoy/agent-rules/workspace-model.md`, `progress-tracker.md` (root level),
    and `AgentJoJoy/agent-context/progress-tracker-setup.md`.
 5. Record the first milestone, first slice, verification signal,
    not-now items, and open questions.
@@ -107,16 +107,16 @@ Follow `AgentJoJoy/agent-rules/intake-flow.md` as canonical. In short:
      context; the existing repo and task worktrees remain team-owned.
    - Explain the sync mental model in plain language:
      `fetch → inspect → choose rebase/merge → verify → push`.
-   - Show the small ASCII graph in `AgentJoJoy/agent-rules/workflow-notes.md`
-     → "Sync with new main" so the owner can see what changed.
-   - Define the three terms the owner is likely to see:
-     `origin/main` = latest team main on remote, task branch =
-     the owner's work, worktree = folder checked out to one task branch.
-   - Give the default rule of thumb: branch not pushed yet → rebase
-     is usually clean; branch already pushed or in PR → merge is
-     usually safer; rebase after push requires explicit discussion
-     because it leads to `--force-with-lease`.
-   - Point to `AgentJoJoy/agent-rules/workflow-notes.md` → "Sync with new main"
+    - Show the small ASCII graph in `AgentJoJoy/agent-rules/workspace-model.md`
+      → "Sync with new main" so the owner can see what changed.
+    - Define the three terms the owner is likely to see:
+      `origin/main` = latest team main on remote, task branch =
+      the owner's work, worktree = folder checked out to one task branch.
+    - Give the default rule of thumb: branch not pushed yet → rebase
+      is usually clean; branch already pushed or in PR → merge is
+      usually safer; rebase after push requires explicit discussion
+      because it leads to `--force-with-lease`.
+    - Point to `AgentJoJoy/agent-rules/workspace-model.md` → "Sync with new main"
      for the reusable recipe.
 ### Step 3 — Resume mode (Resume Check Protocol)
 
@@ -182,8 +182,8 @@ These are set during intake and stored here. Update if they change.
    The AI may suggest commands and explain effects, but must wait for
    the user to say go before executing anything that changes git
    state or talks to a remote. Full list in
-   [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md)
-   → "AI Permission Boundaries".
+    [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md)
+    → "Pillar I: Permission Boundaries & Core Safety Gates".
 
 2. **Strategic choices require explicit selection, every time.** Even
    if a command is on the `settings.local.json` allow list (execution
@@ -215,8 +215,8 @@ These are set during intake and stored here. Update if they change.
 6. **Worktree-first for active tasks.** Don't switch branches in the
    main checkout while a PR is awaiting review. Create a worktree
    as a sibling instead. See
-   [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow-notes.md)
-   → "Worktree Workflow".
+    [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md)
+    → "Worktree Workflow".
 
 7. **One-time empty-repo bootstrap exception.** If a remote is empty
    and has no default branch/commits, the owner may explicitly choose
@@ -391,10 +391,9 @@ walks up the tree to find it).
 | File | Purpose |
 |------|---------|
 | [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) | **Canonical workflow rules** — SPEC-1 through SPEC-9 |
-| [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) | AI permission boundaries (execution + strategic choice gates) |
+| [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) | AI permission boundaries and the 4 Pillars of Workspace Governance |
 | [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) | Detailed Path 1 / Path 2 onboarding flow and completion checklist. |
-| [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow-notes.md) | Operational notes (paths, gotchas, worktree workflow) |
-| [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) | Wrapper/team repo/worktree ownership model and leak-prevention rules. |
+| [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) | Wrapper ownership model, operational notes, paths, gotchas, and worktree workflow. |
 | [`AgentJoJoy/agent-context/standards.md`](AgentJoJoy/agent-context/standards.md) | Project standards quick reference |
 | [`AgentJoJoy/agent-context/architecture.md`](AgentJoJoy/agent-context/architecture.md) | Project stack, boundaries, invariants (optional — coding projects) |
 | [`AgentJoJoy/agent-context/project-overview.md`](AgentJoJoy/agent-context/project-overview.md) | What this project is, the user's role |

@@ -1,35 +1,38 @@
 ﻿# AI Workflow Rules — Personal
 
-How the user works with Claude / Cursor / other AI agents on this
-project. These rules sit beside team/project rules and cover how AI is
-allowed to act on the owner's machine.
+This document establishes the foundational workspace governance for AI assistants. To optimize execution reliability and prevent attention decay, these rules are structured into the **4 Pillars of Workspace Governance**.
+
+## Table of Governance Pillars
+
+| Pillar | Focus & Semantic Purpose | Key Sections |
+| :--- | :--- | :--- |
+| **[Pillar I: Permission Boundaries & Safety](#pillar-i-permission-boundaries--core-safety-gates)** | Core boundaries, security constraints, and protection of user content. | `#Ask-Before-Execute`, `#Critical-Blacklists`, `#AI-NO-OVERWRITE`, `#Secrets-Protection` |
+| **[Pillar II: Session Execution & Scoping](#pillar-ii-session-execution--scope-discipline)** | Execution budgeting, pacing, anti-looping rules, and token saving. | `#Rule-of-Two`, `#Commit-Milestones`, `#5-Rules-of-Scope`, `#Hierarchical-Fetching` |
+| **[Pillar III: Environmental Isolation](#pillar-iii-environmental-isolation--worktree-based)** | Worktree structures and multi-agent coordination locks. | `#Worktree-Isolation`, `#Multi-Agent-Locks` |
+| **[Pillar IV: Development Standards](#pillar-iv-development-standards--best-practices)** | Quality metrics, error troubleshooting, and anti-patterns. | `#Debug-Routine-Reference`, `#Protected-Paths`, `#Anti-Patterns` |
+
+---
 
 ## Approach
 
-Spec-first within the project's existing structure. The project's
-team rules (typically in `CLAUDE.md` at repo root and `.cursor/rules/`)
-define what is allowed and how code/docs should look.
+Spec-first within the project's existing structure. The project's team rules (typically in `CLAUDE.md` at repo root and `.cursor/rules/`) define what is allowed and how code/docs should look.
 
 When rules appear to conflict:
 
-- Team/project repo rules win for repo content and conventions:
-  code standards, architecture, review requirements, documentation
-  policy, branch policy, and release process.
-- AgentJoJoy safety gates win for actions taken by AI on the owner's
-  machine: approvals, destructive commands, remote writes, secrets,
-  production access, force operations, and personal context boundaries.
+- Team/project repo rules win for repo content and conventions: code standards, architecture, review requirements, documentation policy, branch policy, and release process.
+- AgentJoJoy safety gates win for actions taken by AI on the owner's machine: approvals, destructive commands, remote writes, secrets, production access, force operations, and personal context boundaries.
 
 Follow the stricter rule and ask the owner when the boundary is unclear.
 
-## AI Permission Boundaries — Ask Before You Execute
+---
 
-The AI may **suggest** any operation, but must **never execute** state-
-or remote-changing commands without my explicit, per-action approval.
-A previous approval does not carry over to a new operation, even if
-similar. Each time, ask first, show the exact command, then wait for
-me to say go.
+## Pillar I: Permission Boundaries & Core Safety Gates
 
-### Requires my approval before execution
+### AI Permission Boundaries — Ask Before You Execute
+
+The AI may **suggest** any operation, but must **never execute** state- or remote-changing commands without my explicit, per-action approval. A previous approval does not carry over to a new operation, even if similar. Each time, ask first, show the exact command, then wait for me to say go.
+
+#### Requires my approval before execution
 
 Git (local state):
 - `git commit` (any form, including `--amend`)
@@ -52,8 +55,7 @@ Git (remote):
 GitHub / PR:
 - `gh pr create`, `gh pr merge`, `gh pr close`, `gh pr ready`
 - `gh issue create`, `gh issue close`
-- Any operation that posts a comment, opens a PR, or moves state on a
-  remote service
+- Any operation that posts a comment, opens a PR, or moves state on a remote service
 
 Filesystem (destructive):
 - Deleting files or folders the AI did not just create in this session
@@ -61,67 +63,42 @@ Filesystem (destructive):
 - Direct broad deletion commands like `rm -rf` or PowerShell `Remove-Item -Recurse` targeting existing directories not created by the AI in the current session (**CRITICAL BLACKLIST**, with an explicit exemption only for official local helper tools such as `AgentJoJoy/agent-tools/eject.ps1` or `AgentJoJoy/template-lab/release.ps1` running standard intended clean/ejection parameters)
 
 Package and build:
-- Installing or upgrading dependencies (`npm install <pkg>`,
-  `npm upgrade`, `pip install`, `poetry add`, etc.)
-- Modifying lockfiles (`package-lock.json`, `poetry.lock`,
-  `Cargo.lock`, etc.)
+- Installing or upgrading dependencies (`npm install <pkg>`, `npm upgrade`, `pip install`, `poetry add`, etc.)
+- Modifying lockfiles (`package-lock.json`, `poetry.lock`, `Cargo.lock`, etc.)
 - Running migrations or DB schema changes
 
 Runtime / environment actions:
-- Starting development servers, workers, schedulers, emulators,
-  containers, browsers, desktop/mobile apps, terminals, or other
-  long-running runtimes
+- Starting development servers, workers, schedulers, emulators, containers, browsers, desktop/mobile apps, terminals, or other long-running runtimes
 - Running scripts with unclear side effects
-- Running e2e suites that open browsers, call external services, or
-  use non-local environments
-- Deploying, applying infrastructure, seeding data, sending
-  notifications, charging money, placing orders, trading, controlling
-  hardware/devices, or touching production-like accounts/sessions
-- Compiling/running/attaching to runtime-hosted projects when the
-  project docs do not explicitly mark the action as a safe local
-  verification command
+- Running e2e suites that open browsers, call external services, or use non-local environments
+- Deploying, applying infrastructure, seeding data, sending notifications, charging money, placing orders, trading, controlling hardware/devices, or touching production-like accounts/sessions
+- Compiling/running/attaching to runtime-hosted projects when the project docs do not explicitly mark the action as a safe local verification command
 
-### Safe to do without asking
+#### Safe to do without asking
 
 - Read any file in the working tree
-- `git status`, `git log`, `git diff`, `git branch --list`,
-  `git worktree list`, `git ls-files`, `git check-ignore`
+- `git status`, `git log`, `git diff`, `git branch --list`, `git worktree list`, `git ls-files`, `git check-ignore`
 - `git fetch` (read-only — updates remote-tracking refs only)
-- Run documented local tests, type checks, and builds when they are
-  clearly local/read-only for this project
-- Read-only DB queries against a non-prod DB, if I've previously
-  authorized DB access
+- Run documented local tests, type checks, and builds when they are clearly local/read-only for this project
+- Read-only DB queries against a non-prod DB, if I've previously authorized DB access
 - Inspect process / network state (`netstat`, `tasklist`, etc.)
 
-### Command fallback after environment/runtime failure
+#### Command fallback after environment/runtime failure
 
-If a command fails because of the local shell, executable wrapper, or
-runtime environment, do not silently switch to a different invocation.
-Report the failure, propose the fallback command, and wait for the owner's
-approval before running it.
+If a command fails because of the local shell, executable wrapper, or runtime environment, do not silently switch to a different invocation. Report the failure, propose the fallback command, and wait for the owner's approval before running it.
 
 Examples:
+- PowerShell blocks `npm.ps1`; propose `npm.cmd run <script>` before retrying.
+- `python` is not on PATH; propose `py`, `python3`, or the project venv path before retrying.
+- A command works only in another shell; propose the exact shell and command before retrying.
 
-- PowerShell blocks `npm.ps1`; propose `npm.cmd run <script>` before
-  retrying.
-- `python` is not on PATH; propose `py`, `python3`, or the project
-  venv path before retrying.
-- A command works only in another shell; propose the exact shell and
-  command before retrying.
+This applies even when the fallback is intended to be equivalent and read-only. The original command failed; the fallback is a new command choice.
 
-This applies even when the fallback is intended to be equivalent and
-read-only. The original command failed; the fallback is a new command
-choice.
+#### Strategic choices require explicit selection (SPEC-3.5)
 
-### Strategic choices require explicit selection (SPEC-3.5)
-
-Separate from execution permission. **Even when a command is
-allowlisted** in `settings.local.json` (so the AI may run it without
-prompting), the **choice of which command to run** among multiple
-valid options is reserved for me.
+Separate from execution permission. **Even when a command is allowlisted** in `settings.local.json` (so the AI may run it without prompting), the **choice of which command to run** among multiple valid options is reserved for me.
 
 Examples — the AI must ask every time, regardless of session history:
-
 - Sync strategy: rebase vs merge (vs reset, vs cherry-pick)
 - Uncommitted state: commit vs stash vs discard
 - Conflict resolution: which side wins, or how to combine
@@ -133,210 +110,20 @@ Examples — the AI must ask every time, regardless of session history:
 For each, the AI must:
 1. List the options
 2. Briefly explain trade-offs
-3. Wait for me to name the choice (a generic "go" / "sure" (Thai: "ได้เลย") is
-   insufficient — I must pick by name)
+3. Wait for me to name the choice (a generic "go" / "sure" (Thai: "ได้เลย") is insufficient — I must pick by name)
 4. Only then propose the resulting command (under SPEC-3.1)
 
 Full definition: [workflow-spec.md](workflow-spec.md) → SPEC-3.5.
 
-Force push is never the default path. Raw `git push --force` is
-forbidden. If force is explicitly chosen after alternatives are
-explained, use `--force-with-lease` only and never on
-protected/default/shared branches without another explicit exception.
+Force push is never the default path. Raw `git push --force` is forbidden. If force is explicitly chosen after alternatives are explained, use `--force-with-lease` only and never on protected/default/shared branches without another explicit exception.
 
-This rule can be relaxed later by writing a new rule that loosens it
-for a specific class of choices. Until then, default = ask every
-time.
+This rule can be relaxed later by writing a new rule that loosens it for a specific class of choices. Until then, default = ask every time.
 
-### Why this rule exists
+#### Why this rule exists
 
-I want to keep a clear mental model of git and remote state. AI
-suggestions are valuable; AI execution of irreversible operations is
-not, until I've verified what's about to happen. This rule applies in
-every session — re-confirm each time. If I've granted blanket
-permission for a specific scope of work, that scope ends when the
-current task completes.
+I want to keep a clear mental model of git and remote state. AI suggestions are valuable; AI execution of irreversible operations is not, until I've verified what's about to happen. This rule applies in every session — re-confirm each time. If I've granted blanket permission for a specific scope of work, that scope ends when the current task completes.
 
-## Environment Isolation — Worktree-Based
-
-I do not develop directly in the main team checkout. Instead:
-
-1. Main checkout (`<workspace-root>/<repo-folder>/`) is kept on the
-   branch I have under review. Idle, untouched.
-2. New work happens in a git worktree under
-   `<workspace-root>/worktree-<task>/` with its own branch off
-   `origin/main` (or whichever base branch the team is using).
-3. Each worktree gets its own dependencies (`node_modules`, `venv`,
-   etc.) and environment file copy (`.env`).
-4. Any tracked-but-should-be-ignored files (e.g. a local settings
-   file that leaked into the repo) are neutralized per worktree with
-   `git update-index --skip-worktree`.
-
-### Multi-Agent Worktree Collision Avoidance
-
-When multiple agents are active in this workspace, we prevent parallel environment conflicts by locking worktree ownership:
-- **Check active tracker**: Before touching, updating, or running commands inside any git worktree sibling folder (`worktree-<task>`), verify the `progress-tracker.md` file to see which agent currently owns or has locked that task.
-- **No overlapping execution**: Never run state-changing commands, modify code, or delete/switch branches in a worktree folder currently owned/locked by another agent, UNLESS you receive a direct, explicit instruction from the human owner to manage or delete that specific worktree. Autonomous modifications or speculative cleanups on other agents' worktrees are strictly prohibited. 
-- **Declare ownership**: When starting work in a worktree, formally log your agent name as the active owner beside the task entry in `progress-tracker.md`.
-
-Full mechanics: see `workflow-notes.md`.
-
-## Secrets & Credential Protection
-
-To protect developer API keys, private passwords, and security tokens from leaking into external model logs or public git trees, the AI must adhere to the **Zero-Leak Secrets Policy**:
-
-1. **Zero-Leak Policy**: The AI must never request, input, write, or handle raw, real credentials (API keys, passwords, private tokens, AWS credentials, etc.) under any circumstances.
-2. **Template-Only Setup**: If configuration keys are needed (e.g. `.env` values), the AI must only generate template files (such as `.env.example`) or populate local configurations with clearly marked placeholder values (e.g., `DATABASE_URL=your_database_url_here`, `API_KEY=your_key_here`). Prompt the user to manually insert the actual values locally.
-3. **Proactive `.gitignore` Shielding**: Before creating or saving any configuration or credentials file, the AI must verify that the file pattern is explicitly covered in `.gitignore`. If it is missing from `.gitignore`, the AI must append it to `.gitignore` *before* ever writing the file to disk.
-
-## Scoping Rules
-
-- One feature unit (or one bug) per branch / per worktree.
-- Prefer small, verifiable increments. If a change cannot be verified
-  end to end in one sitting, it is too broad — split it.
-- Do not combine unrelated system boundaries in a single
-  implementation step (e.g. don't mix a UI tweak with a backend
-  refactor in the same branch).
-
-## Scope Discipline
-
-Two failure modes to guard against during work:
-
-1. **Human scope creep** — "just one more thing" accumulates while
-   the AI executes quickly. Each addition feels small at 30 seconds;
-   the aggregate quietly redefines the task.
-2. **AI scope creep** — the AI extends beyond what was asked: adds
-   error handling, refactors adjacent code, introduces validation, or
-   "improves" things without being asked.
-
-### Rules
-
-**The AI must not expand scope unprompted.** Stay in the lane that was given (the lane is the task as restated under SPEC-2.1). Follow these **5 Core Rules of Scope Discipline**:
-
-1. **Stop when evidence is sufficient** — Stop and report as soon as you have the answer or the verification succeeds (e.g., lint passes + test green = done). Do NOT run speculative over-verification checks or multiple tools just because you are "afraid of missing something."
-2. **Trust the first output** — When a command produces the required output, use it immediately. Do NOT run duplicate tools, and do NOT write temporary files just to read them back and "confirm" the same result.
-3. **No speculative hypotheses** — Do not chase imaginary or speculative bugs. If there is no active error or direct evidence of failure in the logs, do not dig for issues or run exhaustive diagnostic suites.
-4. **Ask before expanding scope** — If you identify adjacent improvements, cleanup, or refactoring opportunities, do NOT execute them autonomously. Stop, propose them as options, and wait for explicit user approval.
-5. **Concise reporting** — Keep explanations shorter than the retrieval process. A small task requires a brief answer; a large task warrants details. Never flood the user with unnecessary context.
-
-### Tool-Call Budgeting Rules
-
-To protect the context window and prevent "thoroughness overdrive," strict hard ceilings are enforced:
-
-- **Resume Check Budget (Max 3 Calls)**: Limited strictly to a maximum of 3 tool calls (e.g., `git status`, `git branch --show-current`, and reading the active tracker file) to report the current workspace status. Stop immediately and wait for user instructions.
-- **Review/Audit Budget (Max 3 Calls)**: When reviewing or verifying work done by another agent, inspect ONLY the immediate diff or changes (e.g. `git show <commit>` or `git diff`). Do NOT run redundant verification scripts (lint, test, build) if the prior agent's history or commit metadata shows passing status.
-
-### Hierarchical Data Fetching Rules
-
-To protect the context window from swelling with unnecessary code and to reduce latency, the AI must use a tiered approach to reading files and directories:
-
-1. **200-Line Ceiling**: For any file exceeding 200 lines, the AI must not read the entire file on its initial access. It must first use targeted tools (e.g. `grep_search` to find relevant strings, or reading imports/headers) to pinpoint the exact section needed.
-2. **Justified Full Read**: If the targeted search fails or a comprehensive understanding of the whole file is genuinely required, the AI may perform a full read. However, it must write a brief, 1-line explanation to the user in the chat *before* executing the tool, explaining why the full file read is necessary.
-3. **Scoped Directory Scans**: Directory listing and searches must be targeted to the specific relevant subdirectory first. Avoid running broad recursive searches across the entire project root unless targeted options have been exhausted.
-
-### Debugging & Troubleshooting Rules
-
-When investigating or resolving a bug, error, or crash, you must adhere strictly to the **Debug Routine** in `AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`:
-- **Write a Hypothesis Ledger**: Before making any code changes, write a brief, 2-line "Hypothesis Ledger" under the active task in your work tracker (`progress-tracker.md` or dev tracker). Specify:
-  1. *Leading Hypothesis*: What you believe is the root cause.
-  2. *Disproof Test*: What test, log, or evidence would disprove this hypothesis (and run it first).
-- **No Speculative Guess-and-Checks**: Do not run consecutive code trial-and-error attempts. Every change must be driven by a validated hypothesis.
-
-## Infinite Loop & Ping-Pong Prevention
-
-To prevent autonomous AI agents from getting stuck in iterative "ping-pong" loops—such as running the same failing command, repeating unsuccessful code edits, or re-trying failed tool calls with minor, non-strategic changes—the following safety circuit breakers are enforced:
-
-1. **Rule of Two**: If a terminal command, test execution, or tool call fails twice with a similar error or output, the AI is **strictly prohibited from making a third attempt**.
-2. **Direct Chat Reflection**: Upon hitting the circuit breaker (2 failures), the AI must immediately halt execution and present a **Self-Reflection Loop Interruption** directly in the chat to the user. The message must contain:
-   - **Loop Signature**: The specific command or tool call that failed twice.
-   - **Self-Reflection**: A brief, analytical explanation of why the current approach failed and why the AI got stuck.
-   - **Proposed Alternatives**: 2 or 3 distinct new options/directions for the user to select from to proceed.
-3. **No Silent Tracker Logging**: The AI must not write these transient loop failures to `progress-tracker.md`. All loop reflections and alternative selections must occur directly in the chat for human-in-the-loop collaboration.
-
-**The AI must flag scope drift when it detects it.** Track stated goal vs actual execution. Surface when:
-
-- Implementation grows beyond the original request
-- Multiple small adjacent changes accumulate into a larger task
-- Nice-to-haves start being treated as must-haves
-- The AI itself notices it is about to expand beyond the brief
-
-When drift is detected, the AI pauses and asks: "We're moving outside the original ask of `<X>`. Continue with the expansion, defer it, or stop here?"
-
-**Safety carve-out.** Emergent high-severity issues encountered while working in scope — security vulnerabilities, credentials exposure, data-loss risks, broken authentication, accidental destructive commands queued in scripts — must be surfaced immediately even if off-scope. The AI raises the finding with one short line, waits for user direction, and does not silently fix.
-
-### When the rule applies
-
-"Execution" begins when the AI starts editing files or running
-state-changing commands per SPEC-3.1. Before that — intake,
-planning, discovery, or the `grill-me` skill — scope expansion is
-the goal of the activity, not a violation. The rule kicks in at the
-moment of the first file edit or state-changing command.
-
-### Mode-aware behavior
-
-- **`execute` mode** — Scope Discipline is **strict**. AI stays in
-  lane. Detected drift triggers an explicit pause before any
-  expansion.
-- **`teach` mode** — AI may **mention** adjacent improvements as
-  off-scope suggestions (flagged `*(off-scope suggestion)*` per
-  Resolved Decision 2026-05-26), but must not **execute** them
-  unprompted.
-- **Intake, planning, or the `grill-me` skill** — scope expansion of
-  *thinking* is the goal; this rule does not apply to brainstorming
-  or design exploration. It applies once execution begins.
-
-### Why this rule exists
-
-The cost of "just one more thing" used to be paid in human typing
-time, which created natural friction. With AI, that friction is gone
-— a 30-second action costs the same as a 5-minute one. Without an
-explicit scope discipline rule, both the user and the AI drift into
-larger changes than they signed up for, making review harder and
-increasing the chance that something unrelated to the original goal
-breaks.
-
-## When to Split Work
-
-Split an implementation if it combines any of:
-
-- Frontend changes with backend changes that are not tightly coupled
-  to the same feature
-- Multiple unrelated modules / domains
-- Schema migration + new business logic + new UI all at once
-- Behavior that is not clearly defined in the team's rules or in a
-  reviewed spec / ticket
-
-## Handling Missing Requirements
-
-- Don't invent product behavior the team hasn't specified.
-- If a requirement is ambiguous and there is no team doc covering it,
-  flag it in `<workspace-root>/progress-tracker.md` under "Open
-  Questions" and ask the lead/owner before proceeding.
-- Don't infer schema, status enums, or status transitions — read the
-  actual entity files and existing usages in the codebase.
-
-## Protected Files / Folders
-
-Project-specific protected paths live in `workflow-notes.md` (filled
-in during intake). General categories to treat as protected by
-default:
-
-- **Team rule files** (e.g. `.cursor/rules/*`, `CLAUDE.md` at repo
-  root) — team-owned
-- **Team planning files** (e.g. `.cursor/plans/*`) — team-owned
-- **Per-developer settings that leak** (e.g.
-  `.claude/settings.local.json` when tracked despite `.gitignore`) —
-  use `skip-worktree` instead of editing
-- **Vendored / generated UI libraries** (e.g. `components/ui/`
-  shadcn primitives) — treat as a library, don't re-implement
-- **Schema definitions** (e.g. `shared/schema.ts`, ORM model files) —
-  changes need lead review; never edit speculatively
-- **Build config** (e.g. `vite.config.ts`, `tsconfig.json`,
-  `webpack.config.js`) — touch only when the task explicitly requires it
-
-Do not modify any of the above without explicit instruction.
-
-## AI-NO-OVERWRITE Block Protection
+### AI-NO-OVERWRITE Block Protection
 
 Any block of text wrapped inside these specific HTML comment tags in any file in the workspace:
 
@@ -353,51 +140,184 @@ Rules:
 - When the user explicitly requests a modification to protected content, the AI **may** make the change. The protection guards against autonomous AI action, not against user-directed edits.
 - This rule applies to both active session file edits and automated template upgrades.
 
-## Keeping Personal Docs in Sync
+### Secrets & Credential Protection
+
+To protect developer API keys, private passwords, and security tokens from leaking into external model logs or public git trees, the AI must adhere to the **Zero-Leak Secrets Policy**:
+
+1. **Zero-Leak Policy**: The AI must never request, input, write, or handle raw, real credentials (API keys, passwords, private tokens, AWS credentials, etc.) under any circumstances.
+2. **Template-Only Setup**: If configuration keys are needed (e.g. `.env` values), the AI must only generate template files (such as `.env.example`) or populate local configurations with clearly marked placeholder values (e.g., `DATABASE_URL=your_database_url_here`, `API_KEY=your_key_here`). Prompt the user to manually insert the actual values locally.
+3. **Proactive `.gitignore` Shielding**: Before creating or saving any configuration or credentials file, the AI must verify that the file pattern is explicitly covered in `.gitignore`. If it is missing from `.gitignore`, the AI must append it to `.gitignore` *before* ever writing the file to disk.
+
+---
+
+## Pillar II: Session Execution & Scope Discipline
+
+### Scoping Rules
+
+- One feature unit (or one bug) per branch / per worktree.
+- Prefer small, verifiable increments. If a change cannot be verified end to end in one sitting, it is too broad — split it.
+- Do not combine unrelated system boundaries in a single implementation step (e.g. don't mix a UI tweak with a backend refactor in the same branch).
+
+### Scope Discipline
+
+Two failure modes to guard against during work:
+
+1. **Human scope creep** — "just one more thing" accumulates while the AI executes quickly. Each addition feels small at 30 seconds; the aggregate quietly redefines the task.
+2. **AI scope creep** — the AI extends beyond what was asked: adds error handling, refactors adjacent code, introduces validation, or "improves" things without being asked.
+
+#### Rules
+
+**The AI must not expand scope unprompted.** Stay in the lane that was given (the lane is the task as restated under SPEC-2.1). Follow these **5 Core Rules of Scope Discipline**:
+
+1. **Stop when evidence is sufficient** — Stop and report as soon as you have the answer or the verification succeeds (e.g., lint passes + test green = done). Do NOT run speculative over-verification checks or multiple tools just because you are "afraid of missing something."
+2. **Trust the first output** — When a command produces the required output, use it immediately. Do NOT run duplicate tools, and do NOT write temporary files just to read them back and "confirm" the same result.
+3. **No speculative hypotheses** — Do not chase imaginary or speculative bugs. If there is no active error or direct evidence of failure in the logs, do not dig for issues or run exhaustive diagnostic suites.
+4. **Ask before expanding scope** — If you identify adjacent improvements, cleanup, or refactoring opportunities, do NOT execute them autonomously. Stop, propose them as options, and wait for explicit user approval.
+5. **Concise reporting** — Keep explanations shorter than the retrieval process. A small task requires a brief answer; a large task warrants details. Never flood the user with unnecessary context.
+
+#### Tool-Call Budgeting Rules
+
+To protect the context window and prevent "thoroughness overdrive," strict hard ceilings are enforced:
+
+- **Resume Check Budget (Max 3 Calls)**: Limited strictly to a maximum of 3 tool calls (e.g., `git status`, `git branch --show-current`, and reading the active tracker file) to report the current workspace status. Stop immediately and wait for user instructions.
+- **Review/Audit Budget (Max 3 Calls)**: When reviewing or verifying work done by another agent, inspect ONLY the immediate diff or changes (e.g. `git show <commit>` or `git diff`). Do NOT run redundant verification scripts (lint, test, build) if the prior agent's history or commit metadata shows passing status.
+
+**The AI must flag scope drift when it detects it.** Track stated goal vs actual execution. Surface when:
+- Implementation grows beyond the original request
+- Multiple small adjacent changes accumulate into a larger task
+- Nice-to-haves start being treated as must-haves
+- The AI itself notices it is about to expand beyond the brief
+
+When drift is detected, the AI pauses and asks: "We're moving outside the original ask of `<X>`. Continue with the expansion, defer it, or stop here?"
+
+**Safety carve-out.** Emergent high-severity issues encountered while working in scope — security vulnerabilities, credentials exposure, data-loss risks, broken authentication, accidental destructive commands queued in scripts — must be surfaced immediately even if off-scope. The AI raises the finding with one short line, waits for user direction, and does not silently fix.
+
+#### When the rule applies
+
+"Execution" begins when the AI starts editing files or running state-changing commands per SPEC-3.1. Before that — intake, planning, discovery, or the `grill-me` skill — scope expansion is the goal of the activity, not a violation. The rule kicks in at the moment of the first file edit or state-changing command.
+
+#### Mode-aware behavior
+
+- **`execute` mode** — Scope Discipline is **strict**. AI stays in lane. Detected drift triggers an explicit pause before any expansion.
+- **`teach` mode** — AI may **mention** adjacent improvements as off-scope suggestions (flagged `*(off-scope suggestion)*` per Resolved Decision 2026-05-26), but must not **execute** them unprompted.
+- **Intake, planning, or the `grill-me` skill** — scope expansion of *thinking* is the goal; this rule does not apply to brainstorming or design exploration. It applies once execution begins.
+
+#### Why this rule exists
+
+The cost of "just one more thing" used to be paid in human typing time, which created natural friction. With AI, that friction is gone — a 30-second action costs the same as a 5-minute one. Without an explicit scope discipline rule, both the user and the AI drift into larger changes than they signed up for, making review harder and increasing the chance that something unrelated to the original goal breaks.
+
+### Hierarchical Data Fetching Rules
+
+To protect the context window from swelling with unnecessary code and to reduce latency, the AI must use a tiered approach to reading files and directories:
+
+1. **200-Line Ceiling**: For any file exceeding 200 lines, the AI must not read the entire file on its initial access. It must first use targeted tools (e.g. `grep_search` to find relevant strings, or reading imports/headers) to pinpoint the exact section needed.
+2. **Justified Full Read**: If the targeted search fails or a comprehensive understanding of the whole file is genuinely required, the AI may perform a full read. However, it must write a brief, 1-line explanation to the user in the chat *before* executing the tool, explaining why the full file read is necessary.
+3. **Scoped Directory Scans**: Directory listing and searches must be targeted to the specific relevant subdirectory first. Avoid running broad recursive searches across the entire project root unless targeted options have been exhausted.
+
+### SOP Discipline via Commit Milestones
+
+To prevent "familiarity shortcutting"—where the AI skips critical pre-flight checks, verification steps, or intermediate configurations during a complex multi-step standard operating procedure (SOP)—the following incremental git discipline is enforced:
+
+1. **Commit-Gated Steps**: For any task containing a predefined multi-step process (such as template packaging, migrations, multi-agent lock management, or multi-file refactoring), the AI must divide its work into incremental, milestone-based local git commits.
+2. **One Step, One Commit**: The AI must stage and commit the work of the current step *before* editing files or executing commands for the next step. Rushing through multiple steps in a single giant commit or command chain is strictly prohibited.
+3. **Traceable Done Status**: Each commit message in the milestone chain must explicitly reference the completed step of the SOP (e.g. `feat(release): step 1 - promote changelog notes`), providing a natural audit trail for the developer.
+
+### Infinite Loop & Ping-Pong Prevention
+
+To prevent autonomous AI agents from getting stuck in iterative "ping-pong" loops—such as running the same failing command, repeating unsuccessful code edits, or re-trying failed tool calls with minor, non-strategic changes—the following safety circuit breakers are enforced:
+
+1. **Rule of Two**: If a terminal command, test execution, or tool call fails twice with a similar error or output, the AI is **strictly prohibited from making a third attempt**.
+2. **Direct Chat Reflection**: Upon hitting the circuit breaker (2 failures), the AI must immediately halt execution and present a **Self-Reflection Loop Interruption** directly in the chat to the user. The message must contain:
+   - **Loop Signature**: The specific command or tool call that failed twice.
+   - **Self-Reflection**: A brief, analytical explanation of why the current approach failed and why the AI got stuck.
+   - **Proposed Alternatives**: 2 or 3 distinct new options/directions for the user to select from to proceed.
+3. **No Silent Tracker Logging**: The AI must not write these transient loop failures to `progress-tracker.md`. All loop reflections and alternative selections must occur directly in the chat for human-in-the-loop collaboration.
+
+---
+
+## Pillar III: Environmental Isolation & Worktree Locks
+
+### Environment Isolation — Worktree-Based
+
+I do not develop directly in the main team checkout. Instead:
+1. Main checkout (`<workspace-root>/<repo-folder>/`) is kept on the branch I have under review. Idle, untouched.
+2. New work happens in a git worktree under `<workspace-root>/worktree-<task>/` with its own branch off `origin/main` (or whichever base branch the team is using).
+3. Each worktree gets its own dependencies (`node_modules`, `venv`, etc.) and environment file copy (`.env`).
+4. Any tracked-but-should-be-ignored files (e.g. a local settings file that leaked into the repo) are neutralized per worktree with `git update-index --skip-worktree`.
+
+### Multi-Agent Worktree Collision Avoidance
+
+When multiple agents are active in this workspace, we prevent parallel environment conflicts by locking worktree ownership:
+- **Check active tracker**: Before touching, updating, or running commands inside any git worktree sibling folder (`worktree-<task>`), verify the `progress-tracker.md` file to see which agent currently owns or has locked that task.
+- **No overlapping execution**: Never run state-changing commands, modify code, or delete/switch branches in a worktree folder currently owned/locked by another agent, UNLESS you receive a direct, explicit instruction from the human owner to manage or delete that specific worktree. Autonomous modifications or speculative cleanups on other agents' worktrees are strictly prohibited. 
+- **Declare ownership**: When starting work in a worktree, formally log your agent name as the active owner beside the task entry in `progress-tracker.md`.
+
+Full mechanics: see `workspace-model.md`.
+
+---
+
+## Pillar IV: Development Standards & Best Practices
+
+### Debugging & Troubleshooting Rules
+
+When investigating or resolving a bug, error, or crash, you must adhere strictly to the **Debug Routine** in `AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`:
+- **Write a Hypothesis Ledger**: Before making any code changes, write a brief, 2-line "Hypothesis Ledger" under the active task in your work tracker (`progress-tracker.md` or dev tracker). Specify:
+  1. *Leading Hypothesis*: What you believe is the root cause.
+  2. *Disproof Test*: What test, log, or evidence would disprove this hypothesis (and run it first).
+- **No Speculative Guess-and-Checks**: Do not run consecutive code trial-and-error attempts. Every change must be driven by a validated hypothesis.
+
+### When to Split Work
+
+Split an implementation if it combines any of:
+- Frontend changes with backend changes that are not tightly coupled to the same feature
+- Multiple unrelated modules / domains
+- Schema migration + new business logic + new UI all at once
+- Behavior that is not clearly defined in the team's rules or in a reviewed spec / ticket
+
+### Handling Missing Requirements
+
+- Don't invent product behavior the team hasn't specified.
+- If a requirement is ambiguous and there is no team doc covering it, flag it in `<workspace-root>/progress-tracker.md` under "Open Questions" and ask the lead/owner before proceeding.
+- Don't infer schema, status enums, or status transitions — read the actual entity files and existing usages in the codebase.
+
+### Protected Files / Folders
+
+Project-specific protected paths live in `workspace-model.md` (filled in during intake). General categories to treat as protected by default:
+- **Team rule files** (e.g. `.cursor/rules/*`, `CLAUDE.md` at repo root) — team-owned
+- **Team planning files** (e.g. `.cursor/plans/*`) — team-owned
+- **Per-developer settings that leak** (e.g. `.claude/settings.local.json` when tracked despite `.gitignore`) — use `skip-worktree` instead of editing
+- **Vendored / generated UI libraries** (e.g. `components/ui/` shadcn primitives) — treat as a library, don't re-implement
+- **Schema definitions** (e.g. `shared/schema.ts`, ORM model files) — changes need lead review; never edit speculatively
+- **Build config** (e.g. `vite.config.ts`, `tsconfig.json`, `webpack.config.js`) — touch only when the task explicitly requires it
+
+Do not modify any of the above without explicit instruction.
+
+### Keeping Personal Docs in Sync
 
 Update files when the underlying reality changes:
-
-- **`<workspace-root>/progress-tracker.md`** (work tracker, at root)
-  — after every meaningful work action (branch created, PR pushed,
-  merge done, blocker found)
-- **`AgentJoJoy/agent-context/progress-tracker-setup.md`** (setup tracker) — when
-  workspace structure changes or spec is amended
-- **`AgentJoJoy/agent-context/architecture.md`** — if I learn something new about
-  the stack or invariants
+- **`<workspace-root>/progress-tracker.md`** (work tracker, at root) — after every meaningful work action (branch created, PR pushed, merge done, blocker found)
+- **`AgentJoJoy/agent-context/progress-tracker-setup.md`** (setup tracker) — when workspace structure changes or spec is amended
+- **`AgentJoJoy/agent-context/architecture.md`** — if I learn something new about the stack or invariants
 - **`AgentJoJoy/agent-context/standards.md`** — if team rules change
-- **`AgentJoJoy/agent-rules/workflow-notes.md`** — if my workflow evolves (new
-  gotchas, new tooling)
-- **`AgentJoJoy/agent-decisions/`** — log significant decisions as their
-  own file (`YYYY-MM-DD-topic.md`)
+- **`AgentJoJoy/agent-rules/workspace-model.md`** — if my workflow evolves (new gotchas, new tooling)
+- **`AgentJoJoy/agent-decisions/`** — log significant decisions as their own file (`YYYY-MM-DD-topic.md`)
 
-Team repo docs (`README*.md`, `*.md` at root) are owned by the team —
-don't update them without a clear ask.
+Team repo docs (`README*.md`, `*.md` at root) are owned by the team — don't update them without a clear ask.
 
-## Before Moving to the Next Task
+### Before Moving to the Next Task
 
 Checklist before starting anything new:
-
 1. Current branch is either merged or actively in review
 2. Type check / lint passes in the worktree
 3. Tests for the change exist and pass
 4. Workspace-root `progress-tracker.md` reflects the completed work
-5. The worktree is either cleaned up (`git worktree remove`) or
-   parked deliberately
+5. The worktree is either cleaned up (`git worktree remove`) or parked deliberately
 
-## Anti-Patterns to Avoid
+### Anti-Patterns to Avoid
 
-- **AI executing git push / pull / commit / merge without asking me
-  first.** Even when it "looks obvious." See "AI Permission Boundaries"
-  at the top of this file.
-- Editing the team's rule files (`.claude/`, `.cursor/`, etc.)
-  casually — even if AI suggests it, push back unless the change is a
-  deliberate PR
-- Creating `*_SUMMARY.md`, `FIX.md`, or any explanatory markdown
-  inside the team repo (when team rules forbid it)
-- Using `--no-verify` on commits — investigate hook failures, don't
-  bypass them
-- Switching branches in the main checkout while a PR is in review —
-  use a worktree instead
-- Copying secrets/credentials into `AgentJoJoy/` — they belong only
-  in the team repo's `.env` or a proper secrets manager
-
+- **AI executing git push / pull / commit / merge without asking me first.** Even when it "looks obvious." See "AI Permission Boundaries" at the top of this file.
+- Editing the team's rule files (`.claude/`, `.cursor/`, etc.) casually — even if AI suggests it, push back unless the change is a deliberate PR
+- Creating `*_SUMMARY.md`, `FIX.md`, or any explanatory markdown inside the team repo (when team rules forbid it)
+- Using `--no-verify` on commits — investigate hook failures, don't bypass them
+- Switching branches in the main checkout while a PR is in review — use a worktree instead
+- Copying secrets/credentials into `AgentJoJoy/` — they belong only in the team repo's `.env` or a proper secrets manager

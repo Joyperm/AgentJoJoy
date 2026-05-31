@@ -6,6 +6,19 @@ usable personal AI workspace.
 Use this file when templates in `AgentJoJoy/` still show `_(not set)_`
 and the checkout is not the AgentJoJoy template source repo.
 
+## Table of Onboarding Gateways
+
+| Onboarding Gateway | Target Scenario / Trigger | Key Actions & Paths | Reference Focus |
+| :--- | :--- | :--- | :--- |
+| **[Gateway I: New Project Bootstrap](#path-1--new-project)** | **New Project (Path 1 / T1 Trigger)**: Starting clean workspaces from scratch. | Bootstrap files, pre-fill safe defaults, scan preferences, short-term plan creation. | `#Path-1-New-Project`, `#Shared-Intake-Questions` |
+| **[Gateway II: Existing Project Wrap](#path-2--existing-project)** | **Existing Project (Path 2 / T1 Trigger)**: Wrapping existing codebases or folders. | Scan existing rules/configs, setup `.gitignore` shields, map Junction Links, merge multi-agent hooks (Step 6). | `#Path-2-Existing-Project`, `#Junction-Link-Safety` |
+| **[Gateway III: Partial Onboarding Resume](#trigger-states)** | **Partial Intake (T2 Trigger)**: Resuming incomplete onboarding sessions safely. | Read partial files, restore last active goal, skip redundant prompts. | `#T2-Partial-Intake`, `#Auto-Detect-Flow` |
+
+> [!IMPORTANT]
+> **SECURITY-FIRST GUARDRAILS ALWAYS**
+>
+> During the onboarding phase, the AI is **strictly prohibited** from performing any state-changing operations, executing shell/git commands (other than safe discovery scans), writing uncommitted files, or outputting credentials until onboarding is fully complete and verified. Always check `.gitignore` before writing any configuration templates or placeholders.
+
 ---
 
 ## Goals
@@ -224,7 +237,7 @@ Detect secret files by path/name, but do not print secret values. If environment
 Write the answers to:
 
 - `AgentJoJoy/agent-context/project-overview.md`
-- `AgentJoJoy/agent-rules/workflow-notes.md`
+- `AgentJoJoy/agent-rules/workspace-model.md`
 - `AgentJoJoy/agent-context/standards.md`
 
 ### Planning Baseline
@@ -294,7 +307,7 @@ owner's answers:
 - `AgentJoJoy/agent-context/ui-context.md` only if UI exists
 - `AgentJoJoy/agent-context/domain-language.md` only if the project has important glossary,
   domain, stakeholder, or ambiguous terms
-- `AgentJoJoy/agent-rules/workflow-notes.md`
+- `AgentJoJoy/agent-rules/workspace-model.md`
 - `progress-tracker.md` (root level)
 - `AgentJoJoy/agent-context/progress-tracker-setup.md`
 
@@ -434,7 +447,7 @@ Before git commands, explain the wrapper model using
 - Personal context should not be committed into the team repo.
 
 For git projects, also run the first-time Git/worktree orientation in
-`AgentJoJoy/agent-rules/workflow-notes.md` → "Sync with new main", including the
+`AgentJoJoy/agent-rules/workspace-model.md` → "Sync with new main", including the
 ASCII graphs for main drift, rebase, and merge.
 
 ### Step 3: Read-Only Scan
@@ -495,7 +508,7 @@ Auto-fill:
 - `AgentJoJoy/agent-context/ui-context.md`: only if UI exists
 - `AgentJoJoy/agent-context/domain-language.md`: only when project docs/code reveal important
   terms, overloaded vocabulary, relationships, or unresolved ambiguity
-- `AgentJoJoy/agent-rules/workflow-notes.md`: key paths, remote, known gotchas, local run
+- `AgentJoJoy/agent-rules/workspace-model.md`: key paths, remote, known gotchas, local run
   commands if found
 - `progress-tracker.md` (root level): current phase, main checkout, active
   branches/worktrees, in-progress items if any
@@ -577,7 +590,7 @@ Report:
 - Active worktrees
 - Whether the repo is clean
 - If `origin/<base>` has moved, the recommended sync strategy from
-  `AgentJoJoy/agent-rules/workflow-notes.md` → "Sync recommendation table"
+  `AgentJoJoy/agent-rules/workspace-model.md` → "Sync recommendation table"
 - First milestone and first task slice
 - Next recommended action: resume existing work, create a worktree,
   or pause

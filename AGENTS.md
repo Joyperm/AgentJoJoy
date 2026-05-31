@@ -64,7 +64,7 @@ If templates are filled, run these checks before doing any new work:
   - On a clean agent branch already merged to default → switch to default only with approval, then fetch/report/propose sync.
   - Not on default and not merged, or uncommitted changes → a previous agent left work mid-flight; investigate before touching anything.
 - If the git remote requires credentials and they expired, recover auth before continuing. If 5 attempts fail, stop and ask the owner — do not keep probing the credential helper.
-- **First-Time Orientation**: For Path 2 (existing) git projects, run the first-time Git/worktree orientation before proposing branch/worktree commands (see [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) for wrapper model details, and [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow-notes.md) → "Sync with new main" for ASCII diagrams and commands).
+- **First-Time Orientation**: For Path 2 (existing) git projects, run the first-time Git/worktree orientation before proposing branch/worktree commands (see [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) for wrapper model details, and [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) → "Sync with new main" for ASCII diagrams and commands).
 
 ---
 
@@ -72,16 +72,13 @@ If templates are filled, run these checks before doing any new work:
 
 Before making changes, read the relevant project knowledge from:
 
-- [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) — canonical workflow rules
-- [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) — AI permission boundaries
+- [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) — canonical workflow rules (SPEC-1 → SPEC-9)
+- [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) — AI permission boundaries & 4 Pillars of Workspace Governance
 - [`AgentJoJoy/agent-context/project-overview.md`](AgentJoJoy/agent-context/project-overview.md) — what this project is
 - [`AgentJoJoy/agent-context/architecture.md`](AgentJoJoy/agent-context/architecture.md) — stack, boundaries, invariants
 - [`AgentJoJoy/agent-context/standards.md`](AgentJoJoy/agent-context/standards.md) — code/writing standards
-- [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) — canonical SPEC-1 → SPEC-9
-- [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) — permission gates
 - [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) — detailed Path 1 / Path 2 onboarding flow
-- [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow-notes.md) — operational notes
-- [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) — wrapper/team repo/worktree ownership model and leak-prevention rules
+- [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) — wrapper ownership model, operational notes, and leak-prevention rules
 - [`AgentJoJoy/agent-context/engagement-mode.md`](AgentJoJoy/agent-context/engagement-mode.md) — current engagement style
 - [`AgentJoJoy/agent-context/technical-precedents.md`](AgentJoJoy/agent-context/technical-precedents.md) — local technical boundary rules and validated precedents
 - [`AgentJoJoy/agent-context/domain-language.md`](AgentJoJoy/agent-context/domain-language.md) — optional glossary and domain-language map for project terms and ambiguities
@@ -275,13 +272,13 @@ does not vendor third-party skill text without a clear license.
   Path 2 team repos or generated workspaces.
 - **Branch first, then code.** New work in a worktree under
   `<workspace-root>/worktree-<task>/` (see
-  [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow-notes.md)).
+  [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md)).
 - **No `--no-verify`** to bypass pre-commit hooks — fix the
   underlying issue.
 - **Per-action approval required** for commit, push, merge, PR
   create, etc. — see
   [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md)
-  → "AI Permission Boundaries".
+  → "Pillar I: Permission Boundaries & Core Safety Gates".
 - **Strategic choices require explicit user selection** (rebase vs
   merge, force vs normal push, etc.) — see SPEC-3.5.
 - **Agents must never approve or merge their own PR.**

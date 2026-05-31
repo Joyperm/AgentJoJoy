@@ -1,4 +1,4 @@
-﻿# Progress Tracker — Real Work
+# Progress Tracker — Real Work
 
 > 🎯 **Scope: active project work — branches, PRs, worktrees, in-flight tasks.**
 >
@@ -110,7 +110,7 @@ _(empty — populated after first real work session)_
 |---|---|
 | Workflow rules (canonical) | [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) |
 | AI permission gates | [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) |
-| Operational paths + gotchas | [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow-notes.md) |
+| Operational paths + gotchas | [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) |
 | Project overview | [`AgentJoJoy/agent-context/project-overview.md`](AgentJoJoy/agent-context/project-overview.md) |
 | Architecture | [`AgentJoJoy/agent-context/architecture.md`](AgentJoJoy/agent-context/architecture.md) |
 | Code / writing standards | [`AgentJoJoy/agent-context/standards.md`](AgentJoJoy/agent-context/standards.md) |

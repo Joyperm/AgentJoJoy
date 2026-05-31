@@ -2,7 +2,7 @@
 
 Canonical, verifiable rules. This file is the source of truth for
 *what* the workflow is. Project-specific operational notes live in
-`workflow-notes.md`.
+`workspace-model.md`.
 
 Every rule is numbered (e.g. `SPEC-3.2`) so other docs can reference
 it precisely.
@@ -34,7 +34,7 @@ The following terms have specific meanings in this document:
   checked out in a worktree. Named per the project's convention —
   commonly `feature/<owner>-<task>`, `fix/<owner>-<task>`, or
   `improve/<owner>-<task>`. Project-specific patterns live in
-  `workflow-notes.md`.
+  `workspace-model.md`.
 - **SPEC-1.7 — AI**: the Claude (or other) agent driving the
   workflow under user direction.
 - **SPEC-1.8 — User**: the human directing the AI.
@@ -96,7 +96,7 @@ loop → 2.10 Merge → 2.11 Cleanup
 ### SPEC-2.4 Setup
 - After the worktree exists, the AI walks through setup as discrete
   steps, each requiring approval if state-changing. Typical setup
-  steps include (project-specific list lives in `workflow-notes.md`):
+  steps include (project-specific list lives in `workspace-model.md`):
   - Copy environment files (e.g. `.env`) from main checkout
   - Install dependencies (`npm install`, `pip install`, etc.)
   - `git update-index --skip-worktree <files>` for any known-leaked
@@ -114,7 +114,7 @@ loop → 2.10 Merge → 2.11 Cleanup
 ### SPEC-2.6 Verification
 - Before any push or PR, the AI runs the project's verification
   commands as appropriate. The specific commands belong in
-  `workflow-notes.md`; typical examples:
+  `workspace-model.md`; typical examples:
   - Type check (`npm run check`, `tsc`, `mypy`, etc.)
   - Tests (unit, integration, e2e — scoped to the change)
   - Build, if relevant to the task
@@ -405,7 +405,7 @@ When local commits are already pushed: merge (avoids needing `--force-with-lease
 
 The AI must recommend a strategy based on branch state before asking
 the user to choose. The recommended decision table lives in
-`workflow-notes.md` → "Sync recommendation table". The recommendation
+`workspace-model.md` → "Sync recommendation table". The recommendation
 does not replace the user's explicit selection under SPEC-3.5.
 
 The user must select explicitly; a generic "go" is insufficient (see

@@ -10,6 +10,37 @@ For internal template-development history, see the private dev repo.
 
 ## [Unreleased]
 
+### Added
+
+### Changed
+
+### Removed
+
+---
+
+## [v1.4.3] — 2026-05-30 — Cognitive Scaffolding & Rules Consolidation
+
+### Added
+- **3 Onboarding Gateways Table (intake-flow.md)**: Inserted a semantic, fragment-linked Table of Onboarding Gateways (TOC) at the very top of `intake-flow.md` to act as an attention anchor for AI agents, allowing them to instantly locate the correct onboarding path without reading the entire 700+ line document.
+- **Security-First Guardrails Warning**: Added a high-priority "Security-First Guardrails Always" warning alert note directly below the onboarding TOC to ensure the AI strictly halts destructive operations, local uncommitted edits, and remote writes during the initial onboarding phase.
+- **SOP Discipline via Commit Milestones**: Implemented a pragmatic anti-shortcutting rule inside `ai-workflow-rules.md`. For any complex multi-step standard operating procedure (SOP), the AI must split the work into incremental git commit milestones. The AI must stage and commit the work of each step before editing files or executing commands for the subsequent step, anchoring attention and preventing skipped pre-flight/audit steps due to session familiarity.
+- **Skill Sandboxing Safety Rules**: Implemented strict safety containment boundaries in `skills/README.md`, prohibiting custom or project skills from autonomously editing personal credentials, modifying outer wrapper configs, or altering core system rules without explicit and direct human approval.
+- **Active vs Passive Skill Discovery Guide**: Codified detailed documentation in `skills/README.md` explaining active skill discovery (auto-scanning files like Claude Code) vs passive directive-based skill discovery (referencing keyword hooks in `CLAUDE.md`/`AGENTS.md` for tools like Cursor/Codex), explaining the unified discovery system's design.
+
+### Changed
+- **README & PUBLIC_README Alignment**: Aligned the Features list, Folder Structure descriptions, and What's Done sections in the development `README.md` and the public `PUBLIC_README.md` to reflect all recent cognitive architecture optimizations, including the 4 Pillars, 3 Onboarding Gateways, Consolidated Workspace Model, and Skills Precedence/Sandboxing.
+- **4 Pillars of Workspace Governance**: Restructured all safety boundaries, permission gates, and execution limits in `ai-workflow-rules.md` into four logical pillars (Pillar I: Permission Boundaries, Pillar II: Resource Management & Budgets, Pillar III: Scope Discipline, and Pillar IV: Safety & Operational Protections) to optimize context density and attention focus for LLMs.
+- **Cognitive Scaffolding & Attention Anchoring**: Added a high-density, semantic Table of Governance Pillars (TOC) with fragment links at the very top of `ai-workflow-rules.md` to serve as a fast cognitive index for AI agents, preventing memory decay.
+- **Entry-Point Pointers Realignment**: Updated all safety boundary summaries and reference pointers in `CLAUDE.md` and `AGENTS.md` to cleanly align with the new 4 Pillars organization.
+- **Workspace Model & Operations Consolidation**: Consolidated `workflow-notes.md` into `workspace-model.md`, merging conceptual architecture and operational commands into a single, unified workspace source of truth.
+- **Table of Workspace & Operations (TOC)**: Integrated a semantic, fragment-linked Table of Workspace & Operations (TOC) at the very top of `workspace-model.md` to serve as a fast cognitive index for AI agents, preventing navigation errors.
+- **Relative Path Alignment**: Re-routed all relative links and pointers pointing to `workflow-notes.md` across 10+ core files (including `CLAUDE.md`, `AGENTS.md`, `README.md`, `progress-tracker.md`, `ai-workflow-rules.md`, `intake-flow.md`, and `workflow-spec.md`) to point to the consolidated `workspace-model.md` cleanly.
+- **Table of Skill Layers & Priority (TOC)**: Added a semantic, high-density Table of Skill Layers (TOC) with fragment links at the very top of `skills/README.md` as an attention anchor to prevent context decay.
+- **5-Step Priority of Precedence Rule**: Codified a strict 5-step rule hierarchy (1. Team rules, 2. Safety gates, 3. Project skills, 4. Personal skills, 5. Model defaults) inside a highly visible warning block in `skills/README.md` to resolve any conflicting instructions between rule sources.
+
+### Removed
+- **Removed redundant workflow-notes.md**: Deleted `workflow-notes.md` from the template repository to eliminate file scattering and reduce AI context window bloat.
+
 ---
 
 ## [v1.4.2] — 2026-05-30 — Safety & Policy Upgrades

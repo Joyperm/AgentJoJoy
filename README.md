@@ -20,6 +20,10 @@ Already have an AgentJoJoy workspace? Use the [Upgrading](#upgrading) flow inste
 
 - **Private-by-default workspace wrapper** — keeps assistant context beside your project instead of inside it, so personal AI notes stay out of project commits.
 - **Auto-loading agent rules** — `CLAUDE.md` and `AGENTS.md` give Claude Code, Codex, Cursor, and Gemini a shared starting point.
+- **4 Pillars of Workspace Governance** — structures AI permissions, budgets, scope limits, and execution safety into a logical 4-pillar model.
+- **3 Onboarding Gateways** — channels the onboarding process into New Project, Existing Project, or Resume flows under strict security guardrails.
+- **Consolidated Workspace & Operations Model** — merges structural rules, Directory Junction rules, and local git-sync decisions into one cohesive guide.
+- **5-Step Skill Precedence Hierarchy & Sandboxing** — establishes strict sandboxing boundaries and priority guidelines to govern portable skills execution safely.
 - **Guided onboarding** — choose a new project or wrap an existing repo; the AI fills only the context you approve.
 - **Dual engagement modes** — switch between `execute` for terse delivery and `teach` for pair-programming explanations.
 - **Multi-agent coexistence** — coordinate Claude Code, Codex, Cursor, and Gemini without branch or attribution confusion.
@@ -113,7 +117,7 @@ When the upstream base branch (`main`) moves while you have work in progress, Ag
 - **Rebase** — replays commits onto the latest `main`. Recommended when task commits are local-only and clean.
 - **Squash & Rebase** — collapses noisy WIP commits into one before replaying. Recommended for messy/WIP local work.
 
-See [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow-notes.md) for the full decision guide.
+See [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) for the full decision guide.
 
 ---
 
@@ -132,11 +136,10 @@ See [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow
 
 ### Workflow & AI Rules
 - [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md) — entry points that load automatically and define session start protocols.
-- [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) — detailed workflow rules for approvals, worktrees, verification, sync, and cleanup.
-- [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) — AI permission boundaries.
-- [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) — step-by-step Path 1 / Path 2 onboarding guide.
-- [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) — wrapper, team repo, and worktree ownership model.
-- [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow-notes.md) — branch sync recommendations and operational tips.
+- [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) — canonical SPEC-1 to SPEC-9 rules (Strategic choices, approvals).
+- [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) — AI permission boundaries structured as **4 Pillars of Workspace Governance** (safety gates, command/git execution boundaries).
+- [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) — onboarding framework organized into **3 Onboarding Gateways** (Path 1, Path 2, and T2 Resume) with strict "Security-First Guardrails Always".
+- [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) — **Consolidated Workspace & Operations Model** merging layout specifications, operating commands, and git-sync policies (Merge, Rebase, Squash & Rebase) into a single unified reference.
 - [`AgentJoJoy/workflow-guide.md`](AgentJoJoy/workflow-guide.md) — English onboarding manual.
 - [`AgentJoJoy/workflow-guide-th.md`](AgentJoJoy/workflow-guide-th.md) — Thai onboarding manual.
 - [`AgentJoJoy/agent-tools/`](AgentJoJoy/agent-tools/) — local helper tools (Clean Ejection script, Worktree Auto-Sync).
@@ -144,6 +147,7 @@ See [`AgentJoJoy/agent-rules/workflow-notes.md`](AgentJoJoy/agent-rules/workflow
 - [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) — key decisions log.
 
 ### Portable Skills (SKILL.md)
+- [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) — portable skill layers configuration with a 5-step **Priority of Precedence** safety matrix, strict sandboxing boundaries, and active/passive skill discovery heuristics.
 - [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) — portable routines for Debugging, Code Review, Root Cause Analysis, and Management-Talk rewriting.
 - [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) — structured design interview for vague plans.
 
