@@ -12,6 +12,13 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v2.0.1] — 2026-06-02 — Local-Only Wrapper Repo Setup Guidance
+
+### Changed
+- **Local-only wrapper repo setup guidance**: Clarified that when the owner chooses a local-only wrapper repo during initial setup or intake, it tracks wrapper-owned files only, while project-owned folders are ignored unless the owner explicitly says otherwise.
+
+---
+
 ## [v2.0.0] — 2026-06-02 — Collaborative Milestones & Workspace Clarity
 
 ### Added

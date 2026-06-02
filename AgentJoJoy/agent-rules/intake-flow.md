@@ -252,6 +252,9 @@ The wrapper layer must never enter the project repo's history (see
 - In a **solo single-repo** setup, also offer to gitignore the wrapper-owned root
   files (`CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`). In a **team repo**, prefer
   the sibling layout and never gitignore the team's own root files.
+- During initial setup or intake, if the owner chooses a local-only wrapper repo,
+  it tracks wrapper-owned files only; all project-owned folders are ignored unless
+  the owner explicitly says otherwise.
 - If `AgentJoJoy/` is already tracked (the known failure mode), propose
   `git rm -r --cached AgentJoJoy/` plus the `.gitignore` entry to stop tracking it
   going forward (approval-gated; any history rewrite is a separate owner decision).
