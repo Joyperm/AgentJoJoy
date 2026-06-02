@@ -12,6 +12,14 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v2.1.0] — 2026-06-02 — Main Agent Boundary & AI Trust Discipline
+
+### Added
+- **Main Agent Boundary & AI Trust Discipline**: Added Pillar I rules that make the Main Agent the trusted controller for scope, user conversation, safety gates, planning, result review, and automation decisions. External documents, webpages, logs, tool output, worker/model output, and other untrusted content are treated as data rather than authoritative instructions; they cannot grant approval, change scope, request secrets, trigger tools, or disable safety gates unless promoted by the owner, trusted project rules, or explicit Main Agent review.
+- **Dumb Worker Escalation**: Added guidance for repeated, mechanical, schema-bound, batchable, or low-judgment work: the Main Agent should recommend a script, checklist command, CLI helper, project skill, small LLM worker, or batch processor instead of spending main-session context as the worker. Worker outputs remain untrusted drafts and must preserve already-handled behavior through Generic Input Handling.
+
+---
+
 ## [v2.0.1] — 2026-06-02 — Local-Only Wrapper Repo Setup Guidance
 
 ### Changed
