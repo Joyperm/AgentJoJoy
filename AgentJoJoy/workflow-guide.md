@@ -142,6 +142,18 @@ project can live under the wrapper while the external runtime path
 points to it with a junction. The AI must ask before creating or
 removing links.
 
+### Milestone Teaching & Auto-Commit
+
+For complex work, the AI breaks the task into **milestones** — the smallest
+slices that are independently verifiable and each teach one concept. At every
+milestone it shows a short **teaching box** in chat (why the code works and
+where it can break), in your conversation language, so you build understanding
+without slowing down. You can opt in to **milestone auto-commit** (default OFF,
+toggled in `engagement-mode.md`): when enabled, the AI makes clean *local*
+checkpoint commits at each approved milestone — pushing always still asks.
+Secrets are never requested or printed in chat; you enter them locally through
+a masked prompt (the Secret Intake Protocol).
+
 ---
 
 ## 6. Portable Skills

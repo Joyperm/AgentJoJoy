@@ -55,19 +55,27 @@ Team commits come only from TeamRepo/ or worktree-*.
 
 ---
 
-## Why Wrapper Works
+## Wrapper Isolation — keep personal context out of the project repo
 
-Git only tracks files inside a repository's working tree. If `AgentJoJoy/` is a sibling of `TeamRepo/`, then `git -C TeamRepo status` cannot see or commit `AgentJoJoy/`.
+Git only tracks files inside a repo's working tree, so isolation **depends on layout**:
 
-That means this layout is naturally safe:
+- **Sibling layout (default & safe):** the project repo has its own `.git` in its
+  own folder; `AgentJoJoy/` sits *beside* it, outside that tree → `git -C TeamRepo`
+  can't see or commit it.
+- **Single repo at the wrapper root (the trap):** if git is initialized at the
+  wrapper root, `AgentJoJoy/` is *inside* the tree and **gets committed + pushed** —
+  the personal layer leaks.
 
-```text
-JoySpace/
-├─ AgentJoJoy/       # outside TeamRepo, not tracked by TeamRepo git
-└─ TeamRepo/.git     # TeamRepo git starts here
-```
+**Default rule: the wrapper layer must never enter a project repo.**
+- **Always** add `AgentJoJoy/` to the project's `.gitignore` (it is unambiguously
+  wrapper-owned). `.gitignore` only *untracks* — files stay on local disk for agents
+  to read.
+- In a **solo single-repo** setup, also gitignore the wrapper-owned root files
+  (`CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`). In a **team repo**, use the
+  sibling layout instead — never gitignore the team's own root files.
 
-The wrapper keeps personal AI instructions, notes, decisions, and skills out of team commits without relying on every team repo's `.gitignore`.
+Versioning AgentJoJoy itself is fine, but only in its **own** repo (like this
+template source) — never folded into a project/team repo's history.
 
 ---
 
@@ -332,7 +340,7 @@ my-branch:     \---C---D---M
 
 The branch history stays stable, but the graph has an extra merge commit (`M`).
 
-This is the recipe for SPEC-4. Full rules in [workflow-spec.md](workflow-spec.md) → SPEC-4.
+This is the recipe for SPEC-5. Full rules in [workflow-spec.md](workflow-spec.md) → SPEC-5.
 
 ```powershell
 # 1. Save WIP first (pick one)
@@ -343,7 +351,7 @@ git stash push -u -m "WIP for ..."      # option B: stash (incl. untracked)
 # 2. Fetch latest
 git fetch origin
 
-# 3. Update base — strategic choice per SPEC-3.5: rebase vs merge
+# 3. Update base — strategic choice per SPEC-1.5: rebase vs merge
 git rebase origin/<base>                # cleaner history; rewrites local hashes
 # OR
 git merge origin/<base>                 # preserves history; adds merge commit

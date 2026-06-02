@@ -6,10 +6,39 @@ This document establishes the foundational workspace governance for AI assistant
 
 | Pillar | Focus & Semantic Purpose | Key Sections |
 | :--- | :--- | :--- |
-| **[Pillar I: Permission Boundaries & Safety](#pillar-i-permission-boundaries--core-safety-gates)** | Core boundaries, security constraints, and protection of user content. | `#Ask-Before-Execute`, `#Critical-Blacklists`, `#AI-NO-OVERWRITE`, `#Secrets-Protection` |
-| **[Pillar II: Session Execution & Scoping](#pillar-ii-session-execution--scope-discipline)** | Execution budgeting, pacing, anti-looping rules, and token saving. | `#Rule-of-Two`, `#Commit-Milestones`, `#5-Rules-of-Scope`, `#Hierarchical-Fetching`, `#Help-First-Discipline` |
+| **[Pillar I: Permission Boundaries & Safety](#pillar-i-permission-boundaries--core-safety-gates)** | Core boundaries, security constraints, and protection of user content. | `#Ask-Before-Execute`, `#Critical-Blacklists`, `#AI-NO-OVERWRITE`, `#Secrets-Protection`, `#Secret-Intake` |
+| **[Pillar II: Session Execution & Scoping](#pillar-ii-session-execution--scope-discipline)** | Execution budgeting, pacing, anti-looping rules, and token saving. | `#Rule-of-Two`, `#Commit-Milestones`, `#Milestone-Auto-Commit`, `#5-Rules-of-Scope`, `#Hierarchical-Fetching`, `#Help-First-Discipline` |
 | **[Pillar III: Environmental Isolation](#pillar-iii-environmental-isolation--worktree-based)** | Worktree structures and multi-agent coordination locks. | `#Worktree-Isolation`, `#Multi-Agent-Locks` |
 | **[Pillar IV: Development Standards](#pillar-iv-development-standards--best-practices)** | Quality metrics, error troubleshooting, and anti-patterns. | `#Debug-Routine-Reference`, `#Protected-Paths`, `#Anti-Patterns` |
+
+---
+
+## ⚡ Quick Reference — Always-On Hard Rules (read this first)
+
+> Placed at the very top because some runtimes only read a file's head.
+> These never expire and apply every session. Details below in each Pillar.
+
+1. **Never** `push` / talk to a remote that writes without explicit approval. (Pillar I)
+2. **Secrets:** never *ask for*, *print*, *echo*, or *cat* a secret value.
+   Create the secret file + add to `.gitignore` **first**, then have the
+   **human** enter it via `Read-Host -AsSecureString`. Reference by env-var
+   *name*, never by value. (Pillar I → Secret Intake Protocol)
+3. **Milestone = smallest unit that is independently verifiable + teaches one
+   concept.** AI proposes the milestone plan → user approves once → executes. (Pillar II)
+4. **Milestone auto-commit is opt-in (default OFF). Gemini: never auto-commit
+   (always propose-and-approve). Push always asks.** When ON, Claude/Codex
+   **only** may auto-commit *local* milestones on an approved plan. Switch lives
+   in `engagement-mode.md` (AI-NO-OVERWRITE). (Pillar II)
+5. **Teaching box** is shown in **chat** at every milestone (never inside the
+   commit message), independent of whether auto-commit is ON. (Pillar II)
+6. **AI-NO-OVERWRITE** blocks: never autonomously edit. (Pillar I)
+7. **Generic input handling:** when building/fixing a tool that takes variable
+   input, handle the input *class* (name its dimensions of variation) — never
+   band-aid a single failing case. Writing a regression test is mandatory;
+   running it is on-demand. (Pillar IV)
+8. **Help-First:** before first use of an unfamiliar CLI/tool/flag in this
+   workspace, read its `--help`/manual once (or a logged precedent) — never
+   guess flags from memory. (Pillar II)
 
 ---
 
@@ -94,7 +123,7 @@ Examples:
 
 This applies even when the fallback is intended to be equivalent and read-only. The original command failed; the fallback is a new command choice.
 
-#### Strategic choices require explicit selection (SPEC-3.5)
+#### Strategic choices require explicit selection (SPEC-1.5)
 
 Separate from execution permission. **Even when a command is allowlisted** in `settings.local.json` (so the AI may run it without prompting), the **choice of which command to run** among multiple valid options is reserved for me.
 
@@ -111,9 +140,9 @@ For each, the AI must:
 1. List the options
 2. Briefly explain trade-offs
 3. Wait for me to name the choice (a generic "go" / "sure" (Thai: "ได้เลย") is insufficient — I must pick by name)
-4. Only then propose the resulting command (under SPEC-3.1)
+4. Only then propose the resulting command (under SPEC-1.1)
 
-Full definition: [workflow-spec.md](workflow-spec.md) → SPEC-3.5.
+Full definition: [workflow-spec.md](workflow-spec.md) → SPEC-1.5.
 
 Force push is never the default path. Raw `git push --force` is forbidden. If force is explicitly chosen after alternatives are explained, use `--force-with-lease` only and never on protected/default/shared branches without another explicit exception.
 
@@ -136,7 +165,7 @@ is protected from autonomous AI modification.
 Rules:
 - The AI must **never autonomously edit, delete, overwrite, or modify** any text or settings between these tags — not during refactoring, template upgrades, intake, or any self-initiated action.
 - The AI must **preserve the tags themselves** and everything in between exactly as-is unless the user explicitly asks for a change.
-- If the AI believes a change is needed inside a protected block, it must **describe the proposed change and wait for explicit user approval** before editing (per SPEC-3.5).
+- If the AI believes a change is needed inside a protected block, it must **describe the proposed change and wait for explicit user approval** before editing (per SPEC-1.5).
 - When the user explicitly requests a modification to protected content, the AI **may** make the change. The protection guards against autonomous AI action, not against user-directed edits.
 - This rule applies to both active session file edits and automated template upgrades.
 
@@ -147,6 +176,39 @@ To protect developer API keys, private passwords, and security tokens from leaki
 1. **Zero-Leak Policy**: The AI must never request, input, write, or handle raw, real credentials (API keys, passwords, private tokens, AWS credentials, etc.) under any circumstances.
 2. **Template-Only Setup**: If configuration keys are needed (e.g. `.env` values), the AI must only generate template files (such as `.env.example`) or populate local configurations with clearly marked placeholder values (e.g., `DATABASE_URL=your_database_url_here`, `API_KEY=your_key_here`). Prompt the user to manually insert the actual values locally.
 3. **Proactive `.gitignore` Shielding**: Before creating or saving any configuration or credentials file, the AI must verify that the file pattern is explicitly covered in `.gitignore`. If it is missing from `.gitignore`, the AI must append it to `.gitignore` *before* ever writing the file to disk.
+
+#### Secret Intake Protocol (PowerShell — all runtimes)
+
+When a real secret value must actually enter the local environment (API key,
+CLI credential, token), the goal is that **the AI never holds the plaintext in
+its context** — what the AI never sees, it cannot leak. Follow this exact order:
+
+1. **Scaffold + shield first.** Before anything else, create the secret file
+   and ensure its pattern is in `.gitignore`. Never write the file before the
+   ignore entry exists.
+2. **Human enters it masked — the AI must never ask for the value in chat.**
+   The owner types the secret via `Read-Host -AsSecureString` so it is never
+   echoed to the terminal, history, or chat:
+   ```powershell
+   $sec = Read-Host "Paste secret" -AsSecureString
+   $sec | ConvertFrom-SecureString | Set-Content secret.key.enc   # DPAPI ciphertext at rest
+   ```
+3. **Use by reference, never by value.** Load and expose only via a named env
+   var; the AI refers to the *name*:
+   ```powershell
+   $sec = Get-Content secret.key.enc | ConvertTo-SecureString
+   $env:MY_API_KEY = [System.Net.NetworkCredential]::new('', $sec).Password
+   ```
+4. **Never reveal.** The AI must never `echo`, `Write-Output`, `cat`, or
+   otherwise print a secret value, and must never paste it into a command line
+   in plaintext where it would appear in output or history.
+
+> Boundary note: `ConvertFrom-SecureString` (DPAPI) binds the ciphertext to the
+> current user + machine — it will not decrypt elsewhere (a security feature,
+> not a bug). On non-Windows PowerShell 7 there is no DPAPI; this protocol
+> assumes the Windows PowerShell environment the workspace targets. This is a
+> documentation-level rule (no helper script) for portability — its strongest
+> guarantee (masked entry) only holds if the human performs step 2.
 
 ---
 
@@ -167,7 +229,7 @@ Two failure modes to guard against during work:
 
 #### Rules
 
-**The AI must not expand scope unprompted.** Stay in the lane that was given (the lane is the task as restated under SPEC-2.1). Follow these **5 Core Rules of Scope Discipline**:
+**The AI must not expand scope unprompted.** Stay in the lane that was given (the lane is the task as restated under SPEC-4.1). Follow these **5 Core Rules of Scope Discipline**:
 
 1. **Stop when evidence is sufficient** — Stop and report as soon as you have the answer or the verification succeeds (e.g., lint passes + test green = done). Do NOT run speculative over-verification checks or multiple tools just because you are "afraid of missing something."
 2. **Trust the first output** — When a command produces the required output, use it immediately. Do NOT run duplicate tools, and do NOT write temporary files just to read them back and "confirm" the same result.
@@ -194,7 +256,7 @@ When drift is detected, the AI pauses and asks: "We're moving outside the origin
 
 #### When the rule applies
 
-"Execution" begins when the AI starts editing files or running state-changing commands per SPEC-3.1. Before that — intake, planning, discovery, or the `grill-me` skill — scope expansion is the goal of the activity, not a violation. The rule kicks in at the moment of the first file edit or state-changing command.
+"Execution" begins when the AI starts editing files or running state-changing commands per SPEC-1.1. Before that — intake, planning, discovery, or the `grill-me` skill — scope expansion is the goal of the activity, not a violation. The rule kicks in at the moment of the first file edit or state-changing command.
 
 #### Mode-aware behavior
 
@@ -222,6 +284,60 @@ To prevent "familiarity shortcutting"—where the AI skips critical pre-flight c
 2. **One Step, One Commit**: The AI must stage and commit the work of the current step *before* editing files or executing commands for the next step. Rushing through multiple steps in a single giant commit or command chain is strictly prohibited.
 3. **Traceable Done Status**: Each commit message in the milestone chain must explicitly reference the completed step of the SOP (e.g. `feat(release): step 1 - promote changelog notes`), providing a natural audit trail for the developer.
 
+### Milestone Auto-Commit & Proactive Teaching
+
+Builds on "SOP Discipline via Commit Milestones" above. The aim: keep `execute`
+speed while closing the *understanding gap* — the user learns *why* the code
+works at natural checkpoints, without the friction that made full `teach` mode
+go unused.
+
+#### Milestone decomposition (how work is chopped)
+
+1. **Default boundary = verifiable unit + one concept.** One milestone is the
+   smallest slice that (a) can be checked as passing/green on its own, and
+   (b) teaches exactly one concept. If explaining that one concept needs pages,
+   the milestone is too big — split it.
+2. **Propose, then confirm.** Before execution, the AI proposes the full
+   milestone breakdown and asks the owner to adjust granularity (fewer/larger
+   vs more/smaller). The owner approves the plan **once**. This approval is the
+   SPEC-1.5 strategic selection — after it, each milestone commit is
+   *pre-authorized execution of an approved plan*, not a new decision.
+
+#### Auto-commit (opt-in, default OFF, runtime-gated)
+
+3. **Switch + default.** Milestone auto-commit is controlled by a checkbox in
+   `engagement-mode.md` → Autonomy Configuration (inside AI-NO-OVERWRITE).
+   Default is **OFF**; the AI may never enable it autonomously.
+4. **Runtime gate.** Even when ON: Claude/Codex may auto-commit at each approved
+   milestone. Gemini (known Zero-Leak output-leak gap) **falls back** to
+   propose-and-approve regardless of the switch.
+5. **Local-only, never push.** Auto-commit creates **local** commits only.
+   `git push` and any remote write still require explicit approval every time
+   (Pillar I). This is the line between a reversible save point and an
+   outward-facing action.
+6. **Staging guard.** The AI must stage an explicit, named file list per
+   milestone — **never** `git add -A` / `git add .` — and must never stage a
+   secret/ignored file. (Pairs with the Secret Intake Protocol.)
+7. **Clean commit message.** Conventional-commit, English, team-clean, with the
+   co-author trailer. Teaching content never goes in the commit message.
+
+#### Teaching box (always on, separate from auto-commit)
+
+8. **Where + when.** At every milestone (whether auto-committed or merely
+   proposed), the AI shows a **teaching box in chat** — never in the commit
+   message, never as a marker inside repo files.
+9. **Format + language.** A category icon (🔒 security · 💡 learnable ·
+   ⬆️ elevate · ⚙️ chore) + the clean commit subject + a "why it works / where
+   it can break" explanation. The explanation is written in the **conversation
+   language of the session** (the language the owner is using) — code and commit
+   messages stay English regardless. Length is **proportional to the concept** —
+   concise by default, longer when the concept genuinely needs it (bounded by
+   the one-concept rule).
+10. **Continue-by-default prompt.** After the box, the AI offers a light
+    next-step prompt that defaults to continuing (e.g. "→ next milestone (Enter)
+    · or type to adjust/stop"), so flow is preserved while the owner keeps
+    control at every checkpoint.
+
 ### Infinite Loop & Ping-Pong Prevention
 
 To prevent autonomous AI agents from getting stuck in iterative "ping-pong" loops—such as running the same failing command, repeating unsuccessful code edits, or re-trying failed tool calls with minor, non-strategic changes—the following safety circuit breakers are enforced:
@@ -235,13 +351,15 @@ To prevent autonomous AI agents from getting stuck in iterative "ping-pong" loop
 
 ### Help-First Command Discipline (Anti-Guessing)
 
-To prevent trial-and-error command attempts, minimize token/context waste, and ensure correct integration, the AI must adhere to the **Help-First Command Discipline**:
+Before using an unfamiliar CLI, tool, script, or flag for the first time in this
+workspace, **read its `--help`/`-h`/`man` or local manifest first** — never guess
+options from general convention. One-time check per tool (skip if its help is
+already in context or logged in `technical-precedents.md`); do not re-run it every
+step. Applies to the Main Agent and any Cognitive Subagent.
 
-1. **No Assumed Parameters**: When a new command-line tool, script, utility, framework, or CLI is introduced, installed, or invoked for the first time in the workspace (or when using an unfamiliar command/flag), the AI must never assume its options, arguments, or behaviors based on general conventions.
-2. **Explicit Help Check**: The AI (both the **Main Agent** and any **Cognitive Subagents**) **must** explicitly run the tool's help command (e.g. `tool --help`, `tool -h`, or `man tool`) or inspect its local instructions/manifest file *before* executing any logical work, integration scripts, or state-changing commands with it. This help check is a **one-time onboarding action** per tool/script in the workspace or session (or when introducing a newly unfamiliar subcommand/flag). Once the help output is registered in the context or logged in the precedents, the AI must not re-run it in subsequent steps, preventing redundant executions. Failing to read the manual leads to guessed flags and off-course trial-and-error drift; researching help first ensures complex tasks can be resolved in a **single prompt**.
-3. **Subagent Archetype Context Optimization**: When spawning or configuring a Subagent, optimize context footprint based on its archetype:
-   - **Executor Subagent (Strict Execution)**: Spawned strictly to run pre-formulated command lines generated by the Main Agent. It requires only the exact command-line string—do **not** load the tool manual or generic codebase context, keeping it as a low-overhead worker.
-   - **Cognitive Subagent (Code Gen/Scripting/Troubleshooting)**: Tasked with writing code, generating integration scripts, or troubleshooting tool-specific errors. It **must** have the tool's manual/help output provided directly in its task context to prevent guess-and-check loops.
+Subagent context by archetype:
+- **Executor** (runs a pre-formed command line): give only the exact command — no manual, no codebase context.
+- **Cognitive** (writes code / troubleshoots): must get the tool's help/manual in its task context.
 
 ---
 
@@ -276,6 +394,39 @@ When investigating or resolving a bug, error, or crash, you must adhere strictly
   2. *Disproof Test*: What test, log, or evidence would disprove this hypothesis (and run it first).
 - **No Speculative Guess-and-Checks**: Do not run consecutive code trial-and-error attempts. Every change must be driven by a validated hypothesis.
 
+### Generic Input Handling (Dimensions of Variation)
+
+When authoring **or** fixing any tool, function, or script that consumes
+external or variable input (parsing, file/data ingestion, format conversion,
+API responses, user input), handle the **class** of inputs — not just the one
+in front of you. Patching a single failing case to "make it pass" creates
+whack-a-mole: the next input shape breaks it again.
+
+**Proactive (when building):**
+1. Name the **dimensions of variation** — the axes along which input realistically
+   varies for this task (e.g. encoding, structure/shape, format, size). Do not
+   invent axes that cannot occur — that is gold-plating (see Scope Discipline).
+2. For each axis, decide: **handle robustly** or **validate-and-reject explicitly**.
+3. Surface the axes and decisions to the owner briefly before implementing.
+
+**Reactive (when an input breaks it) — the anti-band-aid teeth:**
+1. **Classify** the failing input: which axis does it hit, and is it in-class?
+2. If in-class → fix the **root cause for the whole axis**; never hardcode or
+   special-case the single value to pass.
+3. **No regression**: previously-working inputs must still work.
+4. If genuinely out-of-scope → validate, reject clearly, and tell the owner —
+   never silently band-aid it through.
+
+**Regression test policy:** writing a regression test that captures the new case
+*and* a previously-working case is **mandatory** (it shapes the fix toward the
+correct in-scope behavior). **Running** it every iteration is **not** mandatory —
+run when something meaningful changed, not redundantly (see Scope Discipline:
+"Stop when evidence is sufficient" / "Trust the first output").
+
+Pairs with the Debug Routine (Hypothesis Ledger) in
+`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`; extends "No speculative
+guess-and-checks".
+
 ### When to Split Work
 
 Split an implementation if it combines any of:
@@ -305,7 +456,7 @@ Do not modify any of the above without explicit instruction.
 ### Keeping Personal Docs in Sync
 
 Update files when the underlying reality changes:
-- **`<workspace-root>/progress-tracker.md`** (work tracker, at root) — after every meaningful work action (branch created, PR pushed, merge done, blocker found)
+- **`<workspace-root>/progress-tracker.md`** (work tracker, at root) — after every meaningful work action (branch created, PR pushed, merge done, blocker found). Keep it a **concise summary** — the git log (incl. milestone commits) is the detailed trail; do not duplicate it into the tracker (SPEC-9.1.2).
 - **`AgentJoJoy/agent-context/progress-tracker-setup.md`** (setup tracker) — when workspace structure changes or spec is amended
 - **`AgentJoJoy/agent-context/architecture.md`** — if I learn something new about the stack or invariants
 - **`AgentJoJoy/agent-context/standards.md`** — if team rules change

@@ -240,6 +240,22 @@ Write the answers to:
 - `AgentJoJoy/agent-rules/workspace-model.md`
 - `AgentJoJoy/agent-context/standards.md`
 
+### Wrapper Isolation Shield
+
+The wrapper layer must never enter the project repo's history (see
+`workspace-model.md` → "Wrapper Isolation"). Before any project commit:
+
+- If the project repo's working tree contains `AgentJoJoy/` (git is at or above the
+  wrapper root), **propose adding `AgentJoJoy/` to the project `.gitignore`** and get
+  approval before the first commit. `.gitignore` only untracks — files stay locally
+  for agents to read.
+- In a **solo single-repo** setup, also offer to gitignore the wrapper-owned root
+  files (`CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`). In a **team repo**, prefer
+  the sibling layout and never gitignore the team's own root files.
+- If `AgentJoJoy/` is already tracked (the known failure mode), propose
+  `git rm -r --cached AgentJoJoy/` plus the `.gitignore` entry to stop tracking it
+  going forward (approval-gated; any history rewrite is a separate owner decision).
+
 ### Planning Baseline
 
 Ask enough to create the first plan:

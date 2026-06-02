@@ -131,6 +131,16 @@ AgentJoJoy จาก Explorer sidebar ได้ AI จะสร้างหร�
 Windows Directory Junction model ได้ โค้ดอยู่ใต้ wrapper แต่ external runtime path
 ชี้มาหาด้วย junction link AI ต้องถามก่อนสร้างหรือลบ link เสมอ
 
+### Milestone Teaching & Auto-Commit
+
+สำหรับงานซับซ้อน AI จะแบ่งงานเป็น **milestone** — ก้อนที่เล็กที่สุดที่ตรวจสอบเองได้
+และสอนได้ 1 แนวคิดต่อก้อน ทุก milestone จะมี **กล่องสอน** สั้น ๆ ในแชต (อธิบายว่า
+ทำไมโค้ดถึงทำงาน และจุดไหนที่อาจพัง) ด้วยภาษาที่คุณคุย ทำให้ค่อย ๆ เข้าใจโดยไม่เสีย
+ความเร็ว คุณเปิด **milestone auto-commit** ได้ (ค่าเริ่มต้นปิด ตั้งใน
+`engagement-mode.md`): เมื่อเปิด AI จะ commit checkpoint แบบ *local* ที่สะอาดทุก
+milestone ที่อนุมัติไว้ — ส่วนการ push ยังถามทุกครั้ง ความลับ (secret) จะไม่ถูกถาม
+หรือพิมพ์ในแชต คุณกรอกเองในเครื่องผ่าน prompt ที่ปิดบัง (Secret Intake Protocol)
+
 ---
 
 ## 6. Portable Skills

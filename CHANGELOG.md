@@ -10,11 +10,21 @@ For internal template-development history, see the private dev repo.
 
 ## [Unreleased]
 
+---
+
+## [v2.0.0] — 2026-06-02 — Collaborative Milestones & Workspace Clarity
+
 ### Added
+- **Milestone Teaching**: For complex work the AI now breaks a task into *milestones* — the smallest slice that is independently verifiable and teaches one concept — and shows a short **teaching box** in chat at each one (why the code works and where it can break), in your conversation language, so you build understanding without slowing down.
+- **Milestone Auto-Commit (opt-in, default OFF)**: A new toggle in `engagement-mode.md` lets Claude/Codex make clean *local* checkpoint commits at each approved milestone (pushing always still asks; staging is always explicit, never `git add -A`). Gemini runtimes always fall back to propose-and-approve.
+- **Secret Intake Protocol**: A documented, script-free way to bring a secret into the local environment — create the file and add it to `.gitignore` first, enter the value through a masked `Read-Host` prompt, then reference it by env-var name. The AI never asks for or prints a secret value in chat.
+- **Generic Input Handling (Dimensions of Variation)**: When building or fixing a tool that processes variable input, the AI handles the input *class* — naming the dimensions of variation and deciding per-axis to handle-or-reject — instead of band-aiding one failing case at a time. Fixes target the root cause for the whole dimension (no special-casing to pass), keep previously-working inputs working, and come with a mandatory regression test (run on-demand).
+- **Wrapper Isolation Shield**: intake now proactively keeps the personal wrapper layer out of the project repo — `AgentJoJoy/` is added to the project `.gitignore` (with approval) so AI context can't be accidentally committed/pushed. `.gitignore` only untracks; files stay local for agents to read. Closes a real gap (a single repo initialized at the wrapper root would otherwise sweep `AgentJoJoy/` into project history).
 
 ### Changed
-
-### Removed
+- **Front-loaded safety rules**: Added a Quick Reference at the top of `ai-workflow-rules.md` and a Critical Safety Gates block at the top of `AGENTS.md`, both written restriction-before-permission, so agents that only read a file's head still see the hard rules first. Critical Rule 1 now points to its scoped exceptions (Rules 7–9).
+- **Tracker conciseness (SPEC-9.1.2)**: The work tracker is kept a short summary; detailed step history lives in the git log (including milestone commits) instead of being transcribed into the tracker.
+- **Documentation conciseness pass**: front-loaded and tightened `CLAUDE.md`, `AGENTS.md`, and the Help-First rule (~240 fewer lines, no nuance lost; de-staled commit-attribution examples). New **SPEC-9.4 Documentation Conciseness** codifies "lead with the rule, front-load, concise ≠ lossy" so docs stay readable.
 
 ---
 

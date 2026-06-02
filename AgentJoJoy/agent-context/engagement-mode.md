@@ -20,14 +20,19 @@ These settings define what the AI is allowed to do autonomously. By default, thi
 
 <!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->
 - **File Modification:**
-  - [x] Requires approval before editing any codebase files (SPEC-3.1)
+  - [x] Requires approval before editing any codebase files (SPEC-1.1)
 
 - **Command Execution:**
   - [x] Requires approval before running state-changing commands (e.g. git checkout, npm install)
   - [ ] Requires approval before running safe read-only/verification/testing commands (e.g. git status, npm run test)
 
 - **Git & External Actions:**
-  - [x] Requires approval before remote writes or commits (e.g. git push, git commit) (SPEC-3.5)
+  - [x] Requires approval before remote writes or commits (e.g. git push, git commit) (SPEC-1.5)
+
+- **Milestone Auto-Commit (local-only) — the only carve-out to "approval before commits" above:**
+  - **DEFAULT: OFF.** Regardless of this box: **Gemini runtimes must NEVER auto-commit — always propose-and-approve.** `git push` and all remote writes still require approval every time.
+  - [ ] When checked, **Claude / Codex only** may auto-commit at approved milestones (local commits only, on a pre-approved milestone plan; explicit named staging, never `git add -A`).
+  - _Note: the teaching box is shown at every milestone independent of this switch._
 <!-- AGENTJOJOY:AI-NO-OVERWRITE END -->
 
 > [!NOTE]
@@ -84,8 +89,8 @@ without needing a config change — just say it:
 These are session-level requests, not workspace settings. Mention
 them at the start of a task, or mid-task if your needs shift.
 
-Both modes still respect SPEC-3.1 (per-action approval for
-state-changing operations) and SPEC-3.5 (strategic choices reserved
+Both modes still respect SPEC-1.1 (per-action approval for
+state-changing operations) and SPEC-1.5 (strategic choices reserved
 for user).
 
 ---

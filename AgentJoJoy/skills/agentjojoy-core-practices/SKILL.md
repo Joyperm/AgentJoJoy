@@ -56,6 +56,12 @@ Use when something is broken, failing, throwing, flaky, or unexpected.
    run the disproof before committing to the explanation.
 4. Keep a short experiment ledger. For every run, record what changed,
    what happened, and what it ruled in or out.
+5. Fix the class, not the case. If the failure is an input the tool should
+   handle, fix the root cause for the whole dimension of variation — never
+   hardcode or special-case the single value to "make it pass," and never break
+   previously-working inputs. Writing a regression test (new case + an old one)
+   is mandatory; running it is on-demand. See "Generic Input Handling" in
+   `AgentJoJoy/agent-rules/ai-workflow-rules.md`.
 
 Do not propose or implement a fix before the repro and fail path are
 credible.

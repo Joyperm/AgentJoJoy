@@ -65,65 +65,23 @@ Use the loaded contents and [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy
 
 ### Step 2 — Intake mode
 
-This workspace has not been used yet, or intake was never completed.
-Follow [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md). Start
-by asking the user:
+Intake is incomplete. Follow [`intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md)
+as canonical — it holds the full Path 1 / Path 2 steps and completion checklist.
+Start by asking:
 
 > "It looks like this is a new workspace — start with:
-> **New Project** (Path 1), **Existing Project** (Path 2),
-> or **Skip for now**?"
+> **New Project** (Path 1), **Existing Project** (Path 2), or **Skip for now**?"
 
-#### Path 1 — New project
+Essentials on both paths:
+- Ask in small batches; get approval before creating/moving/cloning anything.
+- Read-only discovery first; detect secret files by name, never print values.
+- Team/project repo rules are authoritative over personal AgentJoJoy preferences.
+- Show an Intake Summary Preview before writing template updates.
+- Record first milestone, first slice, verification signal, not-now items, open questions.
+- Path 2 git projects: run the first-time Git/worktree orientation (wrapper model +
+  `fetch → inspect → choose rebase/merge → verify → push`) before any branch/worktree
+  command — recipe in `workspace-model.md` → "Sync with new main".
 
-Follow `AgentJoJoy/agent-rules/intake-flow.md` as canonical. In short:
-
-1. Ask small batches of questions for identity, owner preferences,
-   secrets/environment safety, and planning baseline.
-2. Propose folder structure for `<code-or-content>/` and get approval
-   before creating anything.
-3. Show an Intake Summary Preview before writing final template
-   updates.
-4. Fill applicable templates: `AgentJoJoy/agent-context/project-overview.md`,
-   `AgentJoJoy/agent-context/architecture.md`, `AgentJoJoy/agent-context/standards.md`, `AgentJoJoy/agent-context/ui-context.md`,
-    `AgentJoJoy/agent-context/domain-language.md`, `AgentJoJoy/agent-rules/workspace-model.md`, `progress-tracker.md` (root level),
-   and `AgentJoJoy/agent-context/progress-tracker-setup.md`.
-5. Record the first milestone, first slice, verification signal,
-   not-now items, and open questions.
-
-#### Path 2 — Existing project
-
-Follow `AgentJoJoy/agent-rules/intake-flow.md` as canonical. In short:
-
-1. Ask where the existing project lives and get approval before moving,
-   cloning, or linking anything.
-2. Explain the wrapper/team repo/worktree ownership model before git
-   commands.
-3. Run read-only discovery only: README/manifests, team rule files,
-   docs/ADRs, relevant source structure, and git state.
-4. Detect secret files by path/name, but do not print secret values.
-5. Treat team/project repo rules as authoritative for project content.
-6. Show an Intake Summary Preview before writing final template
-   updates, including confirmed facts, AI guesses, unknowns, protected
-   paths, verification commands, and files to update.
-7. Fill applicable templates and record first milestone, first slice,
-   verification signal, not-now items, and open questions.
-8. If this is a git project, run the **first-time Git/worktree
-   orientation** before proposing any branch or worktree commands:
-   - Explain the wrapper model: `AgentJoJoy/` is AgentJoJoy-owned personal
-     context; the existing repo and task worktrees remain team-owned.
-   - Explain the sync mental model in plain language:
-     `fetch → inspect → choose rebase/merge → verify → push`.
-    - Show the small ASCII graph in `AgentJoJoy/agent-rules/workspace-model.md`
-      → "Sync with new main" so the owner can see what changed.
-    - Define the three terms the owner is likely to see:
-      `origin/main` = latest team main on remote, task branch =
-      the owner's work, worktree = folder checked out to one task branch.
-    - Give the default rule of thumb: branch not pushed yet → rebase
-      is usually clean; branch already pushed or in PR → merge is
-      usually safer; rebase after push requires explicit discussion
-      because it leads to `--force-with-lease`.
-    - Point to `AgentJoJoy/agent-rules/workspace-model.md` → "Sync with new main"
-     for the reusable recipe.
 ### Step 3 — Resume mode (Resume Check Protocol)
 
 Templates are filled, this is a normal work session. Run these checks
@@ -132,7 +90,7 @@ before doing any new work:
 1. Read `progress-tracker.md` (workspace root) to understand current
    in-flight state. Only read `AgentJoJoy/agent-context/progress-tracker-setup.md`
    if the user asks about setup history or recent workflow changes.
-2. If `<code-or-content>/` is a git repo, run a single combined command to discover git state (no approval needed — read-only per SPEC-3.2, counts as 1 tool call):
+2. If `<code-or-content>/` is a git repo, run a single combined command to discover git state (no approval needed — read-only per SPEC-1.2, counts as 1 tool call):
    ```powershell
    git -C "<code-or-content>" status && git -C "<code-or-content>" worktree list && git -C "<code-or-content>" branch --show-current
    ```
@@ -177,7 +135,8 @@ These are set during intake and stored here. Update if they change.
 ## Critical Rules
 
 1. **Ask before any git push / pull / commit / merge / branch switch.**
-   The AI may suggest commands and explain effects, but must wait for
+   (Scoped exceptions: Rules 7–9 below.) The AI may suggest commands and
+   explain effects, but must wait for
    the user to say go before executing anything that changes git
    state or talks to a remote. Full list in
     [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md)
@@ -191,12 +150,12 @@ These are set during intake and stored here. Update if they change.
    options, explain trade-offs, and wait for the user to **name** the
    choice — a generic "go" / "sure" (Thai: "ได้เลย") is not enough. See
    [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) →
-   SPEC-3.5.
+   SPEC-1.5.
 
 3. **Multi-worktree target naming.** When more than one worktree is
    active, the AI's intake restatement must name the target worktree.
-   This is a SPEC-3.5 strategic choice — the AI must not infer the
-   target. See SPEC-2.1.
+   This is a SPEC-1.5 strategic choice — the AI must not infer the
+   target. See SPEC-4.1.
 
 4. **Don't touch the team's rule folders** (e.g. `.cursor/rules/`,
    `.claude/` inside the project repo) unless an explicit PR is
@@ -226,90 +185,50 @@ These are set during intake and stored here. Update if they change.
    choose direct checkpoint commits/pushes to `main`. This exception
    does not apply to copied workspaces or Path 2 team repos.
 
+9. **Milestone auto-commit & teaching (opt-in, default OFF).** Default OFF;
+   **Gemini runtimes must never auto-commit** (always propose-and-approve);
+   `git push` always requires approval. When enabled in `engagement-mode.md`
+   (AI-NO-OVERWRITE block), **Claude/Codex only** may make *local* milestone
+   commits — on a milestone plan you approved up front, with explicit named
+   staging (never `git add -A`). A **teaching box** (in chat, in the session's
+   conversation language, never in the commit message) is shown at **every**
+   milestone regardless of the switch. Secrets follow the **Secret Intake
+   Protocol** (never asked/printed in chat). Full mechanics:
+   [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md)
+   → Pillar I "Secret Intake Protocol" + Pillar II "Milestone Auto-Commit &
+   Proactive Teaching".
+
 ---
 
 ## Multi-Agent Coexistence
 
-When more than one AI agent works on this project (Claude Code +
-Codex on different branches, Cursor background agents, etc.), the
-following rules keep attribution clear and work uncontaminated.
+When several AI agents share this project (Claude/Codex on different branches,
+Cursor background agents), these rules keep attribution clear and work clean.
 Mirrored in [`AGENTS.md`](AGENTS.md) for non-Claude agents.
 
-### Branch naming
+**Branch naming** (depends on project type, not agent):
+- Team repo (Path 2): follow the team's convention (e.g. `feature/<owner>-<task>`).
+  All agents use the same scheme — the co-author trailer shows who did the work;
+  agent-prefixed branches (`codex/...`) clutter team PR lists.
+- Personal (Path 1): owner-named convention; agent prefix optional for solo work.
+- Reserved — never create manually: `cursor/...` (Cursor's background agents own these).
 
-Branch naming depends on the **project type**, not the agent:
+**Code change tags** — near a meaningful change, add one marker per
+function/class/decision block (not per line): `// CLAUDE: <reason>` (agent's own
+name; `#` for Python/shell). Preserve existing markers; update one if you
+materially change that block. Skip trivial/mechanical edits.
 
-**Team repo (Path 2 / existing project):**
-- Follow the team's convention (commonly `feature/<owner>-<task>`,
-  `fix/<owner>-<task>`, `improve/<owner>-<task>`)
-- **All agents use the same scheme** — the commit co-author trailer
-  reveals which agent did the work
-- Why: tool-prefixed branches (`codex/...`, `claude/...`) look
-  unprofessional in team PR lists and clutter `git branch -a`
+**Commit attribution** — every commit gets a co-author trailer; `[Model]` is the
+exact model running (ask if unsure):
+`Co-Authored-By: Claude [Model] <claude-bot@users.noreply.github.com>`
+(other agents use their own, e.g. `Codex [Model] <codex-bot@...>`).
 
-**Personal / new project (Path 1):**
-- Owner-named convention preferred for consistency
-- Tool prefix optional if you want extra clarity for solo work
-
-**Always reserved (never create manually):**
-- `cursor/...` — Cursor background agents create these
-  automatically. Manually creating one confuses Cursor's agent
-  system.
-
-### Code change tags
-
-When making meaningful code additions or behavioral changes, add a
-concise marker near the logical block:
-
-```
-// CLAUDE: <short reason>     ← TypeScript / JavaScript / Java / etc.
-# CLAUDE: <short reason>      ← Python / Ruby / shell
-```
-
-(Other agents use their own name: `// CODEX:`, `// CURSOR:`, etc.)
-
-Rules:
-- One marker per function, class, or decision block — not per line
-- Skip markers for trivial formatting, renames, or mechanical edits
-- Preserve existing markers when editing nearby code
-- If a different agent materially changes a marked block, update
-  the marker so ownership is clear
-
-### Commit attribution
-
-Append a co-author trailer to every commit message:
-
-```
-Co-Authored-By: Claude [Opus 4.7] <claude-bot@users.noreply.github.com>
-```
-
-`[Model]` must reflect the exact model running. If unsure, ask the
-owner before committing.
-
-### Session handoff
-
-The durable source of in-flight state is
-[`progress-tracker.md`](progress-tracker.md). Most agent handoffs
-work through that file + git state alone.
-
-When mid-flight state is too subtle for git + tracker to convey
-(e.g. partial refactor with non-obvious next step), use a dedicated
-handoff file:
-
-- Location: `AgentJoJoy/session-handoff.md`
-- When to write: only when the owner explicitly asks, OR when
-  stopping with real mid-flight work that cannot be safely
-  understood from git state + `progress-tracker.md`
-- Normal state: empty (no-active-handoff)
-
-At session start, if `session-handoff.md` contains an active
-handoff, read it as a temporary clue, reconcile with git state and
-`progress-tracker.md`, then reset it back to empty before
-continuing.
-
-The reset is session hygiene — don't make it a standalone
-deliverable (no separate branch/commit/PR just for the reset).
-Include it in whatever real work happens in the same session.
+**Session handoff** — `progress-tracker.md` + git state carry most handoffs.
+Only when mid-flight state is too subtle for those, write
+`AgentJoJoy/session-handoff.md` (owner asks, or real un-inferable mid-flight work);
+normal state empty. At session start, if it holds an active handoff, reconcile
+with git + tracker, then reset to empty as part of the same session's work (not a
+standalone commit). Agents must never approve/merge their own PR.
 
 ---
 
@@ -320,11 +239,11 @@ an architecture direction, resolving a deferred decision, changing
 engagement mode permanently), follow this sequence:
 
 1. **Execute the operational change first**, with explicit approval
-   per SPEC-3 / SPEC-3.5.
+   per SPEC-1 / SPEC-1.5.
 2. **Propose doc updates** that reflect the new state. List the
    specific files + edits.
 3. **Get approval** for the doc updates. A single batch approval is
-   acceptable per SPEC-3.4 sequence rule — no need to approve each
+   acceptable per SPEC-1.4 sequence rule — no need to approve each
    file individually.
 4. **Execute** the doc updates after approval.
 5. **Log the decision** in

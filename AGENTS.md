@@ -18,6 +18,26 @@ rules.
 
 ---
 
+## 🔒 CRITICAL SAFETY GATES (read before any command)
+
+- **Secrets — never leak:** Never *ask for*, print, `echo`, or `cat` a secret
+  value in chat. Create the secret file + add to `.gitignore` **first**, then
+  have the **human** enter it via `Read-Host -AsSecureString`; reference it by
+  env-var *name*, never by value. Full:
+  [`ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) →
+  "Secret Intake Protocol".
+- **Commits & push need approval** — the only carve-out is opt-in
+  **Milestone Auto-Commit**: **DEFAULT OFF; Gemini must never auto-commit
+  (always propose-and-approve); push always asks.** When enabled, **Claude/Codex
+  only** may make *local* milestone commits on a plan the owner approved up
+  front (explicit named staging, never `git add -A`). A **teaching box** (in
+  chat, session's conversation language, never in the commit message) shows at
+  every milestone. Full:
+  [`ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) →
+  "Milestone Auto-Commit & Proactive Teaching".
+
+---
+
 ## Session Start — Run the Resume Check First
 
 Before any other work (including generating any greeting or response), classify the workspace state and retrieve in-flight context.
@@ -146,92 +166,33 @@ validation records, local runtime caches, and
 
 ## Multi-Agent Coexistence Rules
 
-When more than one AI agent works on this repo (e.g. Claude Code +
-Codex on different branches, or Cursor background agents running
-in parallel):
+When several AI agents share this repo (Claude/Codex on different branches,
+Cursor background agents), these rules keep attribution clear and work clean.
+Mirrors [`CLAUDE.md`](CLAUDE.md).
 
-### 1. Branch naming
+**Branch naming** (depends on project type, not agent):
+- Team repo (Path 2): follow the team's convention (e.g. `feature/<owner>-<task>`).
+  All agents use the same scheme — the co-author trailer shows who did the work;
+  agent-prefixed branches (`codex/...`) clutter team PR lists.
+- Personal (Path 1): owner-named convention; agent prefix optional for solo work.
+- Reserved — never create manually: `cursor/...` (Cursor's background agents own these).
 
-Branch naming depends on the **project type**, not the agent:
+**Code change tags** — near a meaningful change, add one marker per
+function/class/decision block (not per line): `// CLAUDE: <reason>` (agent's own
+name; `#` for Python/shell). Preserve existing markers; update one if you
+materially change that block. Skip trivial/mechanical edits.
 
-**Team repo (Path 2 / existing project):**
-- Follow the team's convention (commonly `feature/<owner>-<task>`,
-  `fix/<owner>-<task>`, `improve/<owner>-<task>`)
-- **All agents use the same scheme** — the commit co-author trailer
-  reveals which agent did the work
-- Why: agent-prefixed branches (e.g. `codex/...`, `claude/...`) look
-  unprofessional in team PR lists and clutter `git branch -a`
+**Commit attribution** — every commit gets a co-author trailer; `[Model]` is the
+exact model running (ask if unsure):
+`Co-Authored-By: Claude [Model] <claude-bot@users.noreply.github.com>`
+(other agents use their own, e.g. `Codex [Model] <codex-bot@...>`).
 
-**Personal / new project (Path 1):**
-- Owner-named convention preferred for consistency
-  (`feature/<owner>-<task>`)
-- Agent-specific prefix optional if you want extra clarity for solo work
-  (e.g. `agent-name/<task>` for agent-specific experiments)
-
-**Always reserved (never create manually, any project type):**
-- `cursor/...` — Cursor background agents create these
-  automatically. Manually creating one confuses Cursor's agent
-  system.
-
-Don't manually rebase or merge a branch under another agent's
-reserved prefix unless explicitly asked.
-
-### 2. Code change tags
-
-When making meaningful code additions or behavioral changes, add a
-concise marker near the logical block:
-
-```
-// <AGENT>: <short reason>     ← e.g. // CLAUDE: extract pagination helper
-# <AGENT>: <short reason>      ← Python / Ruby / etc.
-```
-
-Rules:
-- One marker per function, class, or decision block — not per line
-- Skip markers for trivial formatting, renames, or mechanical edits
-- Preserve existing markers when editing nearby code
-- If a different agent materially changes a marked block, update
-  the marker so ownership is clear
-
-### 3. Commit attribution
-
-Append a co-author trailer to every commit message so authorship
-is durable in git history:
-
-```
-Co-Authored-By: <Agent Name> [Model] <noreply-bot@users.noreply.github.com>
-```
-
-Examples:
-- `Co-Authored-By: Claude [Opus 4.7] <claude-bot@users.noreply.github.com>`
-- `Co-Authored-By: Codex [GPT-5] <codex-bot@users.noreply.github.com>`
-
-`[Model]` must reflect the exact model running. If unsure, ask the
-owner before committing.
-
-### 4. Session handoff (when needed)
-
-The durable source of in-flight state is `progress-tracker.md`.
-Most agent handoffs work through that file + git state alone.
-
-When mid-flight state is too subtle for git + tracker to convey
-(e.g. partial refactor with non-obvious next step), use a dedicated
-handoff file:
-
-- Location: `AgentJoJoy/session-handoff.md`
-- When to write: only when the owner explicitly asks for a handoff,
-  OR when stopping with real mid-flight work that cannot be safely
-  understood from git state + `progress-tracker.md`
-- Normal state: empty / contains no-active-handoff template
-
-At session start, if `session-handoff.md` contains an active
-handoff, read it as a temporary clue, reconcile with git state and
-`progress-tracker.md`, then reset it back to empty before
-continuing.
-
-The reset is session hygiene — don't make it a standalone
-deliverable (no separate branch/commit/PR just for that reset).
-Include it in whatever real work happens in the same session.
+**Session handoff** — `progress-tracker.md` + git state carry most handoffs.
+Only when mid-flight state is too subtle for those, write
+`AgentJoJoy/session-handoff.md` (owner asks, or real un-inferable mid-flight work);
+normal state empty. At session start, if it holds an active handoff, reconcile
+with git + tracker, then reset to empty as part of the same session's work (not a
+standalone commit). Agents must never approve/merge their own PR.
 
 ---
 
@@ -282,31 +243,17 @@ does not vendor third-party skill text without a clear license.
 
 ## Commit and PR Behavior (Generic)
 
-- **Never push directly to default branch** (`main`, `master`,
-  `develop`, etc.). Always go through a PR.
-- **One-time empty-repo bootstrap exception:** If the remote has no
-  default branch or commits yet, the owner may explicitly choose a
-  one-time bootstrap push to `main`. After that first commit, use the
-  normal branch/PR flow.
-- **Template source repo checkpoint exception:** In the AgentJoJoy
-  template source repo itself, the owner may explicitly choose direct
-  checkpoint commits/pushes to `main`. Do not copy this exception into
-  Path 2 team repos or generated workspaces.
-- **Branch first, then code.** New work in a worktree under
-  `<workspace-root>/worktree-<task>/` (see
-  [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md)).
-- **No `--no-verify`** to bypass pre-commit hooks — fix the
-  underlying issue.
-- **Per-action approval required** for commit, push, merge, PR
-  create, etc. — see
-  [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md)
-  → "Pillar I: Permission Boundaries & Core Safety Gates".
-- **Strategic choices require explicit user selection** (rebase vs
-  merge, force vs normal push, etc.) — see SPEC-3.5.
-- **Agents must never approve or merge their own PR.**
-- Before committing, run the project's verification commands
-  (type check, tests, build) and report results.
-- Update `progress-tracker.md` after meaningful work.
+- **Never push directly to a default branch** (`main`/`master`/`develop`) — always via PR.
+  Owner-chosen exceptions: one-time empty-repo bootstrap, and the template-source
+  checkpoint (this source repo only — never copy into Path 2 team repos).
+- **Branch first, then code** in a worktree under `<workspace-root>/worktree-<task>/`
+  (see [`workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md)).
+- **Per-action approval** for commit/push/merge/PR; **strategic choices** (rebase vs
+  merge, force vs normal push) are the owner's to name — see
+  [`ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) (Pillar I) + SPEC-1.5.
+- **No `--no-verify`** — fix the hook failure instead.
+- Run the project's verification (type check, tests, build) before committing; report results.
+- Update `progress-tracker.md` after meaningful work (concise summary — SPEC-9.1.2).
 
 ---
 
