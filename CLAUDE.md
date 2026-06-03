@@ -29,6 +29,7 @@ subfolder** (Claude Code walks up the directory tree to find every
 │  ├─ agent-tools/               (local helper tools)
 │  ├─ agent-runtime/             (local generated agent state)
 │  ├─ skills/                    (portable / project-specific SKILL.md files)
+│  ├─ agent-smartworkers/        (Main-dispatched knowledge workers — neutral spec + template)
 │  ├─ agent-templates/           (reusable snippets / portable inserts)
 │  ├─ agent-decisions/           (key decisions log)
 │  └─ template-lab/              (source-repo-only development artifacts)
@@ -325,6 +326,7 @@ or the current diff.
 | Onboarding / intake | `intake-flow.md`, `project-overview.md`, `engagement-mode.md`, and `workspace-model.md` |
 | Git / worktree operations | `workspace-model.md`, `workflow-spec.md`, and the active tracker |
 | Skills | `skills/README.md` plus only the specific matching `SKILL.md` |
+| SmartWorker / worker dispatch | `ai-workflow-rules.md` → Work Escalation, `AgentJoJoy/agent-smartworkers/README.md`, and the target SmartWorker spec or template |
 
 ## Canonical Documentation
 
@@ -334,6 +336,7 @@ or the current diff.
 | [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) | AI permission boundaries and the 4 Pillars of Workspace Governance |
 | [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) | Detailed Path 1 / Path 2 onboarding flow and completion checklist. |
 | [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) | Wrapper ownership model, operational notes, paths, gotchas, and worktree workflow. |
+| [`AgentJoJoy/agent-smartworkers/README.md`](AgentJoJoy/agent-smartworkers/README.md) | SmartWorker framework — when/how the single Main Agent dispatches knowledge-requiring workers to a separate context (3-tier taxonomy script/SmartWorker/Skill; runtime-neutral spec + per-runtime binding). Not multi-agent orchestration. |
 | [`AgentJoJoy/agent-context/standards.md`](AgentJoJoy/agent-context/standards.md) | Project standards quick reference |
 | [`AgentJoJoy/agent-context/architecture.md`](AgentJoJoy/agent-context/architecture.md) | Project stack, boundaries, invariants (optional — coding projects) |
 | [`AgentJoJoy/agent-context/project-overview.md`](AgentJoJoy/agent-context/project-overview.md) | What this project is, the user's role |
@@ -352,7 +355,7 @@ or the current diff.
 | [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) | Skill layer model: Personal Agent Skills vs Project Skills and precedence when both match. |
 | [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) | Portable core practices for debugging, review, post-mortems, and stakeholder communication. |
 | [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) | Rigorous design interview for brainstorming, planning, and pressure-testing ideas before implementation. |
-| [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) | Meta-skill that monitors the user's workflow pattern (using Recent Actions in progress-tracker.md and in-session memory). |
+| [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) | Meta-skill that monitors the user's workflow pattern (Recent Actions + in-session memory) and, on a 3+ repeat, classifies it and routes to the right tier (script / SmartWorker / Skill). |
 | [`AgentJoJoy/skills/lean-output/SKILL.md`](AgentJoJoy/skills/lean-output/SKILL.md) | Output-brevity communication style ("smaller mouth, same brain") — active when the Lean Output toggle is on or on demand. |
 
 ## Skill Layers

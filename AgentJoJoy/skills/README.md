@@ -63,6 +63,23 @@ Rules:
 
 ---
 
+## SmartWorkers Are Not Skills
+
+SmartWorkers live under `AgentJoJoy/agent-smartworkers/`, not
+`AgentJoJoy/skills/`. Use them when recurring work needs project
+knowledge, inspection, or synthesis in a separate context before
+returning a result to the single Main Agent.
+
+Use a Project Skill when the repeated work is an in-line SOP the Main
+Agent should follow in its current context. Use a SmartWorker when the
+work would otherwise spend too much Main Agent context but still
+requires judgment beyond a mechanical script.
+
+`pattern-detection` may route a 3+ repeat to a script, SmartWorker, or
+Skill; it should not assume every recurring workflow becomes a Skill.
+
+---
+
 ## When Both Layers Match
 
 Use both layers without letting them fight:
@@ -147,7 +164,7 @@ After those protocols are satisfied, use these trigger keyword mappings:
 | User asks for RCA/post-mortem after validated fix | `agentjojoy-core-practices` Post-Mortem Routine |
 | User asks for PM/leadership/Slack/email/standup rewrite | `agentjojoy-core-practices` Management-Talk Routine |
 | User asks for project-specific repeated workflow | Project Skill if present; otherwise read project docs/scripts |
-| User repeats steps/actions/commands, or asks to detect patterns | `pattern-detection` |
+| User repeats steps/actions/commands, or asks to detect patterns | `pattern-detection` to route the work to script / SmartWorker / Skill |
 | Lean Output toggle on, or user asks to be terse/brief ("talk lean") | `lean-output` |
 
 Ambiguous prompt rule:

@@ -112,6 +112,9 @@ or the current diff.
 - **Git / worktree operations**: `workspace-model.md`, `workflow-spec.md`, and
   the active tracker.
 - **Skills**: `skills/README.md` plus only the specific matching `SKILL.md`.
+- **SmartWorker / worker dispatch**: `ai-workflow-rules.md` → Work
+  Escalation, `AgentJoJoy/agent-smartworkers/README.md`, and the target
+  SmartWorker spec or template.
 
 Available sources:
 
@@ -128,9 +131,10 @@ Available sources:
 - [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) — skill layer model: Personal Agent Skills vs Project Skills and precedence when both match
 - [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) — portable core practices for debugging, review, RCA, and stakeholder communication
 - [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) — rigorous design interview for brainstorming, planning, and pressure-testing ideas before implementation
-- [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) — meta-skill that nudges you to draft a custom skill when a workflow repeats 3+ times
+- [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) — meta-skill that, on a 3+ repeat, classifies recurring work and routes it to the right tier (script / SmartWorker / Skill)
 - [`AgentJoJoy/skills/lean-output/SKILL.md`](AgentJoJoy/skills/lean-output/SKILL.md) — output-brevity communication style ("smaller mouth, same brain"); active when the Lean Output toggle is on or on demand
 - [`AgentJoJoy/agent-tools/`](AgentJoJoy/agent-tools/) — local helper tools and sync scripts
+- [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — SmartWorker framework: single Main dispatches knowledge-requiring workers to a separate context (3-tier taxonomy; neutral spec + per-runtime binding; not multi-agent orchestration)
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts
 - [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) — key decisions log
 - [`AgentJoJoy/agent-runtime/`](AgentJoJoy/agent-runtime/) — local generated agent state files

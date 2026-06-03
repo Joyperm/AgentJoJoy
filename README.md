@@ -46,6 +46,7 @@ Already have an AgentJoJoy workspace? Use the [Upgrading](#upgrading) flow inste
 - **Test-first discipline** — encourages the AI to write or stub the failing/reproducing test before implementation or debugging.
 - **AI-NO-OVERWRITE Protection** — protects custom configurations and codebase sections from being changed by the AI or lost during upgrades.
 - **Portable skills** — `SKILL.md` routines for debugging, review, root-cause analysis, stakeholder updates, and design interviews.
+- **SmartWorker framework** — when recurring work needs knowledge (not just a script), the single Main Agent dispatches a worker into a separate context and gets back a synthesized result, keeping its own context clean; a runtime-neutral spec maps to each agent's native subagent mechanism. Not multi-agent orchestration.
 
 ---
 
@@ -159,7 +160,8 @@ See [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspa
 - [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) — **Consolidated Workspace & Operations Model** merging layout specifications, operating commands, and git-sync policies (Merge, Rebase, Squash & Rebase) into a single unified reference.
 - [`AgentJoJoy/workflow-guide.md`](AgentJoJoy/workflow-guide.md) — English onboarding manual.
 - [`AgentJoJoy/workflow-guide-th.md`](AgentJoJoy/workflow-guide-th.md) — Thai onboarding manual.
-- [`AgentJoJoy/agent-tools/`](AgentJoJoy/agent-tools/) — local helper tools (Clean Ejection script, Worktree Auto-Sync).
+- [`AgentJoJoy/agent-tools/`](AgentJoJoy/agent-tools/) — local helper tools, including clean ejection and lightweight wrapper maintenance helpers.
+- [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — SmartWorker framework: runtime-neutral spec + template for Main-dispatched knowledge workers (not multi-agent orchestration).
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts.
 - [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) — key decisions log.
 

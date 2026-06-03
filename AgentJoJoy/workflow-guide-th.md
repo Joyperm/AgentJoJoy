@@ -35,6 +35,7 @@ WorkspaceRoot/
 │  ├─ agent-rules/                # workflow และ safety rules
 │  ├─ agent-tools/                # helper scripts แบบ local
 │  ├─ skills/                     # portable และ project skills
+│  ├─ agent-smartworkers/         # knowledge workers ที่ Main dispatch
 │  ├─ workflow-guide.md           # คู่มืออังกฤษ
 │  └─ workflow-guide-th.md        # คู่มือไทย
 ├─ TeamRepo/                      # repo โปรเจกต์ที่มีอยู่แล้ว (ถ้ามี)
@@ -154,6 +155,11 @@ AgentJoJoy มี core skills สองกลุ่ม:
 
 Project-specific skills สามารถอยู่ใต้ `AgentJoJoy/skills/` ได้เช่นกัน
 ระหว่าง upgrade custom skills ถือเป็น user-owned และควรถูก preserve
+
+SmartWorker ไม่ใช่ skill. Skill จะอยู่ใน context ปัจจุบันของ Main Agent
+ในฐานะ SOP แต่ SmartWorker ใช้กับงานซ้ำที่ต้องใช้ความรู้ของโปรเจกต์และควรแยก
+context แล้วส่งผลลัพธ์กลับมาให้ Main Agent เพียงตัวเดียว ดูรายละเอียดที่
+`AgentJoJoy/agent-smartworkers/README.md`
 
 > **หมายเหตุเรื่องการเรียกใช้:** AgentJoJoy skills ไม่ขึ้นใน `/` command palette
 > เพราะ AI ค้นพบ skills โดยการอ่าน workspace แล้วเทียบ description ของ skill

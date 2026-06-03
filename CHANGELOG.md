@@ -12,6 +12,18 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v2.3.0] — 2026-06-03 — SmartWorker Framework
+
+### Added
+- **SmartWorker Framework (`AgentJoJoy/agent-smartworkers/`)**: a runtime-neutral framework for the *single* Main Agent to dispatch a knowledge-requiring worker into a **separate context** and get back only a synthesized result — explicitly **not** multi-agent orchestration. Adds the **SmartWorker** tier to the 3-tier automation taxonomy (mechanical → script; knowledge-requiring + separable → SmartWorker; reusable in-line SOP → Skill), whose canonical definition now lives in `ai-workflow-rules.md` (see the Changed entry below). A SmartWorker's primary value is context isolation, not just cheaper models. AgentJoJoy does not build a subagent runtime — it ships a canonical neutral spec (`smartworker-spec.template.md`) and each Main translates it to its own runtime's native subagent contract (Claude Code / Codex / Antigravity), verifying current syntax from the official source first (Help-First). Includes a required model-tier choice (`inherit | light | strong`, norm-light, no model catalog), a flat no-nesting + read-only-default baseline, and a two-zone template where the governance zone (tier, permission, context scope) is wrapped in `AI-NO-OVERWRITE` so AI cannot silently change a worker's authority while the owner can always override.
+
+### Changed
+- **pattern-detection is now a tier router**: on a 3+ repeat it classifies the recurring work and recommends the right tier (script / SmartWorker / Skill) instead of always nudging toward a Skill. Trigger and routing logic live solely in `pattern-detection`; the SmartWorker README points to it as the single source of truth.
+- **Worker escalation consolidated to a single source of truth**: the 3-tier automation taxonomy (script / SmartWorker / Skill) is now defined once, canonically, in `ai-workflow-rules.md` ("Work Escalation — Automation Tiers", formerly "Dumb Worker Escalation"). `pattern-detection` and the SmartWorker README now reference that section instead of each restating their own taxonomy table.
+- **SmartWorker routing coverage in release-facing docs**: `CLAUDE.md` and `AGENTS.md` now include a SmartWorker / worker-dispatch context bundle, `workflow-guide.md` and `workflow-guide-th.md` explain where SmartWorkers fit, and `skills/README.md` explicitly states that SmartWorkers are not Skills. Release-facing docs also replace stale Worktree Auto-Sync wording with the current read-only Resume Check model.
+
+---
+
 ## [v2.2.0] — 2026-06-03 — Configurable Engagement & Lean Output
 
 ### Added
