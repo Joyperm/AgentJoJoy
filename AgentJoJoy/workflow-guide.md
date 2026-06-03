@@ -145,10 +145,11 @@ removing links.
 ### Milestone Teaching & Auto-Commit
 
 For complex work, the AI breaks the task into **milestones** — the smallest
-slices that are independently verifiable and each teach one concept. At every
-milestone it shows a short **teaching box** in chat (why the code works and
-where it can break), in your conversation language, so you build understanding
-without slowing down. You can opt in to **milestone auto-commit** (default OFF,
+slices that are independently verifiable and each teach one concept. In **teach**
+mode it shows a short **teaching box** in chat at each milestone (why the code
+works and where it can break), in your conversation language, so you build
+understanding without slowing down. In **execute** mode the box is off by default
+— flip the Teaching toggle in `engagement-mode.md` if you want it. You can opt in to **milestone auto-commit** (default OFF,
 toggled in `engagement-mode.md`): when enabled, the AI makes clean *local*
 checkpoint commits at each approved milestone — pushing always still asks.
 Secrets are never requested or printed in chat; you enter them locally through

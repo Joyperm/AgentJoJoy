@@ -18,6 +18,12 @@ overridable per session.
 
 These settings define what the AI is allowed to do autonomously. By default, this is pre-configured with safe, strict defaults matching `ai-workflow-rules.md`. You can manually toggle these checkboxes to adjust the trust level.
 
+> **Boundary — not toggleable (always-on):** core safety gates (push/commit/merge
+> approval, secrets, AI Trust Boundary, command blacklists, AI-NO-OVERWRITE
+> protection, strategic-choice selection) and efficiency guards (Hierarchical
+> Data Fetching, tool-call / resume-check budgets) are always-on and cannot be
+> switched off here. This surface configures *behavior*, never safety.
+
 <!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->
 - **File Modification:**
   - [x] Requires approval before editing any codebase files (SPEC-1.1)
@@ -32,7 +38,17 @@ These settings define what the AI is allowed to do autonomously. By default, thi
 - **Milestone Auto-Commit (local-only) — the only carve-out to "approval before commits" above:**
   - **DEFAULT: OFF.** Regardless of this box: **Gemini runtimes must NEVER auto-commit — always propose-and-approve.** `git push` and all remote writes still require approval every time.
   - [ ] When checked, **Claude / Codex only** may auto-commit at approved milestones (local commits only, on a pre-approved milestone plan; explicit named staging, never `git add -A`).
-  - _Note: the teaching box is shown at every milestone independent of this switch._
+  - _Note: the teaching box is governed by its own Teaching toggle below — separate from this auto-commit switch._
+
+- **Teaching box (behavior; default follows the execute/teach preset):**
+  - **Preset default:** ON in `teach`, OFF in `execute`. (A short "why it works / where it can break" note at each milestone, in chat, never in the commit message.)
+  - [ ] Force ON (show even in execute)
+  - [ ] Force OFF (hide even in teach)
+  - _(both unchecked = follow the preset default)_
+
+- **Lean Output (behavior; independent of the execute/teach preset):**
+  - **DEFAULT: OFF.** When OFF, normal verbosity.
+  - [ ] When checked, the AI uses the **Lean Output** style — see skill `lean-output` ("smaller mouth, same brain"): compress delivery (filler/preamble/hedging) only; never reasoning, code, teaching substance, or safety/approval text. Composes with Teaching (teaching stays full; delivery shrinks; saved words reinvested into more teaching).
 <!-- AGENTJOJOY:AI-NO-OVERWRITE END -->
 
 > [!NOTE]

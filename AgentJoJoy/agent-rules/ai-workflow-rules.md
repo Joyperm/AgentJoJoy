@@ -38,8 +38,9 @@ This document establishes the foundational workspace governance for AI assistant
    (always propose-and-approve). Push always asks.** When ON, Claude/Codex
    **only** may auto-commit *local* milestones on an approved plan. Switch lives
    in `engagement-mode.md` (AI-NO-OVERWRITE). (Pillar II)
-7. **Teaching box** is shown in **chat** at every milestone (never inside the
-   commit message), independent of whether auto-commit is ON. (Pillar II)
+7. **Teaching box** at each milestone is shown in **chat** (never inside the
+   commit message), governed by the **Teaching toggle** (preset default: ON in
+   `teach`, OFF in `execute`) — separate from the auto-commit switch. (Pillar II)
 8. **AI-NO-OVERWRITE** blocks: never autonomously edit. (Pillar I)
 9. **Generic input handling:** when building/fixing a tool that takes variable
    input, handle the input *class* (name its dimensions of variation) — never
@@ -306,7 +307,7 @@ Two failure modes to guard against during work:
 2. **Trust the first output** — When a command produces the required output, use it immediately. Do NOT run duplicate tools, and do NOT write temporary files just to read them back and "confirm" the same result.
 3. **No speculative hypotheses** — Do not chase imaginary or speculative bugs. If there is no active error or direct evidence of failure in the logs, do not dig for issues or run exhaustive diagnostic suites.
 4. **Ask before expanding scope** — If you identify adjacent improvements, cleanup, or refactoring opportunities, do NOT execute them autonomously. Stop, propose them as options, and wait for explicit user approval.
-5. **Concise reporting** — Keep explanations shorter than the retrieval process. A small task requires a brief answer; a large task warrants details. Never flood the user with unnecessary context.
+5. **Concise reporting** — Keep explanations shorter than the retrieval process. A small task requires a brief answer; a large task warrants details. Never flood the user with unnecessary context. (Opt-in stronger brevity: the **Lean Output** toggle / `lean-output` skill.)
 
 #### Simplicity First — minimum code that solves the problem
 
@@ -404,11 +405,13 @@ go unused.
 7. **Clean commit message.** Conventional-commit, English, team-clean, with the
    co-author trailer. Teaching content never goes in the commit message.
 
-#### Teaching box (always on, separate from auto-commit)
+#### Teaching box (toggle-controlled, separate from auto-commit)
 
-8. **Where + when.** At every milestone (whether auto-committed or merely
-   proposed), the AI shows a **teaching box in chat** — never in the commit
-   message, never as a marker inside repo files.
+8. **Where + when.** When the Teaching toggle is on (preset default: ON in
+   `teach`, OFF in `execute`; see `engagement-mode.md` → Autonomy Configuration),
+   at every milestone (whether auto-committed or merely proposed) the AI shows a
+   **teaching box in chat** — never in the commit message, never as a marker
+   inside repo files.
 9. **Format + language.** A category icon (🔒 security · 💡 learnable ·
    ⬆️ elevate · ⚙️ chore) + the clean commit subject + a "why it works / where
    it can break" explanation. The explanation is written in the **conversation

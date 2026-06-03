@@ -12,6 +12,16 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v2.2.0] — 2026-06-03 — Configurable Engagement & Lean Output
+
+### Added
+- **Lean Output mode + skill (`lean-output`)**: an opt-in output-brevity style — "smaller mouth, same brain" — that compresses delivery (filler, preamble, hedging) only, never reasoning, code, commit/PR correctness, teaching substance, or safety/approval text. Inspired by `JuliusBrussee/caveman` (original local guidance, not vendored). Default OFF; composes with Teaching (teaching stays full, delivery shrinks).
+
+### Changed
+- **engagement-mode Autonomy Configuration (preset + toggle)**: `engagement-mode.md` Autonomy Configuration now states an explicit always-on boundary (safety gates + efficiency guards are never toggleable; this surface configures behavior only) and adds owner-controlled behavior toggles — **Teaching box** (preset default: ON in `teach`, OFF in `execute`, with force-on/off overrides) and **Lean Output** (default OFF). The AI never changes the configuration autonomously. Pillar II in `ai-workflow-rules.md` is reconciled: the teaching box is now Teaching-toggle-controlled rather than always-on (still separate from the auto-commit switch).
+
+---
+
 ## [v2.1.1] — 2026-06-02 — Code Craft Discipline
 
 ### Added

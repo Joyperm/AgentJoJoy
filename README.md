@@ -34,7 +34,7 @@ Already have an AgentJoJoy workspace? Use the [Upgrading](#upgrading) flow inste
 - **5-Step Skill Precedence Hierarchy & Sandboxing** — establishes strict sandboxing boundaries and priority guidelines to govern portable skills execution safely.
 - **Guided onboarding** — choose a new project or wrap an existing repo; the AI fills only the context you approve.
 - **Dual engagement modes** — switch between `execute` for terse delivery and `teach` for pair-programming explanations.
-- **Milestone teaching & opt-in auto-commit** — on complex work the AI breaks the task into verifiable milestones, shows a short "why it works / where it can break" teaching box in chat at each one, and can optionally make clean *local* checkpoint commits (off by default; pushing always asks).
+- **Milestone teaching & opt-in auto-commit** — on complex work the AI breaks the task into verifiable milestones and (in `teach` mode; toggleable in `engagement-mode.md`) shows a short "why it works / where it can break" teaching box in chat at each one, and can optionally make clean *local* checkpoint commits (off by default; pushing always asks).
 - **Masked secret intake** — secrets are entered locally through a masked prompt and referenced by env-var name; the AI never asks for or prints a secret value in chat.
 - **Generic input handling** — for tools that process variable input, the AI handles the whole input *class* (encodings, formats, edge cases) by naming its dimensions of variation, instead of patching one failing case at a time.
 - **Wrapper isolation by default** — onboarding keeps your AI context out of the project repo (gitignores `AgentJoJoy/`), so personal notes never land in project history.

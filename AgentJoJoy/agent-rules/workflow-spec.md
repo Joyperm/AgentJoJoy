@@ -105,8 +105,9 @@ User-directed edits are allowed. Canonical detail: `ai-workflow-rules.md` →
 ### SPEC-1.8 — Milestone Auto-Commit & Proactive Teaching
 A scoped, opt-in (default OFF) carve-out to SPEC-1.1: on an owner-approved milestone
 plan, Claude/Codex may make *local* milestone commits (Gemini never auto-commits;
-push always asks; explicit named staging). A teaching box is shown in chat at every
-milestone regardless of the switch. Canonical detail: `ai-workflow-rules.md` →
+push always asks; explicit named staging). A teaching box is shown in chat per the
+Teaching toggle (preset default: teach=ON / execute=OFF), separate from the
+auto-commit switch. Canonical detail: `ai-workflow-rules.md` →
 Pillar II "Milestone Auto-Commit & Proactive Teaching"; switch in `engagement-mode.md`.
 
 ---

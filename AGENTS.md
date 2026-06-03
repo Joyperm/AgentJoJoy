@@ -31,8 +31,9 @@ rules.
   (always propose-and-approve); push always asks.** When enabled, **Claude/Codex
   only** may make *local* milestone commits on a plan the owner approved up
   front (explicit named staging, never `git add -A`). A **teaching box** (in
-  chat, session's conversation language, never in the commit message) shows at
-  every milestone. Full:
+  chat, session's conversation language, never in the commit message) shows per the
+  Teaching toggle (preset default: teach=ON / execute=OFF), separate from the
+  auto-commit switch. Full:
   [`ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) →
   "Milestone Auto-Commit & Proactive Teaching".
 
@@ -127,6 +128,8 @@ Available sources:
 - [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) — skill layer model: Personal Agent Skills vs Project Skills and precedence when both match
 - [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) — portable core practices for debugging, review, RCA, and stakeholder communication
 - [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) — rigorous design interview for brainstorming, planning, and pressure-testing ideas before implementation
+- [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) — meta-skill that nudges you to draft a custom skill when a workflow repeats 3+ times
+- [`AgentJoJoy/skills/lean-output/SKILL.md`](AgentJoJoy/skills/lean-output/SKILL.md) — output-brevity communication style ("smaller mouth, same brain"); active when the Lean Output toggle is on or on demand
 - [`AgentJoJoy/agent-tools/`](AgentJoJoy/agent-tools/) — local helper tools and sync scripts
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts
 - [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) — key decisions log
@@ -224,6 +227,10 @@ Current Personal Agent Skills:
 - `AgentJoJoy/skills/pattern-detection/SKILL.md` — **read this file before
   answering** when the user repeats steps/actions/commands, does a repetitive task,
   or when any workflow/routine is performed 3+ times in the tracker or session.
+- `AgentJoJoy/skills/lean-output/SKILL.md` — **read this file before answering**
+  when the Lean Output toggle is on in `engagement-mode.md`, or the user asks to
+  be terse/lean/brief/concise, `talk lean`, `cut the filler`
+  (Thai: `พูดสั้น ๆ`, `เอาสั้น`).
 
 Agents without native skill auto-discovery (e.g. Cursor, Codex) must
 follow these references explicitly when a trigger keyword above

@@ -21,6 +21,7 @@ Examples in this repo:
 - `agentjojoy-core-practices`
 - `grill-me`
 - `pattern-detection`
+- `lean-output`
 
 Use them for:
 - Debugging discipline
@@ -147,6 +148,7 @@ After those protocols are satisfied, use these trigger keyword mappings:
 | User asks for PM/leadership/Slack/email/standup rewrite | `agentjojoy-core-practices` Management-Talk Routine |
 | User asks for project-specific repeated workflow | Project Skill if present; otherwise read project docs/scripts |
 | User repeats steps/actions/commands, or asks to detect patterns | `pattern-detection` |
+| Lean Output toggle on, or user asks to be terse/brief ("talk lean") | `lean-output` |
 
 Ambiguous prompt rule:
 
