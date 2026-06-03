@@ -48,6 +48,11 @@ This document establishes the foundational workspace governance for AI assistant
 10. **Help-First:** before first use of an unfamiliar CLI/tool/flag in this
    workspace, read its `--help`/manual once (or a logged precedent) — never
    guess flags from memory. (Pillar II)
+11. **Code craft:** write the minimum that solves the task — no speculative
+   abstraction, config, or error-handling for cases that can't occur. Edit
+   surgically: touch only what the task needs, never alter adjacent comments/code
+   you don't understand, and remove only the orphans *your own* change created
+   (surface pre-existing dead code, don't delete it). (Pillars II & IV)
 
 ---
 
@@ -303,6 +308,18 @@ Two failure modes to guard against during work:
 4. **Ask before expanding scope** — If you identify adjacent improvements, cleanup, or refactoring opportunities, do NOT execute them autonomously. Stop, propose them as options, and wait for explicit user approval.
 5. **Concise reporting** — Keep explanations shorter than the retrieval process. A small task requires a brief answer; a large task warrants details. Never flood the user with unnecessary context.
 
+#### Simplicity First — minimum code that solves the problem
+
+The 5 rules above guard the *task's* scope; this guards the *implementation's*. Even within an approved task, the AI must not over-build:
+
+- No features, abstractions, "flexibility", or configurability that weren't asked for; no abstraction for single-use code.
+- No error handling for scenarios that cannot occur.
+- When more than one approach works, choose the simpler one; don't add structure for needs that haven't arrived.
+
+**The test:** would a senior engineer call this over-complicated? If yes, simplify. This is the same AI-scope-creep failure mode as Rule 4, in the code dimension.
+
+*(The two companion craft principles already live elsewhere — don't restate them: **Think Before Coding** → Scrutinize Routine + "Handling Missing Requirements" + SPEC-1.5 (surface assumptions, present trade-offs, push back, stop when confused); **Goal-Driven Execution** → "Generic Input Handling" + the Debug Hypothesis Ledger (turn the task into a verifiable success criterion).)*
+
 #### Tool-Call Budgeting Rules
 
 To protect the context window and prevent "thoroughness overdrive," strict hard ceilings are enforced:
@@ -493,6 +510,15 @@ Pairs with the Debug Routine (Hypothesis Ledger) in
 `AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`; extends "No speculative
 guess-and-checks".
 
+### Surgical Changes — Touch Only What the Task Needs
+
+When editing existing code, every changed line should trace back to the request:
+
+- **Stay in the diff the task requires.** Don't "improve" adjacent code, comments, or formatting, and don't refactor what isn't broken.
+- **Match the existing style**, even where you'd write it differently — consistency outranks preference (and defers to team/project rules).
+- **Clean up only your own mess.** Remove imports/variables/functions that *your* change left unused; never delete pre-existing dead code — surface it as an off-scope finding (Scope Discipline Rule 4 + safety carve-out).
+- **Never touch comments or code you don't fully understand** as a side effect of an orthogonal change.
+
 ### When to Split Work
 
 Split an implementation if it combines any of:
@@ -544,6 +570,7 @@ Checklist before starting anything new:
 
 - **AI executing git push / pull / commit / merge without asking me first.** Even when it "looks obvious." See "AI Permission Boundaries" at the top of this file.
 - Editing the team's rule files (`.claude/`, `.cursor/`, etc.) casually — even if AI suggests it, push back unless the change is a deliberate PR
+- "Improving" adjacent code, comments, or formatting unrelated to the task — see **Surgical Changes** above
 - Creating `*_SUMMARY.md`, `FIX.md`, or any explanatory markdown inside the team repo (when team rules forbid it)
 - Using `--no-verify` on commits — investigate hook failures, don't bypass them
 - Switching branches in the main checkout while a PR is in review — use a worktree instead

@@ -12,6 +12,13 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v2.1.1] — 2026-06-02 — Code Craft Discipline
+
+### Added
+- **Code Craft Discipline (Simplicity First + Surgical Changes)**: Added two code-craft rules to `ai-workflow-rules.md`. **Simplicity First** (under Scope Discipline) requires the minimum code that solves the task — no speculative abstractions, flexibility, configurability, or error handling for impossible cases; choose the simpler approach when several work. **Surgical Changes** (Pillar IV) requires every changed line to trace back to the request — don't improve or refactor adjacent code, match existing style, clean up only the orphans your own change created, never delete pre-existing dead code or touch comments/code you don't understand. A combined always-on entry is front-loaded in the Quick Reference. The two companion principles (Think Before Coding, Goal-Driven Execution) are cross-referenced to existing rules rather than restated.
+
+---
+
 ## [v2.1.0] — 2026-06-02 — Main Agent Boundary & AI Trust Discipline
 
 ### Added
