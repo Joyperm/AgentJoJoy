@@ -22,7 +22,7 @@ subfolder** (Claude Code walks up the directory tree to find every
 ```
 <workspace-root>/                       ← workspace root (this folder)
 ├─ CLAUDE.md                            ← this file (auto-loads)
-├─ progress-tracker.md                  ← REAL WORK tracker (except T0 template source mode)
+├─ progress-tracker.md                  ← REAL WORK tracker
 ├─ AgentJoJoy/                          ← personal AI context
 │  ├─ agent-context/             (project context filled during intake)
 │  ├─ agent-rules/               (workflow rules + onboarding logic)
@@ -32,8 +32,7 @@ subfolder** (Claude Code walks up the directory tree to find every
 │  ├─ agent-smartworkers/        (Main-dispatched knowledge workers — neutral spec + template)
 │  ├─ agent-hooks/               (optional hook enforcement contracts — docs/templates only)
 │  ├─ agent-templates/           (reusable snippets / portable inserts)
-│  ├─ agent-decisions/           (key decisions log)
-│  └─ template-lab/              (source-repo-only development artifacts)
+│  └─ agent-decisions/           (key decisions log)
 ├─ <code-or-content>/                   ← the actual project (any folder name)
 └─ <worktree-N>/                        ← per-task git worktrees (if applicable)
 ```
@@ -49,8 +48,7 @@ on whether this is a new project (Path 1) or an existing one (Path 2).
 When you start a new Claude session in this workspace, **before any
 other work (including generating any greeting or response)**, you MUST classify the workspace state and retrieve in-flight context.
 
-For non-T0 workspaces, read `progress-tracker.md` to classify the
-workspace state (and only read
+Read `progress-tracker.md` to classify the workspace state (and only read
 `AgentJoJoy/agent-context/project-overview.md` during fresh T1/T2
 onboarding sessions, as project overview is already known in T3 Resume
 mode).
@@ -182,12 +180,7 @@ These are set during intake and stored here. Update if they change.
    a one-time bootstrap push to `main`. After that first commit, use
    branch/PR workflow as usual.
 
-8. **Template source repo checkpoint exception.** When this checkout is
-   the AgentJoJoy template source repo itself, the owner may explicitly
-   choose direct checkpoint commits/pushes to `main`. This exception
-   does not apply to copied workspaces or Path 2 team repos.
-
-9. **Milestone auto-commit & teaching (opt-in, default OFF).** Default OFF;
+8. **Milestone auto-commit & teaching (opt-in, default OFF).** Default OFF;
    **Gemini runtimes must never auto-commit** (always propose-and-approve);
    `git push` always requires approval. When enabled in `engagement-mode.md`
    (AI-NO-OVERWRITE block), **Claude/Codex only** may make *local* milestone
@@ -210,8 +203,10 @@ Mirrored in [`AGENTS.md`](AGENTS.md) for non-Claude agents.
 
 **Branch naming** (depends on project type, not agent):
 - Team repo (Path 2): follow the team's convention (e.g. `feature/<owner>-<task>`).
-  All agents use the same scheme — the co-author trailer shows who did the work;
-  agent-prefixed branches (`codex/...`) clutter team PR lists.
+  All agents use the same branch scheme. When this repo uses AI co-author
+  trailers, the trailer carries agent/model attribution; otherwise commit
+  attribution follows the team convention. Agent-prefixed branches (`codex/...`)
+  clutter team PR lists.
 - Personal (Path 1): owner-named convention; agent prefix optional for solo work.
 - Reserved — never create manually: `cursor/...` (Cursor's background agents own these).
 
@@ -220,8 +215,11 @@ function/class/decision block (not per line): `// CLAUDE: <reason>` (agent's own
 name; `#` for Python/shell). Preserve existing markers; update one if you
 materially change that block. Skip trivial/mechanical edits.
 
-**Commit attribution** — every commit gets a co-author trailer; `[Model]` is the
-exact model running (ask if unsure):
+**Commit attribution** — follow the workspace/repo attribution policy in
+`AgentJoJoy/agent-context/standards.md`. AgentJoJoy-owned commits normally use
+an AI co-author trailer; Path 2 team repos follow the target repo's existing
+convention. If the policy is unset or unclear, ask before adding a trailer.
+When AI co-author trailers are enabled, `[Model]` is the exact model running:
 `Co-Authored-By: Claude [Model] <claude-bot@users.noreply.github.com>`
 (other agents use their own, e.g. `Codex [Model] <codex-bot@...>`).
 
@@ -320,7 +318,7 @@ or the current diff.
 
 | Task | Read |
 |------|------|
-| Resume / session start | Active tracker only (`template-dev-tracker.md` in T0, otherwise `progress-tracker.md`) plus git state from the Resume Check |
+| Resume / session start | `progress-tracker.md` plus git state from the Resume Check |
 | Before edits | `workflow-spec.md`, `ai-workflow-rules.md`, and the project/team context directly relevant to the files being edited |
 | Debug | Matching core practice skill, `technical-precedents.md`, and the smallest runnable/test context needed to reproduce or trace the failure |
 | Review / audit | Immediate diff/artifact, matching core practice skill, and touched call paths only |
@@ -352,7 +350,7 @@ or the current diff.
 
 | File | Purpose |
 |------|---------|
-| [`progress-tracker.md`](progress-tracker.md) (at root) | **REAL WORK tracker** — active branches, PRs, worktrees, in-flight tasks. Update after every meaningful work action. Resume Check reads this in non-T0 workspaces. |
+| [`progress-tracker.md`](progress-tracker.md) (at root) | **REAL WORK tracker** — active branches, PRs, worktrees, in-flight tasks. Update after every meaningful work action. Resume Check reads this in normal workspaces. |
 | [`AgentJoJoy/agent-context/progress-tracker-setup.md`](AgentJoJoy/agent-context/progress-tracker-setup.md) | **SETUP / workspace meta log** — spec amendments, workspace restructure events, intake completion. Update when workspace structure or workflow rules change. |
 | [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) | Key project decisions (one file per decision, format in folder README). |
 | [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) | Skill layer model: Personal Agent Skills vs Project Skills and precedence when both match. |

@@ -1,4 +1,4 @@
-# Workspace Model & Operational Notes
+﻿# Workspace Model & Operational Notes
 
 How AgentJoJoy separates personal AI context from project code and operational guidelines for running tasks safely.
 
@@ -27,8 +27,7 @@ JoySpace/
 ├─ AgentJoJoy/                    # AgentJoJoy-owned AI context
 │  ├─ workflow-*.md
 │  ├─ workspace-model.md
-│  ├─ skills/
-│  └─ template-lab/               # source repo state only
+│  └─ skills/
 ├─ TeamRepo/                      # team-owned git repo
 └─ worktree-task-a/               # task branch worktree for TeamRepo
 ```
@@ -42,7 +41,7 @@ The wrapper is the owner's personal operating layer. The team repo is still the 
 | Location | Owner | Git remote | Commit here? |
 |----------|-------|------------|--------------|
 | `AgentJoJoy/` | Owner | AgentJoJoy template repo, or none | Only for personal/template workflow changes |
-| `progress-tracker.md` at wrapper root | Owner/template | AgentJoJoy template repo, or none | Template content only in this source repo |
+| `progress-tracker.md` at wrapper root | Owner/template | AgentJoJoy template repo, or none | Real workspace/task tracking after intake |
 | `TeamRepo/` | Team | Team project remote | Yes, only project changes intended for team review |
 | `worktree-*` | Team branch | Same remote as `TeamRepo/` | Yes, task-specific project changes |
 
@@ -131,7 +130,6 @@ Do not commit these into a team repo:
 - wrapper-level `CLAUDE.md`
 - wrapper-level `AGENTS.md`
 - wrapper-level `progress-tracker.md`
-- `AgentJoJoy/template-lab/template-dev-tracker.md`
 - local bridge files that point back to the wrapper
 - tool-local settings such as `.claude/settings.local.json`, `.cursor/`, `.vscode/`, or agent permission files unless the team explicitly owns them
 
@@ -468,34 +466,12 @@ _(not set)_
 
 - Never push directly to `main`, `develop`, or `production` (or whatever the protected base branches are)
 - Empty-repo bootstrap is the only exception: the owner may explicitly choose one initial push to `main` when the remote has no commits yet. After that, use branch/PR workflow.
-- AgentJoJoy template source repo exception: when working in `Joyperm/AgentJoJoy` itself, the owner may explicitly choose direct checkpoint commits/pushes to `main`. This does not apply to copied workspaces or team repos.
 - Branch naming follows the team convention (check recent merged PRs for the current scheme)
 - Don't `--amend` published commits; create a new commit instead
 - Don't `--no-verify` — fix hook failures
 - One task per branch; bundle related commits, not unrelated ones
 
 ---
-
-## Template Source Repo Special Case
-
-This repository (`Joyperm/AgentJoJoy`) is the source template itself. Blank placeholders such as `_(not set)_` are expected.
-
-Use:
-- `AgentJoJoy/template-lab/.template-source` as the explicit Template Development marker.
-- `AgentJoJoy/template-lab/template-dev-tracker.md` for real development state of this source repo.
-
-Keep as reusable templates:
-- `progress-tracker.md`
-- `AgentJoJoy/agent-context/progress-tracker-setup.md`
-- `AgentJoJoy/agent-context/project-overview.md`
-- `AgentJoJoy/agent-context/architecture.md`
-- `AgentJoJoy/agent-context/standards.md`
-- `AgentJoJoy/agent-context/ui-context.md`
-- `AgentJoJoy/agent-context/domain-language.md`
-
-When copying AgentJoJoy into a real project, remove source-repo-only development artifacts:
-- `AgentJoJoy/template-lab/`
-- generated files under `AgentJoJoy/agent-runtime/`
 
 ---
 

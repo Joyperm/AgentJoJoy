@@ -43,7 +43,7 @@ rules.
 
 Before any other work (including generating any greeting or response), classify the workspace state and retrieve in-flight context.
 
-For non-T0 workspaces, read `progress-tracker.md` to classify the workspace state (and only read `AgentJoJoy/agent-context/project-overview.md` during fresh T1/T2 onboarding sessions, as project overview is already known in T3 Resume mode).
+Read `progress-tracker.md` to classify the workspace state (and only read `AgentJoJoy/agent-context/project-overview.md` during fresh T1/T2 onboarding sessions, as project overview is already known in T3 Resume mode).
 
 ### Step 1 — Classify Workspace State
 
@@ -99,8 +99,8 @@ or the current diff.
 
 ### Context Bundles
 
-- **Resume / session start**: active tracker only (`template-dev-tracker.md`
-  in T0, otherwise `progress-tracker.md`) plus git state from the Resume Check.
+- **Resume / session start**: `progress-tracker.md` plus git state from the
+  Resume Check.
 - **Before edits**: `workflow-spec.md`, `ai-workflow-rules.md`, and the
   project/team context directly relevant to the files being edited.
 - **Debug**: matching core practice skill, `technical-precedents.md`, and the
@@ -155,24 +155,6 @@ or other team rules conflict with AgentJoJoy personal preferences,
 the team/project rules win for code, docs, architecture, review,
 branch, and release decisions.
 
-When this checkout is the AgentJoJoy template source repo itself, use
-`AgentJoJoy/template-lab/.template-source` as the explicit source repo
-marker and `AgentJoJoy/template-lab/template-dev-tracker.md` for real
-development state. Leave
-`progress-tracker.md` and `AgentJoJoy/agent-context/progress-tracker-setup.md` as
-blank reusable templates unless the task explicitly changes template
-content.
-
-If `AgentJoJoy/template-lab/template-dev-tracker.md` appears in a copied workspace
-that is not the AgentJoJoy template source repo, treat it as source
-repo residue. Ignore it for project state and propose removing it
-during intake/package cleanup.
-
-`AgentJoJoy/template-lab/validation/` records source-repo validation work and
-should not be treated as reusable project state. Remove source-repo
-validation records, local runtime caches, and
-`AgentJoJoy/template-lab/.template-source` from copied workspaces.
-
 ---
 
 ## Multi-Agent Coexistence Rules
@@ -183,8 +165,10 @@ Mirrors [`CLAUDE.md`](CLAUDE.md).
 
 **Branch naming** (depends on project type, not agent):
 - Team repo (Path 2): follow the team's convention (e.g. `feature/<owner>-<task>`).
-  All agents use the same scheme — the co-author trailer shows who did the work;
-  agent-prefixed branches (`codex/...`) clutter team PR lists.
+  All agents use the same branch scheme. When this repo uses AI co-author
+  trailers, the trailer carries agent/model attribution; otherwise commit
+  attribution follows the team convention. Agent-prefixed branches (`codex/...`)
+  clutter team PR lists.
 - Personal (Path 1): owner-named convention; agent prefix optional for solo work.
 - Reserved — never create manually: `cursor/...` (Cursor's background agents own these).
 
@@ -193,8 +177,11 @@ function/class/decision block (not per line): `// CLAUDE: <reason>` (agent's own
 name; `#` for Python/shell). Preserve existing markers; update one if you
 materially change that block. Skip trivial/mechanical edits.
 
-**Commit attribution** — every commit gets a co-author trailer; `[Model]` is the
-exact model running (ask if unsure):
+**Commit attribution** — follow the workspace/repo attribution policy in
+`AgentJoJoy/agent-context/standards.md`. AgentJoJoy-owned commits normally use
+an AI co-author trailer; Path 2 team repos follow the target repo's existing
+convention. If the policy is unset or unclear, ask before adding a trailer.
+When AI co-author trailers are enabled, `[Model]` is the exact model running:
 `Co-Authored-By: Claude [Model] <claude-bot@users.noreply.github.com>`
 (other agents use their own, e.g. `Codex [Model] <codex-bot@...>`).
 
@@ -259,8 +246,7 @@ does not vendor third-party skill text without a clear license.
 ## Commit and PR Behavior (Generic)
 
 - **Never push directly to a default branch** (`main`/`master`/`develop`) — always via PR.
-  Owner-chosen exceptions: one-time empty-repo bootstrap, and the template-source
-  checkpoint (this source repo only — never copy into Path 2 team repos).
+  Owner-chosen exception: one-time empty-repo bootstrap.
 - **Branch first, then code** in a worktree under `<workspace-root>/worktree-<task>/`
   (see [`workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md)).
 - **Per-action approval** for commit/push/merge/PR; **strategic choices** (rebase vs
