@@ -37,7 +37,8 @@ NOT flood Main's context.>
 ## Governance zone (owner-controlled — AI must not change autonomously)
 
 > The owner may always overwrite these. AI must not silently alter a
-> worker's authority, model tier, or scope.
+> worker's authority, model tier, provider/runtime, privacy/cost policy,
+> or scope.
 
 **tier:** `<inherit | light | strong>`  <!-- REQUIRED. No default.
   light = read/search-heavy; strong = heavy reasoning; inherit = match Main.
@@ -51,6 +52,23 @@ NOT flood Main's context.>
   the job — NOT the whole system/project. e.g. which files/dirs/topic.>`
 
 **nesting:** `flat`  <!-- A SmartWorker never spawns another SmartWorker. -->
+
+**provider / runtime:** `<optional — local / alternative-provider workers only:
+  provider class, NOT a model name — e.g. Ollama, LM Studio, llama.cpp, or any
+  OpenAI-compatible endpoint>`
+
+**model-capability assumption:** `<optional — local / alternative-provider
+  workers only: capability label the task needs — e.g. local-light /
+  local-code / local-reasoning / local-embed. The Main Agent verifies the
+  owner's actually-installed runtime/model before binding (Help-First). Local
+  tool-calling is advisory by default unless a specific model+runtime pair has
+  been validated.>`
+
+**privacy:** `<optional — local / non-frontier workers only: local-only | cloud-ok-after-redact | cloud-ok>`
+  <!-- Owner policy. A local worker defaults to local-only. Secrets always follow
+  the Secret Intake Protocol regardless of this field. -->
+
+**cost policy:** `<optional — e.g. prefer local for triage; escalate to a frontier model only if needed; budget cap>`
 <!-- AGENTJOJOY:AI-NO-OVERWRITE END -->
 
 ---

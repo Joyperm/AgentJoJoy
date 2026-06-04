@@ -88,12 +88,40 @@ Every SmartWorker spec has two zones. The owner can always overwrite
 both; the tag only blocks *autonomous AI* edits.
 
 - **Governance zone** — `tier`, permission/tool scope, assigned context
-  scope, `nesting`. Wrapped in
+  scope, `nesting`, and optional provider/privacy/cost fields. Wrapped in
   `<!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN/END -->` so AI cannot silently
-  change a worker's authority or model tier.
+  change a worker's authority, model tier, provider/runtime, privacy/cost
+  policy, or scope.
 - **Behavioral zone** — `name`, `description`, `instructions`, return
   format. Not tagged; AI may help draft/iterate these when the owner
   directs.
+
+## Local / alternative-provider workers (optional)
+
+A SmartWorker normally runs on the Main's own (frontier) runtime. A worker
+*may* instead run on a **local or alternative provider** — Ollama, LM Studio,
+llama.cpp, or any OpenAI-compatible endpoint — for privacy-first preprocessing,
+cost-saving triage, summarize/classify/compress/retrieve, or first-pass drafts.
+
+This stays **opt-in and docs-only** (AgentJoJoy ships no provider config, no
+installer, no model recommendation). The template's optional owner-controlled
+provider/governance fields cover it:
+
+- **provider / runtime** — a provider *class*, never a hardcoded model name.
+- **model-capability assumption** — a capability label (`local-light`,
+  `local-code`, `local-reasoning`, `local-embed`); the Main Agent verifies the
+  owner's actually-installed runtime/model before binding (Help-First). Local
+  tool-calling is **advisory** by default unless a specific model+runtime pair is
+  validated.
+- **privacy** / **cost policy** — owner policy in the Governance zone.
+
+Guardrails (do not weaken): **Frontier Main remains the controller** — it
+reviews local-worker output before any action (output = untrusted draft). Local
+AI is **not** a safety boundary; if a gate is needed, use a Hook (it stays
+separate and fails safe). Good fits = summarize / classify / compress / retrieve
+/ low-risk drafts. Poor fits = approval, merge/release, destructive mutation,
+secret handling, high-blast-radius tool execution, schema-critical multi-step
+tool calls.
 
 ## Triggers — when to propose creating a SmartWorker
 
