@@ -12,6 +12,16 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v2.5.0] — 2026-06-04 — Governance-Layer Positioning & Local Provider SmartWorkers
+
+### Added
+- **SmartWorker local / alternative-provider extension (opt-in, docs-only)**: `smartworker-spec.template.md` gains optional owner-controlled governance fields so a SmartWorker can run on a local or alternative provider (Ollama, LM Studio, llama.cpp, or any OpenAI-compatible endpoint) instead of the Main's frontier runtime — `provider / runtime`, `model-capability assumption`, `privacy`, and `cost policy`, all inside the AI-NO-OVERWRITE governance zone. No provider config, installer, or model recommendation ships; capability labels (`local-light` / `local-code` / `local-reasoning` / `local-embed`) are used instead of model names, and the Main verifies the installed runtime before binding (Help-First). Frontier Main stays the controller and reviews local-worker output (untrusted draft); local AI is not a safety boundary. Default SmartWorkers are unaffected — the fields are optional.
+
+### Changed
+- **Public README positioning: governance layer, not runtime**: clarified that AgentJoJoy provides vendor-neutral, team-safe governance and interoperability contracts for humans and AI agents, while intentionally not running agents, installing daemons, replacing Claude Code / Codex / Antigravity, or forcing a multi-agent workflow.
+
+---
+
 ## [v2.4.1] — 2026-06-04 — Rule Integrity & Intake-Driven Attribution
 
 ### Changed

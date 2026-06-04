@@ -2,12 +2,31 @@
 
 A workspace template for working with AI coding assistants (Claude Code, Codex, Cursor, Gemini) across multiple projects — both brand-new projects and existing repositories. Designed to feel like working with a **senior dev mentor** who knows when to just execute and when to teach.
 
-AgentJoJoy gives AI agents a safe operating manual, memory, and handoff system for your local projects.
+AgentJoJoy is a **governance layer, not an agent runtime**.
+
+It gives humans and AI agents a safe operating manual, memory, and handoff system for your local projects.
 
 Use it to:
 - Resume work without losing context.
 - Let Claude, Codex, Cursor, and Gemini share one workspace safely.
 - Upgrade AI operating rules without overwriting project memory.
+
+---
+
+## What AgentJoJoy Is
+
+AgentJoJoy is a governance layer, not an agent runtime.
+
+It provides portable, human-readable contracts that help humans and AI agents
+work safely across tools, providers, and projects: workflow rules and safety
+gates, onboarding/intake context, SmartWorkers, Hook Enforcement Contracts, and
+optional local/alternative-provider fields.
+
+## What AgentJoJoy Is Not
+
+AgentJoJoy does not run agents, install daemons, replace Claude Code / Codex /
+Antigravity, or force a multi-agent workflow. It stays vendor-neutral and
+team-safe by design — every layer is opt-in and contract-first.
 
 ---
 
