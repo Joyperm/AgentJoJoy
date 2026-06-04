@@ -1,4 +1,4 @@
----
+﻿---
 name: grill-me
 description: Rigorous design interview for open-ended plans, ideas, projects, workflows, architecture, tooling, product direction, research, writing, or strategy. Use when starting something new, when a plan is vague or unsettled, when assumptions need pressure-testing, or when the owner asks to brainstorm, grill me, challenge this, think this through, map options, ask one question at a time, or reach shared understanding before building. For review of an already-written plan, PR, diff, design, or proposal, prefer agentjojoy-core-practices.
 ---
@@ -56,12 +56,6 @@ available for the topic:
   when the topic involves code
 
 State briefly what was found, then ask only about the gaps.
-
-When this skill is used inside the AgentJoJoy template source repo,
-also read `AgentJoJoy/agent-rules/intake-flow.md`,
-`AgentJoJoy/agent-rules/workspace-model.md`, and
-`AgentJoJoy/template-lab/template-dev-tracker.md` if they are relevant
-to the topic.
 
 ## Optional Project Docs Layer
 

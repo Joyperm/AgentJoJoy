@@ -3,8 +3,7 @@
 Canonical onboarding flow for turning a fresh AgentJoJoy wrapper into a
 usable personal AI workspace.
 
-Use this file when templates in `AgentJoJoy/` still show `_(not set)_`
-and the checkout is not the AgentJoJoy template source repo.
+Use this file when templates in `AgentJoJoy/` still show `_(not set)_`.
 
 ## Table of Onboarding Gateways
 
@@ -62,7 +61,6 @@ Signals:
 
 - `Project Name` is `_(not set)_`.
 - `What It Is` is `_(not set)_`.
-- Not T0.
 
 Action:
 
@@ -523,7 +521,7 @@ Auto-fill:
 - `AgentJoJoy/agent-context/architecture.md`: stack, boundaries, storage/auth/cross-cutting
   concerns that are visible from code/docs
 - `AgentJoJoy/agent-context/standards.md`: authoritative team/project rule files first, then
-  observed conventions, testing/doc discipline if visible
+  observed conventions, testing/doc discipline if visible, and commit attribution policy
 - `AgentJoJoy/agent-context/ui-context.md`: only if UI exists
 - `AgentJoJoy/agent-context/domain-language.md`: only when project docs/code reveal important
   terms, overloaded vocabulary, relationships, or unresolved ambiguity
@@ -544,6 +542,12 @@ Ask only what cannot be discovered:
 - Which environments are safe to test against?
 - Are there protected files/folders beyond obvious rule/config files?
 - What docs should or should not be created?
+- What commit attribution policy should agents follow? Ask only if the
+  convention is not clear from team rules or recent commits.
+  - Path 2 team repo default: follow team convention.
+  - If team rules or recent commits show no AI co-author trailers, do not add
+    them unless the owner/team explicitly asks.
+  - If the convention is unclear, record `Ask before each commit`.
 - What is the expected verification command before pushing?
 - Which runtime/environment actions, if any, are safe to run locally?
   Which require separate approval or should never be run by AI?
@@ -553,10 +557,10 @@ Ask only what cannot be discovered:
 ### Step 6: Multi-Agent Coexistence Rules Portability
 
 AgentJoJoy multi-agent rules (cursor reservation, code change tags,
-commit co-author trailer) are visible only when an AgentJoJoy wrapper
-is present at or above the working directory. Path 2 repos used
-without a wrapper do not see these rules unless they are added to the
-target repo's own rule files.
+and conditional commit attribution guidance) are visible only when an
+AgentJoJoy wrapper is present at or above the working directory. Path
+2 repos used without a wrapper do not see these rules unless they are
+added to the target repo's own rule files.
 
 Ask the owner which AI agents will work on this repo (multi-select,
 common choices include Claude Code, Codex, Cursor, Antigravity, and
@@ -567,8 +571,7 @@ the rule files that those agents read:
 - Codex, Aider, and generic agents read target repo `AGENTS.md`.
 - Cursor walk-up has been live-validated against the AgentJoJoy wrapper
   root; do not create `.cursor/rules/agentjojoy.mdc` or other
-  repo-local bridge files by default. See
-  `AgentJoJoy/template-lab/validation/cursor-walkup-live.md`.
+  repo-local bridge files by default.
 - If a real tool-specific discovery failure is observed later, propose
   a local-only runtime bridge. In team repos, add that bridge path to
   the repo's `.git/info/exclude` and do not track or commit it unless
@@ -584,6 +587,12 @@ Show the proposed snippet body and the exact list of target files
 before writing. Wait for owner approval. The owner can opt out, in
 which case record a note in `progress-tracker.md` that the gap is
 known and intentional.
+
+Before proposing the snippet, read the filled Commit Attribution
+Policy in `AgentJoJoy/agent-context/standards.md`. If it is unset,
+scan team rule files and recent commits read-only for `Co-Authored-By`
+usage, then ask the owner which policy to record. Do not silently add
+AI co-author trailers to a team repo.
 
 Re-running this step replaces the section between the markers; it
 never duplicates. The owner can re-run intake or invoke this step
@@ -705,29 +714,6 @@ Do not turn uncertain guesses into tasks. Put them in Open Questions.
 
 ---
 
-## Template Cleanup / Packaging
-
-If a real workspace was copied manually from the AgentJoJoy source
-repo, remove or omit source-only files before treating intake as
-complete:
-
-- `AgentJoJoy/template-lab/`
-
-Keep the blank reusable templates, then fill them for the new
-workspace:
-
-- `progress-tracker.md`
-- `AgentJoJoy/agent-context/progress-tracker-setup.md`
-- `AgentJoJoy/agent-context/project-overview.md`
-- `AgentJoJoy/agent-context/architecture.md`
-- `AgentJoJoy/agent-context/standards.md`
-- `AgentJoJoy/agent-context/ui-context.md`
-- `AgentJoJoy/agent-context/domain-language.md`
-
-If a future starter script exists, it should exclude source-only files
-automatically. Source repo cleanup is tracked in
-`AgentJoJoy/template-lab/validation/packaging-cleanup-checklist.md`.
-
 ---
 
 ## Completion Checklist
@@ -745,4 +731,3 @@ Intake is complete when:
 - Remaining unknowns are listed under Open Questions.
 - The first milestone, first slice, and verification signal are
   recorded.
-

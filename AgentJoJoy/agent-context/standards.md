@@ -64,6 +64,26 @@ _(not set)_
 
 _(not set)_
 
+## Commit Attribution Policy
+
+<!-- AUTO-FILL during intake. Follow team/project conventions first.
+     For Path 2 team repos, scan CONTRIBUTING/team rules and recent
+     commits for existing Co-Authored-By usage, then ask the owner
+     before choosing a policy. Examples:
+       - Follow team convention; do not add AI co-author trailers.
+       - Add AI co-author trailers for AgentJoJoy-owned/personal commits only.
+       - Add AI co-author trailers in this repo using the format below.
+       - Ask before each commit.
+
+     When AI co-author trailers are enabled, use:
+     Co-Authored-By: <Agent Name> [Model] <noreply-bot@users.noreply.github.com>
+     [Model] must be the exact model running; ask if unsure. -->
+
+Policy: _(not set)_
+Detected convention: _(not set)_
+Owner decision: _(not set)_
+Notes: _(not set)_
+
 ## Database / External Service Access
 
 <!-- ASK USER: how does the project access databases, secrets,

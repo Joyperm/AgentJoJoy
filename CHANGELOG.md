@@ -12,6 +12,16 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v2.4.1] — 2026-06-04 — Rule Integrity & Intake-Driven Attribution
+
+### Changed
+- **Commit attribution is now intake-driven**: AgentJoJoy no longer treats AI co-author trailers as universal. `standards.md` now records the repo's commit attribution policy, Path 2 intake scans team rules/recent commits before asking, and multi-agent docs/snippets defer to the target repo convention unless the owner/team explicitly enables AI co-author trailers.
+
+### Fixed
+- **Public package rule-surface cleanup**: removed internal template-development residue from release-facing docs so copied workspaces only see the normal public workflow. `CLAUDE.md`, `AGENTS.md`, `workspace-model.md`, `workflow-spec.md`, `intake-flow.md`, `progress-tracker-setup.md`, skills docs, and reusable snippets now either hide internal-only guidance during packaging or use public-only wording.
+
+---
+
 ## [v2.4.0] — 2026-06-04 — Hook Enforcement Contracts
 
 ### Added
@@ -155,7 +165,7 @@ For internal template-development history, see the private dev repo.
 - **Optimized Startup File Reads**: Clarified in `CLAUDE.md` and `AGENTS.md` that `AgentJoJoy/agent-context/project-overview.md` is only read during intake/fresh onboarding sessions, resolving a silent contradiction with the 3-tool-call limit.
 - **Combined Git State Discovery**: Merged separate git discovery commands (`git status`, `git worktree list`, `git branch --show-current`) inside `CLAUDE.md` and `AGENTS.md` into a single combined shell line, saving tool calls during session startups.
 - **Onboarding Secrets Alignment**: Aligned the default secrets protection rule inside `intake-flow.md` with the new **Zero-Leak Secrets Policy** and gitignore check.
-- **Blacklist Helper Exemptions**: Added an explicit exception to the `rm -rf` blacklist in `ai-workflow-rules.md` for official AgentJoJoy helper scripts (`eject.ps1`, `release.ps1`) running standard intended clean/ejection parameters.
+- **Blacklist Helper Exemptions**: Added an explicit exception to the `rm -rf` blacklist in `ai-workflow-rules.md` for official AgentJoJoy helper scripts running standard intended clean/ejection parameters.
 
 ---
 
@@ -164,7 +174,6 @@ For internal template-development history, see the private dev repo.
 ### Added
 - **Strict Tool-Call Budgeting Gates**: Codified a hard ceiling of 3 tool calls for both **Resume Check** and **Review/Audit** tasks inside `CLAUDE.md` and `AGENTS.md` to prevent Thoroughness Overdrive and context window dissolution. The AI must stop and report its findings or ask for permission if the budget is insufficient.
 - **5 Core Rules of Scope Discipline**: Formally documented the 5 core rules under `## Scope Discipline` in `ai-workflow-rules.md` (Stop when evidence is sufficient, Trust the first output, No speculative hypotheses, Ask before expanding scope, and Concise reporting) to prevent speculative over-verification.
-- **Sandbox Safety Boundaries (Dev-only)**: Implemented strict local execution containment limits inside the local sandbox directory wrapped in DEV-ONLY markers to prevent unsafe system-level leaks during template tests.
 - **Debug Hypothesis Ledger directive**: Embedded a high-priority link pointing directly to the foundational `Debug Routine` in `agentjojoy-core-practices` from `ai-workflow-rules.md`. Forces AI to log a brief 2-line "Hypothesis Ledger" in the work tracker before writing speculative guess-and-check code trial edits.
 - **Multi-Agent Worktree Collision Avoidance**: Introduced a collaborative locking policy in `ai-workflow-rules.md` preventing multiple parallel agents from modifying, switching, or deleting active worktrees owned/declared by another agent, with a strict exception enforced only when receiving explicit, direct instructions from the human owner.
 
@@ -212,7 +221,7 @@ For internal template-development history, see the private dev repo.
 ## [v1.2.8] — 2026-05-28 — Cross-Locale Helper Reliability
 
 ### Fixed
-- **PowerShell encoding bug in helper scripts**: `Get-Content` calls in `worktree-auto-sync.ps1`, `gap-report-collector.ps1`, `release.ps1`, and `eject.ps1` did not specify `-Encoding UTF8`. On Windows PowerShell 5.1, the default falls back to the OS ANSI codepage (e.g. `windows-874` on Thai locale), which corrupts multibyte characters such as em-dash (`—`) and emoji (e.g. `🎯`) when reading. When the script then writes back with `-Encoding UTF8`, the corruption becomes permanent in the file. Added explicit `-Encoding UTF8` to all read and write paths in helper scripts. Surfaced when running the helpers on a second Windows machine with a different locale.
+- **PowerShell encoding bug in helper scripts**: `Get-Content` calls in helper scripts did not specify `-Encoding UTF8`. On Windows PowerShell 5.1, the default falls back to the OS ANSI codepage (e.g. `windows-874` on Thai locale), which corrupts multibyte characters such as em-dash (`—`) and emoji (e.g. `🎯`) when reading. When the script then writes back with `-Encoding UTF8`, the corruption becomes permanent in the file. Added explicit `-Encoding UTF8` to all read and write paths in helper scripts. Surfaced when running the helpers on a second Windows machine with a different locale.
 
 ---
 
@@ -220,7 +229,7 @@ For internal template-development history, see the private dev repo.
 
 ### Fixed
 - **Workflow guide packaging**: Updated the release packaging script so public releases include `AgentJoJoy/workflow-guide.md` and `AgentJoJoy/workflow-guide-th.md`, matching the README links and file-ownership map.
-- **Broken local links in public docs**: Wrapped source-repo-only references to `AgentJoJoy/template-lab/` inside `AGENTS.md`, `CLAUDE.md`, and `AgentJoJoy/skills/README.md` in `AGENTJOJOY:DEV-ONLY` markers so the release script strips them from public packages. Also corrected the workspace-root link in `AgentJoJoy/agent-context/progress-tracker-setup.md` from `../progress-tracker.md` to `../../progress-tracker.md`.
+- **Broken local links in public docs**: Hid internal-only references inside `AGENTS.md`, `CLAUDE.md`, and `AgentJoJoy/skills/README.md` so packaging strips them from public packages. Also corrected the workspace-root link in `AgentJoJoy/agent-context/progress-tracker-setup.md` from `../progress-tracker.md` to `../../progress-tracker.md`.
 
 ### Changed
 - **Onboarding guides**: Refreshed the English and Thai workflow guides to match the current public setup story: GitHub **Use this template** for new workspaces, upgrade prompt for existing workspaces, opt-in gap reporting, test-first preference, junction links, custom skills preservation, and cross-platform helper-script guidance.
@@ -266,7 +275,7 @@ For internal template-development history, see the private dev repo.
 ## [v1.2.2] — 2026-05-27 — Public Template Cleanup
 
 ### Changed
-- T0 (Template Development) classification entries are now stripped from the public template during packaging. Public users only see T1/T2/T3 workspace states — T0 is an internal dev concept that was never triggerable in public workspaces.
+- Internal template-development classification entries are now stripped from the public template during packaging. Public users only see reusable workspace states.
 
 ---
 

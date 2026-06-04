@@ -51,11 +51,6 @@ These settings define what the AI is allowed to do autonomously. By default, thi
   - [ ] When checked, the AI uses the **Lean Output** style — see skill `lean-output` ("smaller mouth, same brain"): compress delivery (filler/preamble/hedging) only; never reasoning, code, teaching substance, or safety/approval text. Composes with Teaching (teaching stays full; delivery shrinks; saved words reinvested into more teaching).
 <!-- AGENTJOJOY:AI-NO-OVERWRITE END -->
 
-> [!NOTE]
-> If the current mode is unset and the workspace is in Template Development mode (T0), the default is assumed to be `teach`.
-
----
-
 ## Mode Definitions
 
 ### `execute` — AI-writing

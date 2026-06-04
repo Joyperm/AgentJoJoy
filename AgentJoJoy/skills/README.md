@@ -118,7 +118,7 @@ Examples:
 > [!WARNING]
 > **SKILL ISOLATION & WRAPPER SAFETY**
 >
-> To protect the integrity of the personal operating layer, all skills (including Project Skills, dev-only skills, or custom skills drafted by AI) must operate strictly within their specialized functional boundaries.
+> To protect the integrity of the personal operating layer, all skills (including Project Skills or custom skills drafted by AI) must operate strictly within their specialized functional boundaries.
 > 
 > - A skill is **never permitted** to autonomously modify personal credentials, read or write outer wrapper configurations (`CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`), or alter wrapper system rules inside `AgentJoJoy/` that are unrelated to its functional scope.
 > - A skill must **strictly respect AI-NO-OVERWRITE blocks** at all times.
@@ -149,8 +149,7 @@ To ensure high portability and compatibility across multiple target runtimes, Ag
 ## Trigger Boundaries
 
 Session start and onboarding protocols happen before normal skill selection:
-- Template Development mode
-- Intake trigger states T0-T3
+- Intake trigger states
 - Resume Check Protocol
 - Explicit owner approval gates
 

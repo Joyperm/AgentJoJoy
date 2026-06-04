@@ -1,4 +1,4 @@
-# Workflow Specification — Worktree-Based Personal Workflow
+﻿# Workflow Specification — Worktree-Based Personal Workflow
 
 Canonical, verifiable rules. This file is the source of truth for
 *what* the workflow is. Project-specific operational notes live in
@@ -267,11 +267,6 @@ loop → 4.10 Merge → 4.11 Cleanup
   chooses a one-time bootstrap, the AI may propose an initial push to
   the default branch. This exception ends after the first remote
   commit exists.
-- Template source exception: when the checkout is the AgentJoJoy
-  template source repo itself, the owner may explicitly choose direct
-  checkpoint pushes to `main`. This exception is for template-source
-  development only and must not be applied to copied workspaces or
-  Path 2 team repos.
 
 ### SPEC-4.8 PR
 - The AI proposes the PR title and body.

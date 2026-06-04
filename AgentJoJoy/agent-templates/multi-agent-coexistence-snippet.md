@@ -20,8 +20,7 @@ needing the AgentJoJoy wrapper above it.
    - Cursor -> rely on the validated AgentJoJoy wrapper walk-up by
      default; do not create `.cursor/rules/agentjojoy.mdc` or other
      repo-local bridge files unless a real discovery failure is
-     observed and the owner approves a local-only fallback. See
-     `AgentJoJoy/template-lab/validation/cursor-walkup-live.md`.
+     observed and the owner approves a local-only fallback.
 4. AI inserts the snippet body between the marker comments below. If
    the markers already exist, the AI replaces the section between
    them - never duplicates.
@@ -83,7 +82,8 @@ Other agents use their own name: `// CODEX:`, `// CURSOR:`, etc.
 
 ### Commit attribution
 
-Append a co-author trailer to every commit so authorship is durable:
+Follow this repo's commit attribution policy. If this repo uses AI
+co-author trailers, append one to commits so authorship is durable:
 
 ```
 Co-Authored-By: <Agent Name> [Model] <noreply-bot@users.noreply.github.com>
@@ -96,6 +96,9 @@ Examples:
 
 `[Model]` must reflect the exact model running. If unsure, ask the
 owner before committing.
+
+If this repo does not use AI co-author trailers, do not add one unless
+the owner/team explicitly asks.
 
 <!-- AGENTJOJOY:MULTI-AGENT END -->
 ```
@@ -129,7 +132,7 @@ not travel into target repos:
 - SPEC-1 through SPEC-9 (permission gates, strategic-choice rules,
   doc hygiene). These are how AgentJoJoy works in any workspace, not how the
   team works.
-- Resume Check protocol (T0-T3 classification). Same reason.
+- Resume Check protocol. Same reason.
 - Session handoff file path under `AgentJoJoy/session-handoff.md`.
   Target repos do not host AgentJoJoy state.
 - Sync-recommendation table (rebase vs merge rule of thumb). This
