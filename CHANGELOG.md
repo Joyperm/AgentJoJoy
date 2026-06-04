@@ -12,6 +12,13 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v2.4.0] — 2026-06-04 — Hook Enforcement Contracts
+
+### Added
+- **Hook Enforcement Contracts (`AgentJoJoy/agent-hooks/`)**: added a public docs/template layer for owners who want to mechanize selected AgentJoJoy or project-specific gates. Ships a blank neutral contract template plus Claude Code, Codex, and Antigravity runtime binding notes; no hook scripts, hook configs, installer, CI checks, git hooks, active enforcement, or default enablement are included. Existing AgentJoJoy gates remain sourced in `agent-rules/` / `workflow-spec.md`; `agent-hooks/` only maps optional enforcement contracts back to those rules and supports owner-defined hook contracts with explicit install scope and safety guardrails.
+
+---
+
 ## [v2.3.0] — 2026-06-03 — SmartWorker Framework
 
 ### Added

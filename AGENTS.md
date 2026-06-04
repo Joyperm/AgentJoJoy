@@ -115,6 +115,9 @@ or the current diff.
 - **SmartWorker / worker dispatch**: `ai-workflow-rules.md` → Work
   Escalation, `AgentJoJoy/agent-smartworkers/README.md`, and the target
   SmartWorker spec or template.
+- **Hook enforcement contracts**: existing rule source (`workflow-spec.md` /
+  `ai-workflow-rules.md` as applicable), `AgentJoJoy/agent-hooks/README.md`,
+  the target contract, and the matching runtime binding doc.
 
 Available sources:
 
@@ -135,6 +138,7 @@ Available sources:
 - [`AgentJoJoy/skills/lean-output/SKILL.md`](AgentJoJoy/skills/lean-output/SKILL.md) — output-brevity communication style ("smaller mouth, same brain"); active when the Lean Output toggle is on or on demand
 - [`AgentJoJoy/agent-tools/`](AgentJoJoy/agent-tools/) — local helper tools and sync scripts
 - [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — SmartWorker framework: single Main dispatches knowledge-requiring workers to a separate context (3-tier taxonomy; neutral spec + per-runtime binding; not multi-agent orchestration)
+- [`AgentJoJoy/agent-hooks/`](AgentJoJoy/agent-hooks/) — optional Hook Enforcement Contracts: docs/templates only for owners who want to mechanize selected AgentJoJoy or project-specific gates; no active hooks/scripts/config ship by default
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts
 - [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) — key decisions log
 - [`AgentJoJoy/agent-runtime/`](AgentJoJoy/agent-runtime/) — local generated agent state files

@@ -30,6 +30,7 @@ subfolder** (Claude Code walks up the directory tree to find every
 │  ├─ agent-runtime/             (local generated agent state)
 │  ├─ skills/                    (portable / project-specific SKILL.md files)
 │  ├─ agent-smartworkers/        (Main-dispatched knowledge workers — neutral spec + template)
+│  ├─ agent-hooks/               (optional hook enforcement contracts — docs/templates only)
 │  ├─ agent-templates/           (reusable snippets / portable inserts)
 │  ├─ agent-decisions/           (key decisions log)
 │  └─ template-lab/              (source-repo-only development artifacts)
@@ -327,6 +328,7 @@ or the current diff.
 | Git / worktree operations | `workspace-model.md`, `workflow-spec.md`, and the active tracker |
 | Skills | `skills/README.md` plus only the specific matching `SKILL.md` |
 | SmartWorker / worker dispatch | `ai-workflow-rules.md` → Work Escalation, `AgentJoJoy/agent-smartworkers/README.md`, and the target SmartWorker spec or template |
+| Hook enforcement contracts | Existing rule source (`workflow-spec.md` / `ai-workflow-rules.md` as applicable), `AgentJoJoy/agent-hooks/README.md`, the target contract, and the matching runtime binding doc |
 
 ## Canonical Documentation
 
@@ -337,6 +339,7 @@ or the current diff.
 | [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) | Detailed Path 1 / Path 2 onboarding flow and completion checklist. |
 | [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) | Wrapper ownership model, operational notes, paths, gotchas, and worktree workflow. |
 | [`AgentJoJoy/agent-smartworkers/README.md`](AgentJoJoy/agent-smartworkers/README.md) | SmartWorker framework — when/how the single Main Agent dispatches knowledge-requiring workers to a separate context (3-tier taxonomy script/SmartWorker/Skill; runtime-neutral spec + per-runtime binding). Not multi-agent orchestration. |
+| [`AgentJoJoy/agent-hooks/README.md`](AgentJoJoy/agent-hooks/README.md) | Optional Hook Enforcement Contracts — docs/templates only, no active hooks/scripts/config; owners choose whether to mechanize selected AgentJoJoy or project-specific gates. |
 | [`AgentJoJoy/agent-context/standards.md`](AgentJoJoy/agent-context/standards.md) | Project standards quick reference |
 | [`AgentJoJoy/agent-context/architecture.md`](AgentJoJoy/agent-context/architecture.md) | Project stack, boundaries, invariants (optional — coding projects) |
 | [`AgentJoJoy/agent-context/project-overview.md`](AgentJoJoy/agent-context/project-overview.md) | What this project is, the user's role |
