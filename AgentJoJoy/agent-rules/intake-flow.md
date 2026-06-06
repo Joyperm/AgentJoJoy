@@ -101,7 +101,7 @@ Signals:
 Action:
 
 - Run Resume Check.
-- Read `progress-tracker.md`.
+- Read `AgentJoJoy/agent-records/progress-tracker.md`.
 - Continue existing work or ask what task to start.
 
 ---
@@ -180,7 +180,7 @@ To maintain both structure and agent helpfulness:
 - Conversation language: English by default (detects and adapts dynamically to other languages if spoken by the owner)
 - Engagement mode: `execute` or `teach`?
 - Shell preference: default detected shell, or a specific one?
-- **Distraction-Free Mode** (Recommended for VS Code): Configures the explorer sidebar to hide internal AI system files (`AgentJoJoy/`, `CLAUDE.md`, `AGENTS.md`, `VERSION`, `progress-tracker.md`) to keep the workspace clean and focused.
+- **Distraction-Free Mode** (Recommended for VS Code): Configures the explorer sidebar to hide internal AI system files (`AgentJoJoy/`, `CLAUDE.md`, `AGENTS.md`, `VERSION`) to keep the workspace clean and focused.
 - **Autonomy Configuration**: Do **not** ask any questions about autonomy settings during intake to avoid onboarding fatigue. Pre-fill the default safe settings in `engagement-mode.md` automatically inside `AI-NO-OVERWRITE` comment blocks.
 
 Write the answers to:
@@ -248,7 +248,7 @@ The wrapper layer must never enter the project repo's history (see
   approval before the first commit. `.gitignore` only untracks — files stay locally
   for agents to read.
 - In a **solo single-repo** setup, also offer to gitignore the wrapper-owned root
-  files (`CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`). In a **team repo**, prefer
+  files (`CLAUDE.md`, `AGENTS.md`). In a **team repo**, prefer
   the sibling layout and never gitignore the team's own root files.
 - During initial setup or intake, if the owner chooses a local-only wrapper repo,
   it tracks wrapper-owned files only; all project-owned folders are ignored unless
@@ -269,7 +269,7 @@ Ask enough to create the first plan:
 
 Write the answers to:
 
-- `progress-tracker.md`
+- `AgentJoJoy/agent-records/progress-tracker.md`
 - `AgentJoJoy/agent-context/project-overview.md`
 
 ---
@@ -300,7 +300,6 @@ Examples:
 ```text
 JoySpace/
 ├─ AgentJoJoy/
-├─ progress-tracker.md
 └─ <project-folder>/
 ```
 
@@ -325,8 +324,8 @@ owner's answers:
 - `AgentJoJoy/agent-context/domain-language.md` only if the project has important glossary,
   domain, stakeholder, or ambiguous terms
 - `AgentJoJoy/agent-rules/workspace-model.md`
-- `progress-tracker.md` (root level)
-- `AgentJoJoy/agent-context/progress-tracker-setup.md`
+- `AgentJoJoy/agent-records/progress-tracker.md`
+- `AgentJoJoy/agent-records/setup-tracker.md`
 
 Mark uncertain guesses explicitly:
 
@@ -527,7 +526,7 @@ Auto-fill:
   terms, overloaded vocabulary, relationships, or unresolved ambiguity
 - `AgentJoJoy/agent-rules/workspace-model.md`: key paths, remote, known gotchas, local run
   commands if found
-- `progress-tracker.md` (root level): current phase, main checkout, active
+- `AgentJoJoy/agent-records/progress-tracker.md`: current phase, main checkout, active
   branches/worktrees, in-progress items if any
 
 Use `<!-- AI guess: ... -->` for uncertain inferences.
@@ -585,7 +584,7 @@ file for the full merge algorithm.
 
 Show the proposed snippet body and the exact list of target files
 before writing. Wait for owner approval. The owner can opt out, in
-which case record a note in `progress-tracker.md` that the gap is
+which case record a note in `AgentJoJoy/agent-records/progress-tracker.md` that the gap is
 known and intentional.
 
 Before proposing the snippet, read the filled Commit Attribution
@@ -645,7 +644,7 @@ without re-planning, but not so detailed that it invents requirements.
 
 Create or update:
 
-- `progress-tracker.md` → Current Phase, Current Goal, In Progress,
+- `AgentJoJoy/agent-records/progress-tracker.md` → Current Phase, Current Goal, In Progress,
   Next Up, Open Questions
 - `AgentJoJoy/agent-context/project-overview.md` → Active Work Areas
 
@@ -708,8 +707,8 @@ Do not turn uncertain guesses into tasks. Put them in Open Questions.
 - Do not invent architecture, rules, owners, or deployment facts.
 - If team docs conflict with AgentJoJoy notes, team docs win for
   code-level decisions.
-- Update `AgentJoJoy/agent-context/progress-tracker-setup.md` when intake completes.
-- Update root `progress-tracker.md` with real work state for the
+- Update `AgentJoJoy/agent-records/setup-tracker.md` when intake completes.
+- Update `AgentJoJoy/agent-records/progress-tracker.md` with real work state for the
   project being onboarded.
 
 ---
@@ -727,7 +726,7 @@ Intake is complete when:
 - Team/project rule files are listed.
 - Known protected paths and gotchas are recorded.
 - Verification commands are recorded or listed as open questions.
-- `progress-tracker.md` reflects current active work state.
+- `AgentJoJoy/agent-records/progress-tracker.md` reflects current active work state.
 - Remaining unknowns are listed under Open Questions.
 - The first milestone, first slice, and verification signal are
   recorded.

@@ -48,8 +48,8 @@ Before the first interview question, inspect the useful local context
 available for the topic:
 
 - Current directory structure and relevant README/docs
-- Existing `CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`, and
-  AgentJoJoy docs
+- Existing `CLAUDE.md`, `AGENTS.md`,
+  `AgentJoJoy/agent-records/progress-tracker.md`, and AgentJoJoy docs
 - Git history, branches, and recent commits when the topic involves a
   repo or workflow
 - Existing architecture, standards, configs, scripts, or source files

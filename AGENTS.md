@@ -43,7 +43,7 @@ rules.
 
 Before any other work (including generating any greeting or response), classify the workspace state and retrieve in-flight context.
 
-Read `progress-tracker.md` to classify the workspace state (and only read `AgentJoJoy/agent-context/project-overview.md` during fresh T1/T2 onboarding sessions, as project overview is already known in T3 Resume mode).
+Read `AgentJoJoy/agent-records/progress-tracker.md` to classify the workspace state (and only read `AgentJoJoy/agent-context/project-overview.md` during fresh T1/T2 onboarding sessions, as project overview is already known in T3 Resume mode).
 
 ### Step 1 — Classify Workspace State
 
@@ -63,7 +63,7 @@ Use the loaded contents and the trigger states in [`AgentJoJoy/agent-rules/intak
 
 If templates are filled, run these checks before doing any new work:
 
-1. Read [`progress-tracker.md`](progress-tracker.md) (workspace root) to understand current in-flight state.
+1. Read [`AgentJoJoy/agent-records/progress-tracker.md`](AgentJoJoy/agent-records/progress-tracker.md) to understand current in-flight state.
 2. If the project contains a git repo, run a single combined command to discover git state (no approval needed — read-only, counts as 1 tool call):
    ```powershell
    git status && git worktree list && git branch --show-current
@@ -99,7 +99,7 @@ or the current diff.
 
 ### Context Bundles
 
-- **Resume / session start**: `progress-tracker.md` plus git state from the
+- **Resume / session start**: `AgentJoJoy/agent-records/progress-tracker.md` plus git state from the
   Resume Check.
 - **Before edits**: `workflow-spec.md`, `ai-workflow-rules.md`, and the
   project/team context directly relevant to the files being edited.
@@ -140,9 +140,8 @@ Available sources:
 - [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — SmartWorker framework: single Main dispatches knowledge-requiring workers to a separate context (3-tier taxonomy; neutral spec + per-runtime binding; not multi-agent orchestration)
 - [`AgentJoJoy/agent-hooks/`](AgentJoJoy/agent-hooks/) — optional Hook Enforcement Contracts: docs/templates only for owners who want to mechanize selected AgentJoJoy or project-specific gates; no active hooks/scripts/config ship by default
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts
-- [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) — key decisions log
-- [`AgentJoJoy/agent-runtime/`](AgentJoJoy/agent-runtime/) — local generated agent state files
-- [`progress-tracker.md`](progress-tracker.md) — current state, decisions, next steps
+- [`AgentJoJoy/agent-records/`](AgentJoJoy/agent-records/) — progress tracker, setup tracker, decisions, and optional work records
+- [`AgentJoJoy/agent-records/progress-tracker.md`](AgentJoJoy/agent-records/progress-tracker.md) — current state, decisions, next steps
 
 If this file conflicts with `CLAUDE.md` on agent-specific behavior,
 **this file wins** for the agent reading it. For workflow rules
@@ -185,7 +184,7 @@ When AI co-author trailers are enabled, `[Model]` is the exact model running:
 `Co-Authored-By: Claude [Model] <claude-bot@users.noreply.github.com>`
 (other agents use their own, e.g. `Codex [Model] <codex-bot@...>`).
 
-**Session handoff** — `progress-tracker.md` + git state carry most handoffs.
+**Session handoff** — `AgentJoJoy/agent-records/progress-tracker.md` + git state carry most handoffs.
 Only when mid-flight state is too subtle for those, write
 `AgentJoJoy/session-handoff.md` (owner asks, or real un-inferable mid-flight work);
 normal state empty. At session start, if it holds an active handoff, reconcile
@@ -254,7 +253,7 @@ does not vendor third-party skill text without a clear license.
   [`ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) (Pillar I) + SPEC-1.5.
 - **No `--no-verify`** — fix the hook failure instead.
 - Run the project's verification (type check, tests, build) before committing; report results.
-- Update `progress-tracker.md` after meaningful work (concise summary — SPEC-9.1.2).
+- Update `AgentJoJoy/agent-records/progress-tracker.md` after meaningful work (concise summary — SPEC-9.1.2).
 
 ---
 

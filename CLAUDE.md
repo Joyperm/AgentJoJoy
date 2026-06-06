@@ -22,17 +22,15 @@ subfolder** (Claude Code walks up the directory tree to find every
 ```
 <workspace-root>/                       ← workspace root (this folder)
 ├─ CLAUDE.md                            ← this file (auto-loads)
-├─ progress-tracker.md                  ← REAL WORK tracker
 ├─ AgentJoJoy/                          ← personal AI context
 │  ├─ agent-context/             (project context filled during intake)
+│  ├─ agent-records/             (progress tracker, decisions, work records)
 │  ├─ agent-rules/               (workflow rules + onboarding logic)
 │  ├─ agent-tools/               (local helper tools)
-│  ├─ agent-runtime/             (local generated agent state)
 │  ├─ skills/                    (portable / project-specific SKILL.md files)
 │  ├─ agent-smartworkers/        (Main-dispatched knowledge workers — neutral spec + template)
 │  ├─ agent-hooks/               (optional hook enforcement contracts — docs/templates only)
-│  ├─ agent-templates/           (reusable snippets / portable inserts)
-│  └─ agent-decisions/           (key decisions log)
+│  └─ agent-templates/           (reusable snippets / portable inserts)
 ├─ <code-or-content>/                   ← the actual project (any folder name)
 └─ <worktree-N>/                        ← per-task git worktrees (if applicable)
 ```
@@ -48,7 +46,7 @@ on whether this is a new project (Path 1) or an existing one (Path 2).
 When you start a new Claude session in this workspace, **before any
 other work (including generating any greeting or response)**, you MUST classify the workspace state and retrieve in-flight context.
 
-Read `progress-tracker.md` to classify the workspace state (and only read
+Read `AgentJoJoy/agent-records/progress-tracker.md` to classify the workspace state (and only read
 `AgentJoJoy/agent-context/project-overview.md` during fresh T1/T2
 onboarding sessions, as project overview is already known in T3 Resume
 mode).
@@ -87,8 +85,8 @@ Essentials on both paths:
 Templates are filled, this is a normal work session. Run these checks
 before doing any new work:
 
-1. Read `progress-tracker.md` (workspace root) to understand current
-   in-flight state. Only read `AgentJoJoy/agent-context/progress-tracker-setup.md`
+1. Read `AgentJoJoy/agent-records/progress-tracker.md` to understand current
+   in-flight state. Only read `AgentJoJoy/agent-records/setup-tracker.md`
    if the user asks about setup history or recent workflow changes.
 2. If `<code-or-content>/` is a git repo, run a single combined command to discover git state (no approval needed — read-only per SPEC-1.2, counts as 1 tool call):
    ```powershell
@@ -223,7 +221,7 @@ When AI co-author trailers are enabled, `[Model]` is the exact model running:
 `Co-Authored-By: Claude [Model] <claude-bot@users.noreply.github.com>`
 (other agents use their own, e.g. `Codex [Model] <codex-bot@...>`).
 
-**Session handoff** — `progress-tracker.md` + git state carry most handoffs.
+**Session handoff** — `AgentJoJoy/agent-records/progress-tracker.md` + git state carry most handoffs.
 Only when mid-flight state is too subtle for those, write
 `AgentJoJoy/session-handoff.md` (owner asks, or real un-inferable mid-flight work);
 normal state empty. At session start, if it holds an active handoff, reconcile
@@ -247,10 +245,10 @@ engagement mode permanently), follow this sequence:
    file individually.
 4. **Execute** the doc updates after approval.
 5. **Log the decision** in
-   [`AgentJoJoy/agent-context/progress-tracker-setup.md`](AgentJoJoy/agent-context/progress-tracker-setup.md)
+   [`AgentJoJoy/agent-records/setup-tracker.md`](AgentJoJoy/agent-records/setup-tracker.md)
    with date, the chosen option, and a one-line reason summary. For
    significant decisions, also create an entry in
-   [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) (see the
+   [`AgentJoJoy/agent-records/decisions/`](AgentJoJoy/agent-records/decisions/) (see the
    folder's README for format).
 6. **Then** continue with the next item.
 
@@ -295,7 +293,7 @@ is reinforced in
 |----------|----------------|-----|
 | Plan a task, read context | workspace root | See `AgentJoJoy/` + `<code-or-content>/` as siblings; full overview |
 | Update workflow docs | `AgentJoJoy/` | Direct context inside the docs folder |
-| Update work tracker | workspace root | `progress-tracker.md` lives at the wrapper root |
+| Update work tracker | AgentJoJoy records | `AgentJoJoy/agent-records/progress-tracker.md` |
 | Write code, run git ops | a worktree (preferred) or `<code-or-content>/` | Git ops work immediately as cwd; team rules visible |
 
 This `CLAUDE.md` loads regardless of which subfolder is cwd (Claude
@@ -318,7 +316,7 @@ or the current diff.
 
 | Task | Read |
 |------|------|
-| Resume / session start | `progress-tracker.md` plus git state from the Resume Check |
+| Resume / session start | `AgentJoJoy/agent-records/progress-tracker.md` plus git state from the Resume Check |
 | Before edits | `workflow-spec.md`, `ai-workflow-rules.md`, and the project/team context directly relevant to the files being edited |
 | Debug | Matching core practice skill, `technical-precedents.md`, and the smallest runnable/test context needed to reproduce or trace the failure |
 | Review / audit | Immediate diff/artifact, matching core practice skill, and touched call paths only |
@@ -350,9 +348,9 @@ or the current diff.
 
 | File | Purpose |
 |------|---------|
-| [`progress-tracker.md`](progress-tracker.md) (at root) | **REAL WORK tracker** — active branches, PRs, worktrees, in-flight tasks. Update after every meaningful work action. Resume Check reads this in normal workspaces. |
-| [`AgentJoJoy/agent-context/progress-tracker-setup.md`](AgentJoJoy/agent-context/progress-tracker-setup.md) | **SETUP / workspace meta log** — spec amendments, workspace restructure events, intake completion. Update when workspace structure or workflow rules change. |
-| [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) | Key project decisions (one file per decision, format in folder README). |
+| [`AgentJoJoy/agent-records/progress-tracker.md`](AgentJoJoy/agent-records/progress-tracker.md) | **REAL WORK tracker** — active branches, PRs, worktrees, in-flight tasks. Update after every meaningful work action. Resume Check reads this in normal workspaces. |
+| [`AgentJoJoy/agent-records/setup-tracker.md`](AgentJoJoy/agent-records/setup-tracker.md) | **SETUP / workspace meta log** — spec amendments, workspace restructure events, intake completion. Update when workspace structure or workflow rules change. |
+| [`AgentJoJoy/agent-records/decisions/`](AgentJoJoy/agent-records/decisions/) | Key project decisions (one file per decision, format in folder README). |
 | [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) | Skill layer model: Personal Agent Skills vs Project Skills and precedence when both match. |
 | [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) | Portable core practices for debugging, review, post-mortems, and stakeholder communication. |
 | [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) | Rigorous design interview for brainstorming, planning, and pressure-testing ideas before implementation. |

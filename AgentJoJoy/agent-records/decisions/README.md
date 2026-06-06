@@ -25,8 +25,8 @@ Do NOT record:
   inside a module)
 - Decisions already documented in the team repo (ADRs, RFCs, design
   docs) — link to them instead
-- Daily work updates — those go in `progress-tracker.md` at the
-  workspace root
+- Daily work updates — those go in
+  `AgentJoJoy/agent-records/progress-tracker.md`
 
 ## File format
 
@@ -59,5 +59,5 @@ considered and the deciding factors.>
 ## Cross-references
 
 When a decision is logged here, also note it in
-`progress-tracker-setup.md` → "Resolved Decisions" with a link, so
+`AgentJoJoy/agent-records/setup-tracker.md` → "Resolved Decisions" with a link, so
 the setup tracker stays a complete index.

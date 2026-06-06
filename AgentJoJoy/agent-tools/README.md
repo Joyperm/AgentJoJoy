@@ -28,5 +28,6 @@ Safety rules:
 
 - Confirm intent interactively unless `-Force` is passed.
 - Expand targets dynamically to resolve correct paths based on workspace root.
-- The script cleans: `CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`, and the `AgentJoJoy/` directory.
+- The script cleans: `CLAUDE.md`, `AGENTS.md`, the `AgentJoJoy/`
+  directory, and legacy root `progress-tracker.md` files if present.
 

@@ -23,10 +23,9 @@ AgentJoJoy uses a **wrapper workspace**:
 ```text
 JoySpace/
 ├─ CLAUDE.md / AGENTS.md          # workspace entry points
-├─ progress-tracker.md            # reusable project tracker template
 ├─ AgentJoJoy/                    # AgentJoJoy-owned AI context
-│  ├─ workflow-*.md
-│  ├─ workspace-model.md
+│  ├─ agent-records/              # progress, setup, decisions, work records
+│  ├─ agent-rules/
 │  └─ skills/
 ├─ TeamRepo/                      # team-owned git repo
 └─ worktree-task-a/               # task branch worktree for TeamRepo
@@ -41,7 +40,7 @@ The wrapper is the owner's personal operating layer. The team repo is still the 
 | Location | Owner | Git remote | Commit here? |
 |----------|-------|------------|--------------|
 | `AgentJoJoy/` | Owner | AgentJoJoy template repo, or none | Only for personal/template workflow changes |
-| `progress-tracker.md` at wrapper root | Owner/template | AgentJoJoy template repo, or none | Real workspace/task tracking after intake |
+| `AgentJoJoy/agent-records/progress-tracker.md` | Owner/template | AgentJoJoy template repo, or none | Real workspace/task tracking after intake |
 | `TeamRepo/` | Team | Team project remote | Yes, only project changes intended for team review |
 | `worktree-*` | Team branch | Same remote as `TeamRepo/` | Yes, task-specific project changes |
 
@@ -70,7 +69,7 @@ Git only tracks files inside a repo's working tree, so isolation **depends on la
   wrapper-owned). `.gitignore` only *untracks* — files stay on local disk for agents
   to read.
 - In a **solo single-repo** setup, also gitignore the wrapper-owned root files
-  (`CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`). In a **team repo**, use the
+  (`CLAUDE.md`, `AGENTS.md`). In a **team repo**, use the
   sibling layout instead — never gitignore the team's own root files.
 
 Versioning AgentJoJoy itself is fine, but only in its **own** repo (like this
@@ -85,8 +84,8 @@ For environments like MQL5 (MetaTrader 5) where the codebase folder must reside 
 ```text
 MyProject-Workspace/            # Desktop Workspace (Wrapper Root)
 ├─ CLAUDE.md / AGENTS.md        # Entry points
-├─ progress-tracker.md          # Wrapper progress tracker
 ├─ AgentJoJoy/                  # AI context
+│  └─ agent-records/            # Wrapper progress/setup/decision records
 └─ MyProject/                   # Actual codebase folder (where .git starts)
         ▲
         └─ (Junction Link) ───► MT5 Terminal / MQL5 / Experts / MyProject
@@ -129,7 +128,6 @@ Do not commit these into a team repo:
 - `AgentJoJoy/`
 - wrapper-level `CLAUDE.md`
 - wrapper-level `AGENTS.md`
-- wrapper-level `progress-tracker.md`
 - local bridge files that point back to the wrapper
 - tool-local settings such as `.claude/settings.local.json`, `.cursor/`, `.vscode/`, or agent permission files unless the team explicitly owns them
 
@@ -505,7 +503,7 @@ powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/eject.ps1 -Actio
 ### Affected Files
 The script will cleanly remove the following files and folders:
 - `CLAUDE.md` and `AGENTS.md` (root entry points)
-- `progress-tracker.md` (root work tracker)
+- legacy root `progress-tracker.md` files from older workspaces, if present
 - `AgentJoJoy/` (all workflow rules, context files, local tools, and runtimes)
 
 The script is safe: it runs in a dry-run check mode by default (`-Action check`) showing you exactly what it will delete. When run with `-Action eject`, it prompts for confirmation before modifying anything on disk unless `-Force` is passed.
@@ -515,6 +513,6 @@ The script is safe: it runs in a dry-run check mode by default (`-Action check`)
 ## Things to Raise With the Team
 
 <!-- Living list of issues to bring to the team lead. Move resolved
-     items to AgentJoJoy/agent-decisions/ once addressed. -->
+     items to AgentJoJoy/agent-records/decisions/ once addressed. -->
 
 ### _(none yet)_

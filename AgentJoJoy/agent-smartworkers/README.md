@@ -21,7 +21,8 @@ of Main's own context window.
 > The 3-tier taxonomy and the rule for picking a tier are defined **once**,
 > canonically, in
 > [`ai-workflow-rules.md` → Work Escalation — Automation Tiers](../agent-rules/ai-workflow-rules.md).
-> This README only covers the **SmartWorker tier** in detail.
+> That section also owns when the Main Agent should surface execution-mode
+> choices. This README only covers the **SmartWorker tier** in detail.
 
 ## Why a SmartWorker (the real value)
 
@@ -136,6 +137,10 @@ Main's context.
 Owner-initiated requests follow the same routing: if the owner asks for
 a SmartWorker, recommend honestly per the actual situation — a script or
 a Skill may fit better. Don't push a SmartWorker by default.
+
+When SmartWorker is one of several plausible execution modes, follow the
+Work Escalation rule in `ai-workflow-rules.md` before creating or binding
+a worker.
 
 ---
 
