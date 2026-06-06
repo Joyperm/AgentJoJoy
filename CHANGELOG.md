@@ -12,6 +12,22 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v2.6.0] — 2026-06-05 — Agent Records & Execution-Mode Governance
+
+### Added
+- **Public README visual hero**: added a lightweight repo-safe SVG hero asset at `assets/agentjojoy-hero.svg` and wired it into the public README source. The hero is presentation-only and does not change AgentJoJoy's docs-only/runtime-free positioning.
+- **Work records / Work Item Envelope template**: added `AgentJoJoy/agent-records/work/` as an optional archive/cold store for selected completed or paused work that needs durable memory beyond the hot tracker. The template is docs-only and explicitly excludes queue, claim, lease, retry, wake, scheduler, and runtime routing behavior.
+
+### Changed
+- **Execution-mode choice discipline**: Work Escalation now explicitly defaults to the single Main Agent, treats over-surfacing choices as an anti-pattern, and only asks the owner to choose between execution modes when a real tradeoff exists. The public workflow guides and SmartWorker docs point back to the canonical rule so SmartWorkers, scripts, tool/runtime research, local/alternative models, and multi-agent coordination remain optional choices rather than default product promises.
+- **Workspace records consolidated under AgentJoJoy**: moved the reusable progress tracker, setup tracker, decision format guide, and optional work-record archive under `AgentJoJoy/agent-records/` so mutable AgentJoJoy state stays inside the AgentJoJoy namespace while root stays limited to `CLAUDE.md` / `AGENTS.md` entry points and release files.
+
+### Fixed
+- **Progress tracker relative links**: corrected the reusable tracker links after moving it under `AgentJoJoy/agent-records/`.
+- **Legacy runtime placeholder cleanup**: removed the empty `AgentJoJoy/agent-runtime/` package surface and active public references to it now that AgentJoJoy records live under `AgentJoJoy/agent-records/`.
+
+---
+
 ## [v2.5.0] — 2026-06-04 — Governance-Layer Positioning & Local Provider SmartWorkers
 
 ### Added

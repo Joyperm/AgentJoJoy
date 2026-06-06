@@ -200,7 +200,7 @@ loop → 4.10 Merge → 4.11 Cleanup
 ### SPEC-4.2 Pre-flight
 - The AI runs read-only inspection: `git status`, `git branch -a`,
   `git worktree list`, `git log -5 --oneline` in the main checkout.
-- The AI reads `progress-tracker.md` (if present) to check for
+- The AI reads `AgentJoJoy/agent-records/progress-tracker.md` (if present) to check for
   in-flight work.
 - The AI reports findings to the user. The user decides whether to
   proceed with a new worktree, resume an existing one, or abort.
@@ -292,7 +292,7 @@ loop → 4.10 Merge → 4.11 Cleanup
   - `git worktree remove <path>`
   - `git branch -d <task-branch>` (local branch delete)
 - The AI shows the exact commands and waits for approval.
-- After cleanup, the AI updates `progress-tracker.md` (file edit, no
+- After cleanup, the AI updates `AgentJoJoy/agent-records/progress-tracker.md` (file edit, no
   approval required for this file).
 
 ---
@@ -459,7 +459,7 @@ The AI proposes (in order, each gated):
 2. `git worktree remove <path>` (approval required)
 3. `git branch -d <task-branch>` (approval required; `-d` not `-D` —
    refuses if branch has unmerged commits, which is the safe default)
-4. Update `progress-tracker.md` to record the completion
+4. Update `AgentJoJoy/agent-records/progress-tracker.md` to record the completion
 
 ### SPEC-8.3 Premature cleanup
 The AI does not propose cleanup until SPEC-8.1 conditions are met.
@@ -471,25 +471,25 @@ the risks (e.g. losing local branch state) before proceeding.
 ## SPEC-9. Documentation Update Discipline
 *Group D — Recovery, Cleanup & Docs.*
 
-### SPEC-9.1 progress-tracker.md
+### SPEC-9.1 AgentJoJoy/agent-records/progress-tracker.md
 There are two trackers, separated by concern:
 
-- **`<workspace-root>/progress-tracker.md`** — the **REAL WORK**
+- **`<workspace-root>/AgentJoJoy/agent-records/progress-tracker.md`** — the **REAL WORK**
   tracker. The AI updates this after meaningful state changes in the
   workflow: branch created, PR pushed, merge completed, blocker
   encountered, worktree created/removed, task state changed. File
   edits here are SPEC-1.3 (no approval required). The Resume Check
   Protocol reads this file first.
 
-- **`<workspace-root>/AgentJoJoy/agent-context/progress-tracker-setup.md`** —
+- **`<workspace-root>/AgentJoJoy/agent-records/setup-tracker.md`** —
   the **SETUP / workspace meta** tracker. The AI updates this when
   workspace structure changes, spec amendments are applied,
   onboarding milestones occur, or AI workflow rules evolve. The AI
   reads this only when the user asks about setup history or
   workflow changes.
 
-When SPEC-4, SPEC-5, SPEC-8, etc. say "update `progress-tracker.md`",
-they refer to the WORK tracker at root unless the action is
+When SPEC-4, SPEC-5, SPEC-8, etc. say "update the work tracker",
+they refer to `AgentJoJoy/agent-records/progress-tracker.md` unless the action is
 explicitly about workspace meta.
 
 ### SPEC-9.1.1 Git Discovery on Resume Check
@@ -500,7 +500,7 @@ Rules:
 
 - The discovery process may use only read-only git inspection commands.
 - It must not run `git fetch`, `git pull`, `git push`, `git merge`, `git rebase`, `git switch`, `git checkout`, `git worktree add`, or `git worktree remove`.
-- Human task notes, current goals, open questions, and recent actions in `progress-tracker.md` remain manually maintained.
+- Human task notes, current goals, open questions, and recent actions in `AgentJoJoy/agent-records/progress-tracker.md` remain manually maintained.
 - The AI must not run background scripts that mutate the tracker files during the resume check.
 
 ### SPEC-9.1.2 — Tracker Conciseness (the tracker is a summary, not a log)
@@ -522,6 +522,11 @@ Rules:
 - **Bounded sections.** Keep "Recent Actions" / in-flight sections to a small
   rolling window; prune stale entries. Prefer referencing a commit hash over
   restating its content.
+- **Promote durable detail to work records selectively.** Do not create work
+  records by default or for every small task. When completed work, paused work,
+  or tracker pruning would otherwise lose useful context, copy the durable
+  detail into `AgentJoJoy/agent-records/work/` and keep only a short tracker
+  summary plus link.
 
 ### SPEC-9.2 workflow-spec.md
 This file (the spec) is updated only by deliberate revision, not as

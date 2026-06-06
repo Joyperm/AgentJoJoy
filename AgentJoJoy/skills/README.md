@@ -120,7 +120,7 @@ Examples:
 >
 > To protect the integrity of the personal operating layer, all skills (including Project Skills or custom skills drafted by AI) must operate strictly within their specialized functional boundaries.
 > 
-> - A skill is **never permitted** to autonomously modify personal credentials, read or write outer wrapper configurations (`CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`), or alter wrapper system rules inside `AgentJoJoy/` that are unrelated to its functional scope.
+> - A skill is **never permitted** to autonomously modify personal credentials, read or write outer wrapper configurations (`CLAUDE.md`, `AGENTS.md`, `AgentJoJoy/agent-records/progress-tracker.md`), or alter wrapper system rules inside `AgentJoJoy/` that are unrelated to its functional scope.
 > - A skill must **strictly respect AI-NO-OVERWRITE blocks** at all times.
 > - Any modification of wrapper rules or credentials by a skill requires **explicit, direct, and written permission** from the human owner in the chat.
 

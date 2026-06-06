@@ -1,5 +1,9 @@
 # AgentJoJoy — Generic AI Workspace Template
 
+<p align="center">
+  <img src="assets/agentjojoy-hero.svg" alt="AgentJoJoy governance workspace" width="100%">
+</p>
+
 A workspace template for working with AI coding assistants (Claude Code, Codex, Cursor, Gemini) across multiple projects — both brand-new projects and existing repositories. Designed to feel like working with a **senior dev mentor** who knows when to just execute and when to teach.
 
 AgentJoJoy is a **governance layer, not an agent runtime**.
@@ -102,7 +106,7 @@ graph TD
     D -->|Path 2: Existing Project| H[Read-only scan & Pre-fill templates]
     D -->|Skip| I[Bypass Onboarding for Session]
 
-    F --> J[Check Git Status & progress-tracker.md]
+    F --> J[Check Git Status & agent-records/progress-tracker.md]
     J --> K[Ask to continue active task or start new task]
 ```
 
@@ -113,7 +117,7 @@ graph TD
 
 ### Daily Session (Resume Phase)
 
-When a session starts in a configured workspace, the AI reads `progress-tracker.md`, checks git status, reports active worktrees/branches, and asks whether to resume the current task or start a new one.
+When a session starts in a configured workspace, the AI reads `AgentJoJoy/agent-records/progress-tracker.md`, checks git status, reports active worktrees/branches, and asks whether to resume the current task or start a new one.
 
 ### Context Loading
 
@@ -128,7 +132,7 @@ AgentJoJoy is designed so that **everything stays on your machine** unless you c
 ### What the AI may write to your workspace
 
 - **Project templates** (`AgentJoJoy/agent-context/*.md`) — filled during intake from your answers and any read-only repo scans. You see and approve every fill.
-- **`progress-tracker.md`** — daily work tracker. The AI updates it after meaningful work actions.
+- **`AgentJoJoy/agent-records/progress-tracker.md`** — daily work tracker. The AI updates it after meaningful work actions.
 
 ### Technical Precedents
  
@@ -161,8 +165,11 @@ See [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspa
 
 ## Folder Structure
 
-### Daily Tracking
-- [`progress-tracker.md`](progress-tracker.md) — central list of active branches, worktrees, tasks in progress, and next steps. Read first by the AI.
+### Records
+- [`AgentJoJoy/agent-records/progress-tracker.md`](AgentJoJoy/agent-records/progress-tracker.md) — hot index of active branches, worktrees, tasks in progress, and next steps. Read first by the AI.
+- [`AgentJoJoy/agent-records/setup-tracker.md`](AgentJoJoy/agent-records/setup-tracker.md) — setup, onboarding, workspace-structure, and workflow/spec history.
+- [`AgentJoJoy/agent-records/decisions/`](AgentJoJoy/agent-records/decisions/) — key decisions log for the wrapped workspace.
+- [`AgentJoJoy/agent-records/work/`](AgentJoJoy/agent-records/work/) — optional archive records for selected completed or paused work, loaded on demand.
 
 ### Project Metadata (AI-fillable)
 - [`AgentJoJoy/agent-context/project-overview.md`](AgentJoJoy/agent-context/project-overview.md) — project identity, type, stack, work areas.
@@ -184,7 +191,7 @@ See [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspa
 - [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — SmartWorker framework: runtime-neutral spec + template for Main-dispatched knowledge workers (not multi-agent orchestration).
 - [`AgentJoJoy/agent-hooks/`](AgentJoJoy/agent-hooks/) — optional Hook Enforcement Contracts: docs/templates only; owners choose whether, where, and how to implement any hook.
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts.
-- [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) — key decisions log.
+- [`AgentJoJoy/agent-records/decisions/`](AgentJoJoy/agent-records/decisions/) — key decisions log.
 
 ### Portable Skills (SKILL.md)
 - [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) — portable skill layers configuration with a 5-step **Priority of Precedence** safety matrix, strict sandboxing boundaries, and active/passive skill discovery heuristics.
@@ -232,7 +239,7 @@ To return a workspace to its normal, unwrapped state (e.g., before sharing or re
 powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/eject.ps1 -Action eject
 ```
 
-This deletes the `AgentJoJoy/` directory, `CLAUDE.md`, `AGENTS.md`, `VERSION`, and `progress-tracker.md`.
+This deletes the `AgentJoJoy/` directory, `CLAUDE.md`, `AGENTS.md`, `VERSION`, and any legacy root `progress-tracker.md` from older workspaces.
 
 > [!NOTE]
 > **Surgically Safe Settings Cleanup**: If **Distraction-Free Mode** was enabled, the script automatically parses `.vscode/settings.json` and surgically removes only the AgentJoJoy system exclusions, keeping any other project-specific editor or linter configurations 100% untouched. If no other settings remain in `.vscode/settings.json`, the script cleanly deletes the settings file and the empty `.vscode/` directory.
@@ -285,13 +292,13 @@ Procedure:
    - For template-owned files: propose the new content; apply only after my approval.
    - For mixed files: show a diff focused on structural/prose changes, preserve my filled values, apply after my approval.
    - For user-owned files: do not modify. If a structural migration is required, propose a manual edit plan with per-section approval.
-6. When done, update the VERSION file to the latest tag and log the upgrade in progress-tracker.md under Recent Actions with the date and version transition (e.g. "Upgraded AgentJoJoy template v1.1.0 -> v1.2.0").
+6. When done, update the VERSION file to the latest tag and log the upgrade in AgentJoJoy/agent-records/progress-tracker.md under Recent Actions with the date and version transition (e.g. "Upgraded AgentJoJoy template v1.1.0 -> v1.2.0").
 7. Clean up by deleting the temporary upgrade directory (e.g. `temp-agentjojoy-upgrade`) using a safe OS command (e.g. `rmdir /s /q` or `Remove-Item`).
 
 Constraints:
 - Never run git push, pull, commit, merge, or branch switch without explicit approval.
 - Check if a remote origin is configured for the workspace root repository before attempting any Git push operations. If no remote is configured, do not attempt to push and stop after committing locally.
-- Preserve all content in agent-context/, agent-decisions/, agent-runtime/, and progress-tracker.md (except the auto-sync managed block, which is template-owned).
+- Preserve all content in agent-context/ and agent-records/.
 - If unsure about a file's ownership, ask before changing it.
 ```
 

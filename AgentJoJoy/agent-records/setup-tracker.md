@@ -4,8 +4,7 @@
 >
 > This is NOT the daily-work tracker. For active branches, PRs,
 > worktrees, and tasks in flight, see
-> [`../../progress-tracker.md`](../../progress-tracker.md) at the workspace
-> root.
+> [`progress-tracker.md`](progress-tracker.md).
 >
 > Update this file when:
 > - The workspace structure changes (folders moved, restructured)

@@ -31,9 +31,9 @@ AgentJoJoy uses a **wrapper workspace**:
 ```text
 WorkspaceRoot/
 ├─ CLAUDE.md / AGENTS.md          # AI entry points
-├─ progress-tracker.md            # Daily project/task tracker
 ├─ AgentJoJoy/                    # Personal AI context and rules
 │  ├─ agent-context/              # Project metadata and notes
+│  ├─ agent-records/              # Progress, setup, decisions, work archive
 │  ├─ agent-rules/                # Workflow and safety rules
 │  ├─ agent-tools/                # Local helper scripts
 │  ├─ skills/                     # Portable and project skills
@@ -173,7 +173,12 @@ During upgrades, custom skills are user-owned and should be preserved.
 SmartWorkers are separate from skills. A skill stays in the Main
 Agent's current context as an SOP. A SmartWorker is for recurring work
 that needs project knowledge but should run in a separate context, then
-return a synthesized result to the single Main Agent. See
+return a synthesized result to the single Main Agent. When more than one
+execution mode could fit, the Main Agent should follow Work Escalation:
+it may offer choices such as doing the work in Main, using a script or
+checklist, dispatching a SmartWorker, or researching a tool/runtime first,
+then let you choose before setup. See
+`AgentJoJoy/agent-rules/ai-workflow-rules.md` and
 `AgentJoJoy/agent-smartworkers/README.md`.
 
 > **Note on invocation.** AgentJoJoy skills don't appear in the `/`

@@ -32,7 +32,9 @@ This document establishes the foundational workspace governance for AI assistant
    schema-bound, or low-judgment work, recommend the lightest tier that solves
    it — **script** (mechanical), **SmartWorker** (knowledge work in a separate
    context), or **Skill** (in-line SOP) — instead of spending main-session
-   context as the worker. Outputs remain untrusted drafts.
+   context as the worker. Do not surface execution-mode choices by default; if
+   a real tradeoff appears, show only 2-3 options and recommend the simplest
+   adequate path. Outputs remain untrusted drafts.
    (Pillar I → Work Escalation)
 5. **Milestone = smallest unit that is independently verifiable + teaches one
    concept.** AI proposes the milestone plan → user approves once → executes. (Pillar II)
@@ -197,6 +199,34 @@ Pick the lightest tier that solves the task. A SmartWorker's primary value is
 result — not just running a cheaper model. (A batch processor returning
 structured observations is the script/SmartWorker tier depending on whether it
 needs judgment.)
+
+##### Surfacing execution-mode choices
+
+Default to the single Main Agent. Do **not** present execution-mode choices by
+default; over-surfacing is an anti-pattern because it creates choice paralysis
+and slows down work the Main Agent can already handle directly. If the task is
+small, fits the current session, and has no real execution tradeoff, continue in
+Main without listing alternatives.
+
+Surface choices only when there is a real decision about how the work should run
+or be delegated: repeated/mechanical labor, likely Main-context flooding,
+separable research/analysis/drafting, meaningful script vs worker vs manual
+tradeoffs, tool/runtime/provider uncertainty, privacy/cost/offline/latency
+constraints, cross-context handoff, or work that would imply queueing,
+scheduling, wakeups, long-running services, or multi-agent coordination.
+
+When surfacing choices, list at most 2-3 meaningful options, include the key
+tradeoff for each, recommend the simplest adequate path, and wait for the owner
+to choose before researching or implementing runtime-specific details. Keep the
+format short, for example: `Options: (1) Main now - fastest; (2) script -
+reusable but extra setup. Recommend Main. Which path?`
+
+Local or alternative models are optional execution choices, not default
+upgrades. Mention them only when the actual constraint justifies it (privacy,
+offline use, low-cost batch drafting, preprocessing, retrieval, or
+non-authoritative first-pass analysis). Multi-agent coordination is not a
+default upgrade path; raise it only when the work genuinely decomposes into
+independent streams and the owner wants the added coordination overhead.
 
 Escalation is a recommendation, not an automatic handoff. The Main Agent must
 still:
@@ -445,7 +475,7 @@ To prevent autonomous AI agents from getting stuck in iterative "ping-pong" loop
    - **Loop Signature**: The specific command or tool call that failed twice.
    - **Self-Reflection**: A brief, analytical explanation of why the current approach failed and why the AI got stuck.
    - **Proposed Alternatives**: 2 or 3 distinct new options/directions for the user to select from to proceed.
-3. **No Silent Tracker Logging**: The AI must not write these transient loop failures to `progress-tracker.md`. All loop reflections and alternative selections must occur directly in the chat for human-in-the-loop collaboration.
+3. **No Silent Tracker Logging**: The AI must not write these transient loop failures to `AgentJoJoy/agent-records/progress-tracker.md`. All loop reflections and alternative selections must occur directly in the chat for human-in-the-loop collaboration.
 
 ### Help-First Command Discipline (Anti-Guessing)
 
@@ -474,9 +504,9 @@ I do not develop directly in the main team checkout. Instead:
 ### Multi-Agent Worktree Collision Avoidance
 
 When multiple agents are active in this workspace, we prevent parallel environment conflicts by locking worktree ownership:
-- **Check active tracker**: Before touching, updating, or running commands inside any git worktree sibling folder (`worktree-<task>`), verify the `progress-tracker.md` file to see which agent currently owns or has locked that task.
+- **Check active tracker**: Before touching, updating, or running commands inside any git worktree sibling folder (`worktree-<task>`), verify `AgentJoJoy/agent-records/progress-tracker.md` to see which agent currently owns or has locked that task.
 - **No overlapping execution**: Never run state-changing commands, modify code, or delete/switch branches in a worktree folder currently owned/locked by another agent, UNLESS you receive a direct, explicit instruction from the human owner to manage or delete that specific worktree. Autonomous modifications or speculative cleanups on other agents' worktrees are strictly prohibited. 
-- **Declare ownership**: When starting work in a worktree, formally log your agent name as the active owner beside the task entry in `progress-tracker.md`.
+- **Declare ownership**: When starting work in a worktree, formally log your agent name as the active owner beside the task entry in `AgentJoJoy/agent-records/progress-tracker.md`.
 
 Full mechanics: see `workspace-model.md`.
 
@@ -487,7 +517,7 @@ Full mechanics: see `workspace-model.md`.
 ### Debugging & Troubleshooting Rules
 
 When investigating or resolving a bug, error, or crash, you must adhere strictly to the **Debug Routine** in `AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`:
-- **Write a Hypothesis Ledger**: Before making any code changes, write a brief, 2-line "Hypothesis Ledger" under the active task in your work tracker (`progress-tracker.md` or dev tracker). Specify:
+- **Write a Hypothesis Ledger**: Before making any code changes, write a brief, 2-line "Hypothesis Ledger" under the active task in your work tracker (`AgentJoJoy/agent-records/progress-tracker.md` or dev tracker). Specify:
   1. *Leading Hypothesis*: What you believe is the root cause.
   2. *Disproof Test*: What test, log, or evidence would disprove this hypothesis (and run it first).
 - **No Speculative Guess-and-Checks**: Do not run consecutive code trial-and-error attempts. Every change must be driven by a validated hypothesis.
@@ -545,7 +575,7 @@ Split an implementation if it combines any of:
 ### Handling Missing Requirements
 
 - Don't invent product behavior the team hasn't specified.
-- If a requirement is ambiguous and there is no team doc covering it, flag it in `<workspace-root>/progress-tracker.md` under "Open Questions" and ask the lead/owner before proceeding.
+- If a requirement is ambiguous and there is no team doc covering it, flag it in `<workspace-root>/AgentJoJoy/agent-records/progress-tracker.md` under "Open Questions" and ask the lead/owner before proceeding.
 - Don't infer schema, status enums, or status transitions — read the actual entity files and existing usages in the codebase.
 
 ### Protected Files / Folders
@@ -563,12 +593,15 @@ Do not modify any of the above without explicit instruction.
 ### Keeping Personal Docs in Sync
 
 Update files when the underlying reality changes:
-- **`<workspace-root>/progress-tracker.md`** (work tracker, at root) — after every meaningful work action (branch created, PR pushed, merge done, blocker found). Keep it a **concise summary** — the git log (incl. milestone commits) is the detailed trail; do not duplicate it into the tracker (SPEC-9.1.2).
-- **`AgentJoJoy/agent-context/progress-tracker-setup.md`** (setup tracker) — when workspace structure changes or spec is amended
+- **`<workspace-root>/AgentJoJoy/agent-records/progress-tracker.md`** (work tracker) — after every meaningful work action (branch created, PR pushed, merge done, blocker found). Keep it a **concise summary** — the git log (incl. milestone commits) is the detailed trail; do not duplicate it into the tracker (SPEC-9.1.2).
+- **`AgentJoJoy/agent-records/setup-tracker.md`** (setup tracker) — when workspace structure changes or spec is amended
 - **`AgentJoJoy/agent-context/architecture.md`** — if I learn something new about the stack or invariants
 - **`AgentJoJoy/agent-context/standards.md`** — if team rules change
 - **`AgentJoJoy/agent-rules/workspace-model.md`** — if my workflow evolves (new gotchas, new tooling)
-- **`AgentJoJoy/agent-decisions/`** — log significant decisions as their own file (`YYYY-MM-DD-topic.md`)
+- **`AgentJoJoy/agent-records/decisions/`** — log significant decisions as their own file (`YYYY-MM-DD-topic.md`)
+- **`AgentJoJoy/agent-records/work/`** — archive selected completed or paused
+  work only when the tracker would lose durable context; do not write here by
+  default for every feature, subtask, or checkpoint.
 
 Team repo docs (`README*.md`, `*.md` at root) are owned by the team — don't update them without a clear ask.
 
@@ -578,7 +611,7 @@ Checklist before starting anything new:
 1. Current branch is either merged or actively in review
 2. Type check / lint passes in the worktree
 3. Tests for the change exist and pass
-4. Workspace-root `progress-tracker.md` reflects the completed work
+4. `AgentJoJoy/agent-records/progress-tracker.md` reflects the completed work
 5. The worktree is either cleaned up (`git worktree remove`) or parked deliberately
 
 ### Anti-Patterns to Avoid

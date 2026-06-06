@@ -6,7 +6,7 @@
 > this file first to understand current work state.
 >
 > For workspace setup history, AI workflow tweaks, and spec amendments,
-> see [`AgentJoJoy/agent-context/progress-tracker-setup.md`](AgentJoJoy/agent-context/progress-tracker-setup.md).
+> see [`setup-tracker.md`](setup-tracker.md).
 >
 > Update this file when:
 > - A branch is created, pushed, merged, or deleted
@@ -87,7 +87,8 @@ _(none yet)_
 ## Recent Actions
 
 > Most recent first. Keep terse — just enough to recover context next
-> session. For long explanations, link to setup tracker or other docs.
+> session. For long explanations, link to setup tracker, a work record,
+> or other docs.
 
 <!-- Date-stamped log of meaningful work actions: branch ops, PR
      events, blockers, worktree management, sync events. -->
@@ -100,13 +101,14 @@ _(empty — populated after first real work session)_
 
 | Need | Read |
 |---|---|
-| Workflow rules (canonical) | [`AgentJoJoy/agent-rules/workflow-spec.md`](AgentJoJoy/agent-rules/workflow-spec.md) |
-| AI permission gates | [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) |
-| Operational paths + gotchas | [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) |
-| Project overview | [`AgentJoJoy/agent-context/project-overview.md`](AgentJoJoy/agent-context/project-overview.md) |
-| Architecture | [`AgentJoJoy/agent-context/architecture.md`](AgentJoJoy/agent-context/architecture.md) |
-| Code / writing standards | [`AgentJoJoy/agent-context/standards.md`](AgentJoJoy/agent-context/standards.md) |
-| UI context (if applicable) | [`AgentJoJoy/agent-context/ui-context.md`](AgentJoJoy/agent-context/ui-context.md) |
-| Engagement mode (execute / teach) | [`AgentJoJoy/agent-context/engagement-mode.md`](AgentJoJoy/agent-context/engagement-mode.md) |
-| Decisions log | [`AgentJoJoy/agent-decisions/`](AgentJoJoy/agent-decisions/) |
-| Setup history / spec amendments | [`AgentJoJoy/agent-context/progress-tracker-setup.md`](AgentJoJoy/agent-context/progress-tracker-setup.md) |
+| Workflow rules (canonical) | [`../agent-rules/workflow-spec.md`](../agent-rules/workflow-spec.md) |
+| AI permission gates | [`../agent-rules/ai-workflow-rules.md`](../agent-rules/ai-workflow-rules.md) |
+| Operational paths + gotchas | [`../agent-rules/workspace-model.md`](../agent-rules/workspace-model.md) |
+| Project overview | [`../agent-context/project-overview.md`](../agent-context/project-overview.md) |
+| Architecture | [`../agent-context/architecture.md`](../agent-context/architecture.md) |
+| Code / writing standards | [`../agent-context/standards.md`](../agent-context/standards.md) |
+| UI context (if applicable) | [`../agent-context/ui-context.md`](../agent-context/ui-context.md) |
+| Engagement mode (execute / teach) | [`../agent-context/engagement-mode.md`](../agent-context/engagement-mode.md) |
+| Decisions log | [`decisions/`](decisions/) |
+| Archived work records | [`work/`](work/) |
+| Setup history / spec amendments | [`setup-tracker.md`](setup-tracker.md) |
