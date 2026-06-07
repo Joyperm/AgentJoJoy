@@ -136,7 +136,6 @@ Available sources:
 - [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) — rigorous design interview for brainstorming, planning, and pressure-testing ideas before implementation
 - [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) — meta-skill that, on a 3+ repeat, classifies recurring work and routes it to the right tier (script / SmartWorker / Skill)
 - [`AgentJoJoy/skills/lean-output/SKILL.md`](AgentJoJoy/skills/lean-output/SKILL.md) — output-brevity communication style ("smaller mouth, same brain"); active when the Lean Output toggle is on or on demand
-- [`AgentJoJoy/agent-tools/`](AgentJoJoy/agent-tools/) — local helper tools and sync scripts
 - [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — SmartWorker framework: single Main dispatches knowledge-requiring workers to a separate context (3-tier taxonomy; neutral spec + per-runtime binding; not multi-agent orchestration)
 - [`AgentJoJoy/agent-hooks/`](AgentJoJoy/agent-hooks/) — optional Hook Enforcement Contracts: docs/templates only for owners who want to mechanize selected AgentJoJoy or project-specific gates; no active hooks/scripts/config ship by default
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts

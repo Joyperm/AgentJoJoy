@@ -187,7 +187,6 @@ See [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspa
 - [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) — **Consolidated Workspace & Operations Model** merging layout specifications, operating commands, and git-sync policies (Merge, Rebase, Squash & Rebase) into a single unified reference.
 - [`AgentJoJoy/workflow-guide.md`](AgentJoJoy/workflow-guide.md) — English onboarding manual.
 - [`AgentJoJoy/workflow-guide-th.md`](AgentJoJoy/workflow-guide-th.md) — Thai onboarding manual.
-- [`AgentJoJoy/agent-tools/`](AgentJoJoy/agent-tools/) — local helper tools, including clean ejection and lightweight wrapper maintenance helpers.
 - [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — SmartWorker framework: runtime-neutral spec + template for Main-dispatched knowledge workers (not multi-agent orchestration).
 - [`AgentJoJoy/agent-hooks/`](AgentJoJoy/agent-hooks/) — optional Hook Enforcement Contracts: docs/templates only; owners choose whether, where, and how to implement any hook.
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts.
@@ -229,20 +228,20 @@ If you already have a project repo or document folder, create an AgentJoJoy work
 If GitHub's template button is unavailable, clone or download this repository, copy the wrapper folder to your workspace, and remove the copied `.git` directory before onboarding. Prefer **Use this template** when available; it avoids the manual copy-and-cleanup step.
 
 > [!NOTE]
-> **Cross-platform note:** The AgentJoJoy workflow and documents can be used on Windows, macOS, or Linux. The bundled helper scripts are currently PowerShell-first and tested on Windows. On macOS/Linux, ask your AI assistant to translate helper commands to the local shell before running them, and approve any state-changing command first.
+> **Cross-platform note:** The AgentJoJoy workflow and documents can be used on Windows, macOS, or Linux. AgentJoJoy does not ship active helper scripts by default; ask your AI assistant to adapt any one-off commands to the local shell, and approve any state-changing command first.
 
-### Ejecting the Wrapper
+### Unwrapping AgentJoJoy
 
-To return a workspace to its normal, unwrapped state (e.g., before sharing or removing the personal AI operating layer):
+To return a workspace to its normal, unwrapped state (for example before sharing it or removing the personal AI operating layer), ask the current Main Agent to unwrap AgentJoJoy instead of running a bundled delete script.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/eject.ps1 -Action eject
+```text
+Please help me unwrap AgentJoJoy from this workspace. First inventory the
+AgentJoJoy files and records, ask what I want to preserve, show a dry-run
+cleanup plan, and wait for my explicit approval before deleting anything.
 ```
 
-This deletes the `AgentJoJoy/` directory, `CLAUDE.md`, `AGENTS.md`, `VERSION`, and any legacy root `progress-tracker.md` from older workspaces.
-
 > [!NOTE]
-> **Surgically Safe Settings Cleanup**: If **Distraction-Free Mode** was enabled, the script automatically parses `.vscode/settings.json` and surgically removes only the AgentJoJoy system exclusions, keeping any other project-specific editor or linter configurations 100% untouched. If no other settings remain in `.vscode/settings.json`, the script cleanly deletes the settings file and the empty `.vscode/` directory.
+> **Preserve-first cleanup:** The Main Agent should identify `AgentJoJoy/agent-records/`, decisions, work records, technical precedents, custom skills, and editor settings before proposing deletion of `AgentJoJoy/`, `CLAUDE.md`, `AGENTS.md`, `VERSION`, or legacy root tracker files. Any destructive filesystem command still requires explicit owner approval.
 
 ---
 
