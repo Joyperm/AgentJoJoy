@@ -33,7 +33,6 @@ WorkspaceRoot/
 │  ├─ agent-context/              # metadata และ notes ของโปรเจกต์
 │  ├─ agent-records/              # progress, setup, decisions, work archive
 │  ├─ agent-rules/                # workflow และ safety rules
-│  ├─ agent-tools/                # helper scripts แบบ local
 │  ├─ skills/                     # portable และ project skills
 │  ├─ agent-smartworkers/         # knowledge workers ที่ Main dispatch
 │  ├─ workflow-guide.md           # คู่มืออังกฤษ
@@ -196,6 +195,5 @@ Upgrade flow จะเทียบ workspace ของคุณกับ release
 ## 8. Cross-Platform Note
 
 AgentJoJoy เป็น workflow แบบเอกสาร จึงใช้ได้บน Windows, macOS หรือ Linux
-แต่ helper scripts ที่ bundle มาตอนนี้เป็น PowerShell-first และทดสอบบน Windows
-เป็นหลัก หากใช้ macOS/Linux ให้ขอ AI แปล helper commands เป็น shell ของเครื่อง
-และอนุมัติคำสั่งที่เปลี่ยน state ก่อนรันเสมอ
+โดย default จะไม่ bundle active helper scripts มากับระบบ ให้ขอ AI ปรับคำสั่ง
+เฉพาะกิจให้เข้ากับ shell ของเครื่อง และอนุมัติคำสั่งที่เปลี่ยน state ก่อนรันเสมอ

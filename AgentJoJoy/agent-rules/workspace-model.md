@@ -12,7 +12,7 @@ How AgentJoJoy separates personal AI context from project code and operational g
 | **[Full Worktree Cycle](#worktree-workflow--full-cycle)** | Creating worktrees, first-time setup, and developing/testing/committing. | `#Create-Worktree`, `#First-Time-Setup`, `#Develop-Test-Commit` |
 | **[Branch Syncing & Choices](#sync-with-new-main)** | Mental models for Rebase vs Merge and the sync recommendation table. | `#Sync-With-Main`, `#Sync-Recommendation-Table` |
 | **[Local Stack & Databases](#running-the-stack-locally)** | Commands for running the project locally and safe database access. | `#Running-Stack`, `#Database-Access` |
-| **[Git & Multi-Agent Safety](#git-discipline-generic)** | General git discipline, multi-agent coexistence, and cleanup/ejection. | `#Git-Discipline`, `#Multi-AI-Coexistence`, `#Clean-Ejection` |
+| **[Git & Multi-Agent Safety](#git-discipline-generic)** | General git discipline, multi-agent coexistence, and preserve-first cleanup/unwrapping. | `#Git-Discipline`, `#Multi-AI-Coexistence`, `#Unwrap-AgentJoJoy` |
 
 ---
 
@@ -492,21 +492,35 @@ The snippet uses HTML marker comments so the section can be replaced idempotentl
 
 ---
 
-## Clean Ejection (Clean Delete)
+## Unwrapping AgentJoJoy (Preserve-First)
 
-If you need to completely remove the AgentJoJoy wrapper layer and its files from a workspace (leaving only your clean project directory), you can run the ejection tool:
+If you need to completely remove the AgentJoJoy wrapper layer from a
+workspace, ask the current Main Agent to prepare the unwrap. AgentJoJoy
+does not ship a destructive cleanup script by default because the right
+answer depends on what the owner wants to preserve.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File AgentJoJoy/agent-tools/eject.ps1 -Action eject
+Use a request like:
+
+```text
+Please help me unwrap AgentJoJoy from this workspace. First inventory the
+AgentJoJoy files and records, ask what I want to preserve, show a dry-run
+cleanup plan, and wait for my explicit approval before deleting anything.
 ```
 
-### Affected Files
-The script will cleanly remove the following files and folders:
-- `CLAUDE.md` and `AGENTS.md` (root entry points)
-- legacy root `progress-tracker.md` files from older workspaces, if present
-- `AgentJoJoy/` (all workflow rules, context files, local tools, and runtimes)
+### Expected Main Agent behavior
 
-The script is safe: it runs in a dry-run check mode by default (`-Action check`) showing you exactly what it will delete. When run with `-Action eject`, it prompts for confirmation before modifying anything on disk unless `-Force` is passed.
+- Inventory wrapper files before proposing deletion, including
+  `AgentJoJoy/`, `CLAUDE.md`, `AGENTS.md`, `VERSION`, and any legacy root
+  `progress-tracker.md` from older workspaces.
+- Identify likely preservation targets first: `AgentJoJoy/agent-records/`,
+  decisions, work records, technical precedents, custom skills, and editor
+  settings such as Distraction-Free Mode exclusions.
+- Present a dry-run cleanup plan that separates "delete", "preserve", and
+  "needs owner choice".
+- Request explicit owner approval before any destructive filesystem command.
+- Create any one-off script only when it reduces risk for that specific
+  workspace, and place it wherever that project convention expects local
+  scripts or tools.
 
 ---
 

@@ -108,7 +108,7 @@ GitHub / PR:
 Filesystem (destructive):
 - Deleting files or folders the AI did not just create in this session
 - Overwriting team-owned files (see `Protected Files / Folders` below)
-- Direct broad deletion commands like `rm -rf` or PowerShell `Remove-Item -Recurse` targeting existing directories not created by the AI in the current session (**CRITICAL BLACKLIST**, with an explicit exemption only for official local helper tools such as `AgentJoJoy/agent-tools/eject.ps1` running standard intended clean/ejection parameters)
+- Direct broad deletion commands like `rm -rf` or PowerShell `Remove-Item -Recurse` targeting existing directories not created by the AI in the current session (**CRITICAL BLACKLIST**). Preserve-first unwrapping or cleanup still requires an inventory, dry-run plan, and explicit owner approval before deletion.
 
 Package and build:
 - Installing or upgrading dependencies (`npm install <pkg>`, `npm upgrade`, `pip install`, `poetry add`, etc.)

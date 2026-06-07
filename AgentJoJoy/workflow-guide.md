@@ -35,7 +35,6 @@ WorkspaceRoot/
 │  ├─ agent-context/              # Project metadata and notes
 │  ├─ agent-records/              # Progress, setup, decisions, work archive
 │  ├─ agent-rules/                # Workflow and safety rules
-│  ├─ agent-tools/                # Local helper scripts
 │  ├─ skills/                     # Portable and project skills
 │  ├─ agent-smartworkers/         # Main-dispatched knowledge workers
 │  ├─ workflow-guide.md           # English guide
@@ -216,7 +215,6 @@ workspace. That button is for creating a new workspace.
 ## 8. Cross-Platform Note
 
 The AgentJoJoy workflow is document-based and can be used on Windows,
-macOS, or Linux. The bundled helper scripts are currently
-PowerShell-first and Windows-tested. On macOS/Linux, ask your AI
-assistant to translate helper commands to the local shell, and approve
-state-changing commands before running them.
+macOS, or Linux. AgentJoJoy does not ship active helper scripts by
+default. Ask your AI assistant to adapt any one-off commands to the
+local shell, and approve state-changing commands before running them.

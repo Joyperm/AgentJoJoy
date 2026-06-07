@@ -22,7 +22,6 @@ deliberately.
 - `CLAUDE.md` (workspace root)
 - `AGENTS.md` (workspace root)
 - `AgentJoJoy/agent-rules/*` — all rule files (SPEC, intake-flow, workflow-notes, workspace-model, file-ownership, ai-workflow-rules)
-- `AgentJoJoy/agent-tools/*` — all helper scripts and their README
 - `AgentJoJoy/agent-templates/*` — reusable snippets
 - `AgentJoJoy/skills/README.md`
 - `AgentJoJoy/skills/agentjojoy-core-practices/**/*` — core template skills

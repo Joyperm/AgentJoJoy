@@ -12,7 +12,20 @@ For internal template-development history, see the private dev repo.
 
 ---
 
-## [v2.6.0] — 2026-06-05 — Agent Records & Execution-Mode Governance
+## [v2.6.1] — 2026-06-06 — Preserve-First Unwrap
+
+### Changed
+- **Preserve-first unwrapping**: active docs now treat removing AgentJoJoy as a Main Agent-guided workflow. The owner asks the current Main Agent to inventory wrapper files, identify records/settings to preserve, show a dry-run deletion plan, and request explicit approval before any destructive cleanup.
+
+### Removed
+- **Bundled ejection tool**: removed the bundled ejection helper and stopped shipping the empty `AgentJoJoy/agent-tools/` surface. AgentJoJoy stays a governance/document layer; project-specific scripts or one-off cleanup commands can be created by the Main Agent in the location that fits the workspace.
+
+### Fixed
+- **v2.6.0 release date record**: reconciled the changelog header with the actual public release date used by the release tracker and tag flow.
+
+---
+
+## [v2.6.0] — 2026-06-06 — Agent Records & Execution-Mode Governance
 
 ### Added
 - **Public README visual hero**: added a lightweight repo-safe SVG hero asset at `assets/agentjojoy-hero.svg` and wired it into the public README source. The hero is presentation-only and does not change AgentJoJoy's docs-only/runtime-free positioning.
@@ -121,7 +134,7 @@ For internal template-development history, see the private dev repo.
 - **Simplified Resume Checks**: Streamlined the startup check process in `CLAUDE.md` and `AGENTS.md` to utilize only read-only CLI commands (like `git status`) instead of running file-writing scripts, resulting in faster and conflict-free onboarding resume sessions.
 
 ### Removed
-- **Worktree Auto-Sync Script**: Deleted `worktree-auto-sync.ps1` and removed the auto-generated git status table from `progress-tracker.md` to eliminate human/AI edit race conditions and reduce filesystem mutations.
+- **Worktree Auto-Sync helper**: Deleted the former worktree auto-sync helper and removed the auto-generated git status table from `progress-tracker.md` to eliminate human/AI edit race conditions and reduce filesystem mutations.
 
 ---
 
@@ -141,7 +154,7 @@ For internal template-development history, see the private dev repo.
 ## [v1.4.5] — 2026-05-31 — Helper Script Hardening & Resume Check Reliability
 
 ### Changed
-- **Hardened Helper Scripts**: Updated `worktree-auto-sync.ps1` to capture stderr using the system temp directory (preventing untracked file pollution in git status checks), fixed a PowerShell array-count bug, and improved failure details reporting. Improved `eject.ps1` to fall back to a regex-based surgical cleanup of VS Code exclusions when `.vscode/settings.json` contains JSON comments.
+- **Hardened helper scripts**: Updated the then-bundled worktree auto-sync helper to capture stderr using the system temp directory (preventing untracked file pollution in git status checks), fixed a PowerShell array-count bug, and improved failure details reporting. Improved the then-bundled ejection helper to fall back to a regex-based surgical cleanup of VS Code exclusions when `.vscode/settings.json` contains JSON comments.
 - **Aligned Onboarding Guides**: Updated `workflow-guide.md` and `workflow-guide-th.md` to document the **Help-First Command Discipline (Anti-Guessing)** policy and subagent context minimization boundaries.
 
 ---
@@ -163,7 +176,7 @@ For internal template-development history, see the private dev repo.
 - **Active vs Passive Skill Discovery Guide**: Codified detailed documentation in `skills/README.md` explaining active skill discovery (auto-scanning files like Claude Code) vs passive directive-based skill discovery (referencing keyword hooks in `CLAUDE.md`/`AGENTS.md` for tools like Cursor/Codex), explaining the unified discovery system's design.
 
 ### Changed
-- **README & PUBLIC_README Alignment**: Aligned the Features list, Folder Structure descriptions, and What's Done sections in the development `README.md` and the public `PUBLIC_README.md` to reflect all recent cognitive architecture optimizations, including the 4 Pillars, 3 Onboarding Gateways, Consolidated Workspace Model, and Skills Precedence/Sandboxing.
+- **README alignment**: Aligned the release-facing README content to reflect recent cognitive architecture optimizations, including the 4 Pillars, 3 Onboarding Gateways, Consolidated Workspace Model, and Skills Precedence/Sandboxing.
 - **4 Pillars of Workspace Governance**: Restructured all safety boundaries, permission gates, and execution limits in `ai-workflow-rules.md` into four logical pillars (Pillar I: Permission Boundaries, Pillar II: Resource Management & Budgets, Pillar III: Scope Discipline, and Pillar IV: Safety & Operational Protections) to optimize context density and attention focus for LLMs.
 - **Cognitive Scaffolding & Attention Anchoring**: Added a high-density, semantic Table of Governance Pillars (TOC) with fragment links at the very top of `ai-workflow-rules.md` to serve as a fast cognitive index for AI agents, preventing memory decay.
 - **Entry-Point Pointers Realignment**: Updated all safety boundary summaries and reference pointers in `CLAUDE.md` and `AGENTS.md` to cleanly align with the new 4 Pillars organization.
@@ -223,7 +236,7 @@ For internal template-development history, see the private dev repo.
 - **Technical precedents tracking**: Added `AgentJoJoy/agent-context/technical-precedents.md` as a unified, transparent markdown file for AI assistants to read and append local decisions, conventions, and verified workarounds.
 
 ### Removed
-- **Gaps reporter and collector**: Removed the complex, script-heavy local Gaps Reporter/Collector system (`gap-report-collector.ps1` and `AgentJoJoy/agent-runtime/gaps/` directory) to simplify the template, improve privacy transparency, and remove hidden local file tracking.
+- **Gaps reporter and collector**: Removed the complex, script-heavy local Gaps Reporter/Collector system and its local runtime state to simplify the template, improve privacy transparency, and remove hidden local file tracking.
 
 ---
 
@@ -233,7 +246,7 @@ For internal template-development history, see the private dev repo.
 - **Pattern-detection meta-skill**: Added a new public-facing meta-skill (`AgentJoJoy/skills/pattern-detection/SKILL.md`) that passively scans `Recent Actions` in `progress-tracker.md` and the active session's conversation history for repetitive workflows (3+ times). It nudges the user to formalize the pattern into a custom skill, offering to generate the custom skill skeleton automatically. Wired discoverability into `CLAUDE.md`, `AGENTS.md`, and documented in `AgentJoJoy/skills/README.md`.
 
 ### Changed
-- **Documented skill discovery model**: Added a short note to `PUBLIC_README.md` (Portable Skills section) and both `workflow-guide.md` and `workflow-guide-th.md` explaining that AgentJoJoy skills do not appear in the `/` command palette. They are discovered by the AI reading the workspace and matching the skill description against the user's request. New skills can be added simply by dropping a folder with a `SKILL.md` into `AgentJoJoy/skills/`. Clarifies the invocation model for users coming from runtime-skill UI mental models (Claude Code/Cowork slash palette).
+- **Documented skill discovery model**: Added a short note to the public README (Portable Skills section) and both `workflow-guide.md` and `workflow-guide-th.md` explaining that AgentJoJoy skills do not appear in the `/` command palette. They are discovered by the AI reading the workspace and matching the skill description against the user's request. New skills can be added simply by dropping a folder with a `SKILL.md` into `AgentJoJoy/skills/`. Clarifies the invocation model for users coming from runtime-skill UI mental models (Claude Code/Cowork slash palette).
 
 ---
 
@@ -296,7 +309,7 @@ For internal template-development history, see the private dev repo.
 
 ### Added
 - Option to enable **Distraction-Free Mode** during the guided onboarding (intake) session. If selected, the AI agent dynamically configures VS Code workspace settings (`.vscode/settings.json`) to hide internal AI system files (`AgentJoJoy/`, `CLAUDE.md`, `AGENTS.md`, `progress-tracker.md`, `VERSION`) from the explorer sidebar, keeping the workspace beautifully clean for human developers while remaining 100% operational for AI agents.
-- **Surgically Safe Clean Ejection**: Upgraded the clean ejection script (`eject.ps1`) to automatically detect and clean up Distraction-Free exclusions in `.vscode/settings.json` upon ejection. It surgically removes only the AgentJoJoy system exclusions, leaving any other developer-configured settings (like formatters, tab sizes, etc.) 100% untouched. If `.vscode/settings.json` contains no other settings, it is cleanly deleted along with the empty `.vscode/` directory.
+- **Surgically Safe Clean Ejection**: Upgraded the then-bundled clean ejection helper to automatically detect and clean up Distraction-Free exclusions in `.vscode/settings.json` upon ejection. It surgically removes only the AgentJoJoy system exclusions, leaving any other developer-configured settings (like formatters, tab sizes, etc.) 100% untouched. If `.vscode/settings.json` contains no other settings, it is cleanly deleted along with the empty `.vscode/` directory.
 
 ## [v1.2.2] — 2026-05-27 — Public Template Cleanup
 
@@ -326,7 +339,7 @@ For internal template-development history, see the private dev repo.
 
 ### Added
 - **Privacy & Local-First Guarantees** section in the README — explicitly states what the AI may write to your workspace, what it never does (no telemetry, no uploads, no background daemons), and how to inspect or delete your data.
-- **Gap Collector self-service actions** for `gap-report-collector.ps1`:
+- **Gap Collector self-service actions** for the then-bundled gap collector helper:
   - `-Action list` — tabular view of all gap reports.
   - `-Action summarize` — group by category, show recent patterns, ends with an opt-in invitation to share a redacted summary upstream via GitHub issue.
   - `-Action purge -Force` — delete all gap reports and collector outputs in one command.

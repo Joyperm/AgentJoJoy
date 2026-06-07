@@ -26,7 +26,6 @@ subfolder** (Claude Code walks up the directory tree to find every
 │  ├─ agent-context/             (project context filled during intake)
 │  ├─ agent-records/             (progress tracker, decisions, work records)
 │  ├─ agent-rules/               (workflow rules + onboarding logic)
-│  ├─ agent-tools/               (local helper tools)
 │  ├─ skills/                    (portable / project-specific SKILL.md files)
 │  ├─ agent-smartworkers/        (Main-dispatched knowledge workers — neutral spec + template)
 │  ├─ agent-hooks/               (optional hook enforcement contracts — docs/templates only)
