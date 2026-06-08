@@ -112,12 +112,15 @@ or the current diff.
 - **Git / worktree operations**: `workspace-model.md`, `workflow-spec.md`, and
   the active tracker.
 - **Skills**: `skills/README.md` plus only the specific matching `SKILL.md`.
-- **SmartWorker / worker dispatch**: `ai-workflow-rules.md` → Work
+- **SmartWorker / worker dispatch** (optional capability only): `ai-workflow-rules.md` → Work
   Escalation, `AgentJoJoy/agent-smartworkers/README.md`, and the target
-  SmartWorker spec or template.
-- **Hook enforcement contracts**: existing rule source (`workflow-spec.md` /
-  `ai-workflow-rules.md` as applicable), `AgentJoJoy/agent-hooks/README.md`,
-  the target contract, and the matching runtime binding doc.
+  SmartWorker spec or template. Load only when the current task needs
+  separate-context worker dispatch.
+- **Hook enforcement contracts** (optional capability / runtime adapter only):
+  existing rule source (`workflow-spec.md` / `ai-workflow-rules.md` as
+  applicable), `AgentJoJoy/agent-hooks/README.md`, the target contract, and the
+  matching runtime binding doc. Load only for hook design, binding,
+  implementation, or audit work.
 
 Available sources:
 
@@ -128,18 +131,19 @@ Available sources:
 - [`AgentJoJoy/agent-context/standards.md`](AgentJoJoy/agent-context/standards.md) — code/writing standards
 - [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) — detailed Path 1 / Path 2 onboarding flow
 - [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) — wrapper ownership model, operational notes, and leak-prevention rules
-- [`AgentJoJoy/agent-context/engagement-mode.md`](AgentJoJoy/agent-context/engagement-mode.md) — current engagement style
-- [`AgentJoJoy/agent-context/technical-precedents.md`](AgentJoJoy/agent-context/technical-precedents.md) — local technical boundary rules and validated precedents
-- [`AgentJoJoy/agent-context/domain-language.md`](AgentJoJoy/agent-context/domain-language.md) — optional glossary and domain-language map for project terms and ambiguities
+- [`AgentJoJoy/agent-context/engagement-mode.md`](AgentJoJoy/agent-context/engagement-mode.md) — core hot behavior config: execute/teach and behavior toggles; not persona or safety enforcement
+- [`AgentJoJoy/agent-context/ui-context.md`](AgentJoJoy/agent-context/ui-context.md) — optional UI project context; load only when UI work or UI onboarding needs it
+- [`AgentJoJoy/agent-context/technical-precedents.md`](AgentJoJoy/agent-context/technical-precedents.md) — triggered technical memory for debug, tooling, environment, and known-workaround tasks
+- [`AgentJoJoy/agent-context/domain-language.md`](AgentJoJoy/agent-context/domain-language.md) — optional glossary and domain-language map; load only when terminology matters
 - [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) — skill layer model: Personal Agent Skills vs Project Skills and precedence when both match
-- [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) — portable core practices for debugging, review, RCA, and stakeholder communication
-- [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) — rigorous design interview for brainstorming, planning, and pressure-testing ideas before implementation
-- [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) — meta-skill that, on a 3+ repeat, classifies recurring work and routes it to the right tier (script / SmartWorker / Skill)
-- [`AgentJoJoy/skills/lean-output/SKILL.md`](AgentJoJoy/skills/lean-output/SKILL.md) — output-brevity communication style ("smaller mouth, same brain"); active when the Lean Output toggle is on or on demand
-- [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — SmartWorker framework: single Main dispatches knowledge-requiring workers to a separate context (3-tier taxonomy; neutral spec + per-runtime binding; not multi-agent orchestration)
+- [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) — triggered practice router for debugging, review, RCA, and stakeholder communication
+- [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) — triggered thinking routine for brainstorming, planning, and pressure-testing ideas before implementation
+- [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) — optional meta-routine that routes visible repeated work to the right tier (script / SmartWorker / Skill); not a background monitor
+- [`AgentJoJoy/skills/lean-output/SKILL.md`](AgentJoJoy/skills/lean-output/SKILL.md) — optional output-brevity style ("smaller mouth, same brain"); active when the Lean Output toggle is on or on demand
+- [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — optional SmartWorker capability: single Main dispatches knowledge-requiring workers to a separate context only when justified (3-tier taxonomy; neutral spec + per-runtime binding; not multi-agent orchestration)
 - [`AgentJoJoy/agent-hooks/`](AgentJoJoy/agent-hooks/) — optional Hook Enforcement Contracts: docs/templates only for owners who want to mechanize selected AgentJoJoy or project-specific gates; no active hooks/scripts/config ship by default
-- [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts
-- [`AgentJoJoy/agent-records/`](AgentJoJoy/agent-records/) — progress tracker, setup tracker, decisions, and optional work records
+- [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — optional snippet library / portable inserts; load only when inserting or maintaining a snippet
+- [`AgentJoJoy/agent-records/`](AgentJoJoy/agent-records/) — progress tracker, temporary setup tracker, decisions, cold setup history, and optional cold work records
 - [`AgentJoJoy/agent-records/progress-tracker.md`](AgentJoJoy/agent-records/progress-tracker.md) — current state, decisions, next steps
 
 If this file conflicts with `CLAUDE.md` on agent-specific behavior,

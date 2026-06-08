@@ -17,8 +17,10 @@ AI assistants ทั้งกับโปรเจกต์ใหม่และ
 5. เลือก **New Project**, **Existing Project** หรือ **Skip** เมื่อ AI ถาม
 
 ถ้าคุณมี AgentJoJoy workspace อยู่แล้ว อย่าสร้าง template copy ใหม่เพื่ออัปเกรด
-ให้ใช้ upgrade prompt ใน `README.md` แทน เพื่อรักษา project notes,
-decisions, technical precedents และ custom skills ของคุณไว้
+ให้ใช้ canonical upgrade prompt จาก remote public README / latest release แทน
+เพื่อรักษา project notes, decisions, technical precedents และ custom skills
+ของคุณไว้ อย่าพึ่ง local root `README.md` เพราะ workspace ที่ onboarding แล้ว
+อาจลบไฟล์ bootstrap README ออกหลัง README handoff
 
 ---
 
@@ -99,7 +101,7 @@ AgentJoJoy จาก Explorer sidebar ได้ AI จะสร้างหร�
 
 ### Technical Precedents
  
-ไฟล์ Markdown แบบแบน (`AgentJoJoy/agent-context/technical-precedents.md`) ภายใต้ `agent-context/` จะถูกใช้เพื่อบันทึกข้อเท็จจริงทางเทคนิค ทางออกสำหรับการขัดข้อง และแนวทางแก้ไขที่ผ่านการพิสูจน์แล้ว AI จะทำการบันทึกปัญหาและทางออกลงในนี้โดยอัตโนมัติ เพื่อให้เอเจนต์ในเซสชันถัดไปหลีกเลี่ยงและข้ามผ่านจุดติดขัดทางเทคนิคเดิมได้ทันที เป็นไฟล์ที่โปร่งใส เปิดอ่านและแก้ไขได้ง่ายโดยมนุษย์
+ไฟล์ Markdown แบบแบน (`AgentJoJoy/agent-context/technical-precedents.md`) ภายใต้ `agent-context/` ใช้บันทึกข้อเท็จจริงทางเทคนิค ทางออกสำหรับการขัดข้อง และแนวทางแก้ไขที่ผ่านการพิสูจน์แล้ว AI จะบันทึกเมื่อแก้ technical blocker ได้จริง แล้วอ่านซ้ำเฉพาะตอน debug, แก้ tooling/environment, หรือเมื่อ tracker ชี้ไปหา precedent ที่เกี่ยวข้อง เป็นไฟล์ที่โปร่งใส เปิดอ่านและแก้ไขได้ง่ายโดยมนุษย์
 
 ### AI-NO-OVERWRITE Block Protection
 
@@ -178,7 +180,13 @@ mode ที่เหมาะสม Main Agent ควรทำตามกฎ Wo
 
 ## 7. Upgrading
 
-สำหรับ AgentJoJoy workspace ที่มีอยู่แล้ว ให้อัปเกรดด้วย canonical prompt ใน `README.md`
+สำหรับ AgentJoJoy workspace ที่มีอยู่แล้ว ให้อัปเกรดด้วย canonical prompt ใน
+remote public README:
+<https://github.com/Joyperm/AgentJoJoy#canonical-upgrade-prompt>
+
+ถ้าต้องการ pin target version เฉพาะ ให้ใช้ README ของ release tag นั้นแทน
+local root `README.md` เพราะ workspace ที่ onboarding แล้วอาจลบ bootstrap
+README ออกหลัง README handoff
 
 Upgrade flow จะเทียบ workspace ของคุณกับ release tag เฉพาะ และใช้
 `AgentJoJoy/agent-rules/file-ownership.md`:

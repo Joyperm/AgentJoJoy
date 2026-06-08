@@ -18,9 +18,10 @@ For a new workspace, use GitHub's **Use this template** button:
    AI asks.
 
 If you already have an AgentJoJoy workspace, do not create a fresh
-template copy to upgrade it. Use the upgrade prompt in `README.md` so
-your project notes, decisions, technical precedents, and custom skills are
-preserved.
+template copy to upgrade it. Use the canonical upgrade prompt from the remote
+public README / latest release so your project notes, decisions, technical
+precedents, and custom skills are preserved. Do not rely on a local root
+`README.md`; onboarded workspaces may remove it after README handoff.
 
 ---
 
@@ -108,7 +109,7 @@ editor settings.
 
 ### Technical Precedents
 
-The Technical Precedents file (`AgentJoJoy/agent-context/technical-precedents.md`) is a flat, human-readable markdown file provided under `agent-context/` to log validated technical solutions, environment workarounds, and design decisions. The AI will proactively log issues and solutions here so future sessions bypass the same friction without repeating past mistakes.
+The Technical Precedents file (`AgentJoJoy/agent-context/technical-precedents.md`) is a flat, human-readable markdown file provided under `agent-context/` to log validated technical solutions, environment workarounds, and design decisions. The AI logs issues and solutions here when it resolves technical blockers, then reads it later only when debugging, troubleshooting tooling, or following a tracker link to a relevant precedent.
 
 ### AI-NO-OVERWRITE Block Protection
 
@@ -197,8 +198,13 @@ then let you choose before setup. See
 
 ## 7. Upgrading
 
-For an existing AgentJoJoy workspace, upgrade through the canonical
-prompt in `README.md`.
+For an existing AgentJoJoy workspace, upgrade through the canonical prompt in
+the remote public README:
+<https://github.com/Joyperm/AgentJoJoy#canonical-upgrade-prompt>.
+
+If you need to pin a specific target version, use that release tag's README
+instead of a local root `README.md`, because onboarded workspaces may have
+removed the bootstrap README during README handoff.
 
 The upgrade flow compares your workspace against a specific release tag
 and follows `AgentJoJoy/agent-rules/file-ownership.md`:

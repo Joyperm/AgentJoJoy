@@ -24,12 +24,12 @@ subfolder** (Claude Code walks up the directory tree to find every
 ├─ CLAUDE.md                            ← this file (auto-loads)
 ├─ AgentJoJoy/                          ← personal AI context
 │  ├─ agent-context/             (project context filled during intake)
-│  ├─ agent-records/             (progress tracker, decisions, work records)
+│  ├─ agent-records/             (progress tracker, decisions, cold records)
 │  ├─ agent-rules/               (workflow rules + onboarding logic)
 │  ├─ skills/                    (portable / project-specific SKILL.md files)
-│  ├─ agent-smartworkers/        (Main-dispatched knowledge workers — neutral spec + template)
+│  ├─ agent-smartworkers/        (optional Main-dispatched knowledge workers — neutral spec + template)
 │  ├─ agent-hooks/               (optional hook enforcement contracts — docs/templates only)
-│  └─ agent-templates/           (reusable snippets / portable inserts)
+│  └─ agent-templates/           (optional snippet library / portable inserts)
 ├─ <code-or-content>/                   ← the actual project (any folder name)
 └─ <worktree-N>/                        ← per-task git worktrees (if applicable)
 ```
@@ -85,8 +85,9 @@ Templates are filled, this is a normal work session. Run these checks
 before doing any new work:
 
 1. Read `AgentJoJoy/agent-records/progress-tracker.md` to understand current
-   in-flight state. Only read `AgentJoJoy/agent-records/setup-tracker.md`
-   if the user asks about setup history or recent workflow changes.
+   in-flight state. If the user asks about active setup, read
+   `AgentJoJoy/agent-records/setup-tracker.md`; if they ask about completed
+   setup history, read `AgentJoJoy/agent-records/setup-history/`.
 2. If `<code-or-content>/` is a git repo, run a single combined command to discover git state (no approval needed — read-only per SPEC-1.2, counts as 1 tool call):
    ```powershell
    git -C "<code-or-content>" status && git -C "<code-or-content>" worktree list && git -C "<code-or-content>" branch --show-current
@@ -322,8 +323,8 @@ or the current diff.
 | Onboarding / intake | `intake-flow.md`, `project-overview.md`, `engagement-mode.md`, and `workspace-model.md` |
 | Git / worktree operations | `workspace-model.md`, `workflow-spec.md`, and the active tracker |
 | Skills | `skills/README.md` plus only the specific matching `SKILL.md` |
-| SmartWorker / worker dispatch | `ai-workflow-rules.md` → Work Escalation, `AgentJoJoy/agent-smartworkers/README.md`, and the target SmartWorker spec or template |
-| Hook enforcement contracts | Existing rule source (`workflow-spec.md` / `ai-workflow-rules.md` as applicable), `AgentJoJoy/agent-hooks/README.md`, the target contract, and the matching runtime binding doc |
+| SmartWorker / worker dispatch | Optional capability only. `ai-workflow-rules.md` → Work Escalation, `AgentJoJoy/agent-smartworkers/README.md`, and the target SmartWorker spec or template; load only when the current task needs separate-context worker dispatch |
+| Hook enforcement contracts | Optional capability / runtime adapter only. Existing rule source (`workflow-spec.md` / `ai-workflow-rules.md` as applicable), `AgentJoJoy/agent-hooks/README.md`, the target contract, and the matching runtime binding doc; load only for hook design, binding, implementation, or audit work |
 
 ## Canonical Documentation
 
@@ -333,28 +334,28 @@ or the current diff.
 | [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) | AI permission boundaries and the 4 Pillars of Workspace Governance |
 | [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) | Detailed Path 1 / Path 2 onboarding flow and completion checklist. |
 | [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) | Wrapper ownership model, operational notes, paths, gotchas, and worktree workflow. |
-| [`AgentJoJoy/agent-smartworkers/README.md`](AgentJoJoy/agent-smartworkers/README.md) | SmartWorker framework — when/how the single Main Agent dispatches knowledge-requiring workers to a separate context (3-tier taxonomy script/SmartWorker/Skill; runtime-neutral spec + per-runtime binding). Not multi-agent orchestration. |
-| [`AgentJoJoy/agent-hooks/README.md`](AgentJoJoy/agent-hooks/README.md) | Optional Hook Enforcement Contracts — docs/templates only, no active hooks/scripts/config; owners choose whether to mechanize selected AgentJoJoy or project-specific gates. |
+| [`AgentJoJoy/agent-smartworkers/README.md`](AgentJoJoy/agent-smartworkers/README.md) | Optional SmartWorker capability — when/how the single Main Agent dispatches knowledge-requiring workers to a separate context only when justified (3-tier taxonomy script/SmartWorker/Skill; runtime-neutral spec + per-runtime binding). Not multi-agent orchestration. |
+| [`AgentJoJoy/agent-hooks/README.md`](AgentJoJoy/agent-hooks/README.md) | Optional Hook Enforcement Contracts / runtime adapter — docs/templates only, no active hooks/scripts/config; owners choose whether to mechanize selected AgentJoJoy or project-specific gates. |
 | [`AgentJoJoy/agent-context/standards.md`](AgentJoJoy/agent-context/standards.md) | Project standards quick reference |
 | [`AgentJoJoy/agent-context/architecture.md`](AgentJoJoy/agent-context/architecture.md) | Project stack, boundaries, invariants (optional — coding projects) |
 | [`AgentJoJoy/agent-context/project-overview.md`](AgentJoJoy/agent-context/project-overview.md) | What this project is, the user's role |
-| [`AgentJoJoy/agent-context/ui-context.md`](AgentJoJoy/agent-context/ui-context.md) | UI stack quick reference (optional — UI projects) |
-| [`AgentJoJoy/agent-context/domain-language.md`](AgentJoJoy/agent-context/domain-language.md) | Optional glossary and domain-language map for project terms and ambiguities. |
-| [`AgentJoJoy/agent-context/engagement-mode.md`](AgentJoJoy/agent-context/engagement-mode.md) | Current AI engagement style |
-| [`AgentJoJoy/agent-context/technical-precedents.md`](AgentJoJoy/agent-context/technical-precedents.md) | Local technical boundary rules and validated precedents |
+| [`AgentJoJoy/agent-context/ui-context.md`](AgentJoJoy/agent-context/ui-context.md) | Optional project context for UI work only; do not load during normal Resume Check or non-UI tasks |
+| [`AgentJoJoy/agent-context/domain-language.md`](AgentJoJoy/agent-context/domain-language.md) | Optional project context for glossary, domain terms, and ambiguity; load only when terminology matters. |
+| [`AgentJoJoy/agent-context/engagement-mode.md`](AgentJoJoy/agent-context/engagement-mode.md) | Core hot behavior config: execute/teach and behavior toggles; not persona or safety enforcement |
+| [`AgentJoJoy/agent-context/technical-precedents.md`](AgentJoJoy/agent-context/technical-precedents.md) | Triggered project memory for debug, tooling, environment, and known-workaround tasks; not a default Resume Check source |
 
 ## State + Planning
 
 | File | Purpose |
 |------|---------|
 | [`AgentJoJoy/agent-records/progress-tracker.md`](AgentJoJoy/agent-records/progress-tracker.md) | **REAL WORK tracker** — active branches, PRs, worktrees, in-flight tasks. Update after every meaningful work action. Resume Check reads this in normal workspaces. |
-| [`AgentJoJoy/agent-records/setup-tracker.md`](AgentJoJoy/agent-records/setup-tracker.md) | **SETUP / workspace meta log** — spec amendments, workspace restructure events, intake completion. Update when workspace structure or workflow rules change. |
+| [`AgentJoJoy/agent-records/setup-tracker.md`](AgentJoJoy/agent-records/setup-tracker.md) | **TEMPORARY SETUP / onboarding tracker** — hot only while setup or onboarding is active. After setup completes, archive durable setup context to `setup-history/`; do not use it as the project work tracker. |
 | [`AgentJoJoy/agent-records/decisions/`](AgentJoJoy/agent-records/decisions/) | Key project decisions (one file per decision, format in folder README). |
 | [`AgentJoJoy/skills/README.md`](AgentJoJoy/skills/README.md) | Skill layer model: Personal Agent Skills vs Project Skills and precedence when both match. |
-| [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) | Portable core practices for debugging, review, post-mortems, and stakeholder communication. |
-| [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) | Rigorous design interview for brainstorming, planning, and pressure-testing ideas before implementation. |
-| [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) | Meta-skill that monitors the user's workflow pattern (Recent Actions + in-session memory) and, on a 3+ repeat, classifies it and routes to the right tier (script / SmartWorker / Skill). |
-| [`AgentJoJoy/skills/lean-output/SKILL.md`](AgentJoJoy/skills/lean-output/SKILL.md) | Output-brevity communication style ("smaller mouth, same brain") — active when the Lean Output toggle is on or on demand. |
+| [`AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md`](AgentJoJoy/skills/agentjojoy-core-practices/SKILL.md) | Triggered practice router for debugging, review, post-mortems, and stakeholder communication. |
+| [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) | Triggered thinking routine for brainstorming, planning, and pressure-testing ideas before implementation. |
+| [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) | Optional meta-routine that routes visible repeated work to the right tier (script / SmartWorker / Skill); not a background monitor. |
+| [`AgentJoJoy/skills/lean-output/SKILL.md`](AgentJoJoy/skills/lean-output/SKILL.md) | Optional output-brevity style ("smaller mouth, same brain") — active when the Lean Output toggle is on or on demand. |
 
 ## Skill Layers
 

@@ -123,6 +123,30 @@ When a session starts in a configured workspace, the AI reads `AgentJoJoy/agent-
 
 AgentJoJoy routes each task to a small context bundle instead of asking the AI to re-read every rule file on every turn. Resume, debug, review, onboarding, git/worktree, and skill tasks each have a focused reading path; mutable state such as git status, the active tracker, and current diffs is refreshed only when relevant.
 
+### After Onboarding
+
+The workspace-root `README.md` is bootstrap scaffolding. Once onboarding
+finishes, the project README should live inside the real project folder:
+
+```text
+<workspace-root>/
+├─ AgentJoJoy/
+├─ CLAUDE.md
+├─ AGENTS.md
+└─ <project-folder>/
+   └─ README.md
+```
+
+For existing projects, keep the project's own README if it already exists. If
+it does not, create `<project-folder>/README.md` from project facts instead of
+moving AgentJoJoy product text into it. After that, remove or explicitly defer
+cleanup of the root bootstrap README.
+
+This keeps daily git work focused on the real project folder. Existing
+projects usually already have their own remote and README; AgentJoJoy remains a
+local operating layer beside that project instead of competing with the
+project's public documentation.
+
 ---
 
 ## Privacy & Local-First Guarantees
@@ -138,7 +162,7 @@ AgentJoJoy is designed so that **everything stays on your machine** unless you c
  
 The Technical Precedents file (`AgentJoJoy/agent-context/technical-precedents.md`) is a flat markdown file under `agent-context/` that serves as the workspace's memory of validated technical solutions and workarounds.
 - The AI will proactively log issues and solutions here whenever it resolves a technical blocker or debugs an environment-specific workaround.
-- Future AI sessions read this file at start, preventing the AI from repeating past technical mistakes or re-asking solved questions.
+- Future AI sessions read this file when debugging, troubleshooting tooling, or following a tracker link to a relevant precedent, preventing the AI from repeating past technical mistakes or re-asking solved questions.
 - It is fully transparent, editable, and local to your workspace wrapper.
 
 ### What the template **never** does
@@ -167,7 +191,8 @@ See [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspa
 
 ### Records
 - [`AgentJoJoy/agent-records/progress-tracker.md`](AgentJoJoy/agent-records/progress-tracker.md) — hot index of active branches, worktrees, tasks in progress, and next steps. Read first by the AI.
-- [`AgentJoJoy/agent-records/setup-tracker.md`](AgentJoJoy/agent-records/setup-tracker.md) — setup, onboarding, workspace-structure, and workflow/spec history.
+- [`AgentJoJoy/agent-records/setup-tracker.md`](AgentJoJoy/agent-records/setup-tracker.md) — temporary hot setup/onboarding tracker.
+- [`AgentJoJoy/agent-records/setup-history/`](AgentJoJoy/agent-records/setup-history/) — cold archive for completed setup/onboarding history.
 - [`AgentJoJoy/agent-records/decisions/`](AgentJoJoy/agent-records/decisions/) — key decisions log for the wrapped workspace.
 - [`AgentJoJoy/agent-records/work/`](AgentJoJoy/agent-records/work/) — optional archive records for selected completed or paused work, loaded on demand.
 
@@ -177,7 +202,7 @@ See [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspa
 - [`AgentJoJoy/agent-context/standards.md`](AgentJoJoy/agent-context/standards.md) — code style and testing guidelines.
 - [`AgentJoJoy/agent-context/ui-context.md`](AgentJoJoy/agent-context/ui-context.md) — UI framework context (optional).
 - [`AgentJoJoy/agent-context/domain-language.md`](AgentJoJoy/agent-context/domain-language.md) — project-specific glossary (optional).
-- [`AgentJoJoy/agent-context/technical-precedents.md`](AgentJoJoy/agent-context/technical-precedents.md) — local technical boundary rules and validated precedents.
+- [`AgentJoJoy/agent-context/technical-precedents.md`](AgentJoJoy/agent-context/technical-precedents.md) — triggered technical memory for debug, tooling, environment, and known-workaround tasks.
 
 ### Workflow & AI Rules
 - [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md) — entry points that load automatically and define session start protocols.
@@ -189,7 +214,7 @@ See [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspa
 - [`AgentJoJoy/workflow-guide-th.md`](AgentJoJoy/workflow-guide-th.md) — Thai onboarding manual.
 - [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — SmartWorker framework: runtime-neutral spec + template for Main-dispatched knowledge workers (not multi-agent orchestration).
 - [`AgentJoJoy/agent-hooks/`](AgentJoJoy/agent-hooks/) — optional Hook Enforcement Contracts: docs/templates only; owners choose whether, where, and how to implement any hook.
-- [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — reusable snippets and portable inserts.
+- [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — optional snippet library and portable inserts, loaded only when needed.
 - [`AgentJoJoy/agent-records/decisions/`](AgentJoJoy/agent-records/decisions/) — key decisions log.
 
 ### Portable Skills (SKILL.md)

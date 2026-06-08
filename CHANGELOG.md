@@ -12,6 +12,16 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v2.7.0] — 2026-06-08 — Surface Lifecycle & Wrapper Handoff
+
+### Changed
+- **Setup tracker hot/cold boundary**: clarified `AgentJoJoy/agent-records/setup-tracker.md` as temporary hot setup/onboarding state only, added `AgentJoJoy/agent-records/setup-history/` for completed setup history, added an archive-then-clear marker for completed setup scratch state, and kept `progress-tracker.md` focused on active work handoff rather than setup/meta history.
+- **Worker/envelope/incubator lifecycle boundaries**: clarified SmartWorkers as an optional capability loaded only for justified separate-context dispatch, work records / Work Item Envelopes as cold archives loaded on demand, and the multi-agent incubator as dev-only research outside normal AgentJoJoy runtime paths.
+- **Communication behavior lifecycle boundaries**: clarified `engagement-mode.md` as the core behavior config, `lean-output` as optional delivery style, core-practice / grill-me routines as triggered skills, `pattern-detection` as an optional meta-router using already-visible repetition signals, and persona/SOUL surfaces as non-default runtime adapters only.
+- **Optional/project surface lifecycle boundaries**: clarified `agent-hooks/` as an optional capability/runtime adapter, `ui-context.md` and `domain-language.md` as optional project context, `technical-precedents.md` as triggered project memory, `agent-templates/` as an optional snippet library, and the workspace-root `README.md` as bootstrap scaffolding that hands off to `<project-folder>/README.md` after onboarding so git and documentation focus stay on the real project folder.
+
+---
+
 ## [v2.6.1] — 2026-06-06 — Preserve-First Unwrap
 
 ### Changed

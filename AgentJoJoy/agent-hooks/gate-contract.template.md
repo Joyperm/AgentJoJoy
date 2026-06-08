@@ -1,5 +1,10 @@
 # Hook Enforcement Contract
 
+Surface lifecycle:
+- Optional Capability / Runtime Adapter:
+- Loaded only for:
+- Not loaded during:
+
 Hook Contract Title:
 
 Rule reference:

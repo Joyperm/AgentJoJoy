@@ -3,6 +3,11 @@
 `agent-hooks/` contains optional documentation templates for owners who want
 to mechanize selected AgentJoJoy or project-specific gates.
 
+Surface lifecycle: **Optional Capability / Runtime Adapter**. Do not load this
+folder during Resume Check or normal task work. Load it only when the owner asks
+to design, bind, implement, audit, or document hook enforcement, or when the
+current task explicitly needs a mechanized gate.
+
 Nothing in this folder is active by default. AgentJoJoy ships no executable
 hook scripts, no hook configuration, and no installer here. Owners choose
 whether, where, and how to implement any hook.

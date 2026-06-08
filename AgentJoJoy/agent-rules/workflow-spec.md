@@ -482,11 +482,13 @@ There are two trackers, separated by concern:
   Protocol reads this file first.
 
 - **`<workspace-root>/AgentJoJoy/agent-records/setup-tracker.md`** —
-  the **SETUP / workspace meta** tracker. The AI updates this when
-  workspace structure changes, spec amendments are applied,
-  onboarding milestones occur, or AI workflow rules evolve. The AI
-  reads this only when the user asks about setup history or
-  workflow changes.
+  the **temporary setup/onboarding hot tracker**. The AI updates this
+  while setup is active: workspace structure changes, spec amendments,
+  onboarding milestones, or AI workflow rule changes. After setup is
+  complete, archive durable setup context to
+  `AgentJoJoy/agent-records/setup-history/`, clear mutable content inside the
+  `AGENTJOJOY:ARCHIVE-THEN-CLEAR-AFTER-SETUP` marker back to placeholders, and
+  keep the progress tracker focused on active work handoff.
 
 When SPEC-4, SPEC-5, SPEC-8, etc. say "update the work tracker",
 they refer to `AgentJoJoy/agent-records/progress-tracker.md` unless the action is

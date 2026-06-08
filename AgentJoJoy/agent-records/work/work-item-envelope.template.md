@@ -8,6 +8,11 @@ updated_at: YYYY-MM-DD
 
 # Short Human-Readable Title
 
+> **Surface lifecycle: Cold Archive.**
+> This envelope preserves durable context for selected completed or paused
+> work. It is not an active task queue, scheduler, worker contract, or
+> multi-agent runtime object.
+
 ## Intent
 
 What should exist when this work is done, and why it matters.

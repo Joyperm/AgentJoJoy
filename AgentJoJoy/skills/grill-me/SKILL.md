@@ -5,6 +5,15 @@ description: Rigorous design interview for open-ended plans, ideas, projects, wo
 
 # Grill Me
 
+> **Surface lifecycle: Triggered Thinking Routine.**
+> Use when the owner is shaping an unsettled idea, plan, workflow,
+> architecture choice, or strategy and wants pressure-testing before
+> implementation.
+>
+> **Boundary:** this is not the default onboarding mode, not a persona,
+> and not the review path for an already-written artifact. Existing
+> artifacts normally route to `agentjojoy-core-practices` / Scrutinize.
+
 Use this skill to conduct a deep design interview with the owner until
 there is shared understanding of a plan, idea, project, or workflow.
 

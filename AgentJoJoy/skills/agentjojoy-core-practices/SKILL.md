@@ -5,6 +5,14 @@ description: Portable personal core practices for debugging, review, post-mortem
 
 # AgentJoJoy Core Practices
 
+> **Surface lifecycle: Triggered Practice Router.**
+> Load this skill when the request matches a practice routine: debugging,
+> review/scrutinize, post-mortem/RCA, or management-facing rewrite.
+>
+> **Boundary:** this is not an engagement mode, persona surface, project
+> rule source, or default chat style. It provides task-specific thinking
+> routines that still obey `engagement-mode.md` for delivery style.
+
 Portable entry point for work patterns that should follow the user
 across Codex, Claude Code, Cursor, and future agents.
 

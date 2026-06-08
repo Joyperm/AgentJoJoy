@@ -288,7 +288,7 @@ Ask:
 - What is the smallest useful first version?
 - Is this code, writing, research, operations, or mixed?
 - Any non-negotiable constraints?
-- Introduce **Technical Precedents**: Explain that a flat markdown file (`AgentJoJoy/agent-context/technical-precedents.md`) is provided under `agent-context/` to log validated technical solutions and workarounds. The AI will proactively log issues and solutions here so future sessions bypass the same friction.
+- Introduce **Technical Precedents**: Explain that a flat markdown file (`AgentJoJoy/agent-context/technical-precedents.md`) is provided under `agent-context/` to log validated technical solutions and workarounds. The AI logs here when it resolves technical blockers, then reads it later only for debug, tooling, environment, or tracker-linked precedent tasks.
 - Should we enable **Distraction-Free Mode**? (Recommended for VS Code users. If enabled, the AI will create `.vscode/settings.json` to hide internal AI files from your explorer sidebar, keeping your workspace clean).
 
 ### Step 2: Propose Structure
@@ -326,6 +326,21 @@ owner's answers:
 - `AgentJoJoy/agent-rules/workspace-model.md`
 - `AgentJoJoy/agent-records/progress-tracker.md`
 - `AgentJoJoy/agent-records/setup-tracker.md`
+
+README handoff after onboarding: the project README belongs inside the real
+project folder, not beside `AgentJoJoy/`, `CLAUDE.md`, and `AGENTS.md`.
+
+- Path 1 new project: include `<project-folder>/README.md` in the approved
+  scaffold and write project-specific README content from the intake facts.
+- Path 2 existing project with a README: keep the project README as the
+  canonical README.
+- Path 2 existing project without a README: propose creating
+  `<project-folder>/README.md` from observed project facts and owner answers.
+- After the project README exists or is confirmed, propose removing the
+  workspace-root `README.md` bootstrap scaffold. Do not keep AgentJoJoy product
+  documentation as the root README in an onboarded workspace.
+- Do not move the bootstrap README content verbatim into the project folder;
+  rewrite the project README for the actual project.
 
 Mark uncertain guesses explicitly:
 
@@ -529,6 +544,19 @@ Auto-fill:
 - `AgentJoJoy/agent-records/progress-tracker.md`: current phase, main checkout, active
   branches/worktrees, in-progress items if any
 
+README handoff after onboarding: the project README belongs inside the real
+project folder, not beside `AgentJoJoy/`, `CLAUDE.md`, and `AGENTS.md`.
+
+- Path 2 existing project with a README: keep the project README as the
+  canonical README.
+- Path 2 existing project without a README: propose creating
+  `<project-folder>/README.md` from observed project facts and owner answers.
+- After the project README exists or is confirmed, propose removing the
+  workspace-root `README.md` bootstrap scaffold. Do not keep AgentJoJoy product
+  documentation as the root README in an onboarded workspace.
+- Do not move the bootstrap README content verbatim into the project folder;
+  rewrite the project README for the actual project.
+
 Use `<!-- AI guess: ... -->` for uncertain inferences.
 
 ### Step 5: Ask For Missing Human Context
@@ -550,7 +578,7 @@ Ask only what cannot be discovered:
 - What is the expected verification command before pushing?
 - Which runtime/environment actions, if any, are safe to run locally?
   Which require separate approval or should never be run by AI?
-- Introduce **Technical Precedents**: Explain that a flat markdown file (`AgentJoJoy/agent-context/technical-precedents.md`) is provided under `agent-context/` to log validated technical solutions and workarounds. The AI will proactively log issues and solutions here so future sessions bypass the same friction.
+- Introduce **Technical Precedents**: Explain that a flat markdown file (`AgentJoJoy/agent-context/technical-precedents.md`) is provided under `agent-context/` to log validated technical solutions and workarounds. The AI logs here when it resolves technical blockers, then reads it later only for debug, tooling, environment, or tracker-linked precedent tasks.
 - Should we enable **Distraction-Free Mode**? (Recommended for VS Code users. If enabled, the AI will create `.vscode/settings.json` to hide internal AI files from your explorer sidebar, keeping your workspace clean).
 
 ### Step 6: Multi-Agent Coexistence Rules Portability
@@ -707,7 +735,11 @@ Do not turn uncertain guesses into tasks. Put them in Open Questions.
 - Do not invent architecture, rules, owners, or deployment facts.
 - If team docs conflict with AgentJoJoy notes, team docs win for
   code-level decisions.
-- Update `AgentJoJoy/agent-records/setup-tracker.md` when intake completes.
+- Update `AgentJoJoy/agent-records/setup-tracker.md` while intake/setup is
+  active. When setup completes, archive durable setup context under
+  `AgentJoJoy/agent-records/setup-history/`, clear mutable setup scratch state
+  inside the `AGENTJOJOY:ARCHIVE-THEN-CLEAR-AFTER-SETUP` marker, and do not
+  copy setup history into `progress-tracker.md`.
 - Update `AgentJoJoy/agent-records/progress-tracker.md` with real work state for the
   project being onboarded.
 
@@ -727,6 +759,9 @@ Intake is complete when:
 - Known protected paths and gotchas are recorded.
 - Verification commands are recorded or listed as open questions.
 - `AgentJoJoy/agent-records/progress-tracker.md` reflects current active work state.
+- A project README exists at `<project-folder>/README.md`, or the owner
+  explicitly chose to defer it. The workspace-root `README.md` bootstrap
+  scaffold has a removal/cleanup decision recorded.
 - Remaining unknowns are listed under Open Questions.
 - The first milestone, first slice, and verification signal are
   recorded.

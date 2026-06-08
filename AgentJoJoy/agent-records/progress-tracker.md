@@ -5,9 +5,6 @@
 > This is the daily-use tracker. The AI's Resume Check Protocol reads
 > this file first to understand current work state.
 >
-> For workspace setup history, AI workflow tweaks, and spec amendments,
-> see [`setup-tracker.md`](setup-tracker.md).
->
 > Update this file when:
 > - A branch is created, pushed, merged, or deleted
 > - A PR is opened, reviewed, merged, or closed
@@ -111,4 +108,3 @@ _(empty — populated after first real work session)_
 | Engagement mode (execute / teach) | [`../agent-context/engagement-mode.md`](../agent-context/engagement-mode.md) |
 | Decisions log | [`decisions/`](decisions/) |
 | Archived work records | [`work/`](work/) |
-| Setup history / spec amendments | [`setup-tracker.md`](setup-tracker.md) |

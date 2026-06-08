@@ -6,6 +6,10 @@ coexistence rules (branch reservations, code change tags, commit
 attribution) are visible to agents working in that repo without
 needing the AgentJoJoy wrapper above it.
 
+Surface lifecycle: **Optional Snippet Library / Portable Insert**. Load this
+file only during the Path 2 multi-agent coexistence portability step or explicit
+snippet maintenance. It is not part of Resume Check or normal runtime context.
+
 ---
 
 ## How to use
