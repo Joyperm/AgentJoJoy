@@ -1,5 +1,15 @@
 # AgentJoJoy SmartWorker Framework
 
+> **Surface lifecycle: Optional Capability.**
+> Do not load or use this folder during normal Resume Check. Load it only
+> when the owner asks for worker dispatch, `pattern-detection` classifies a
+> repeated workflow as SmartWorker-shaped, or a current task has a real
+> cross-context delegation tradeoff.
+>
+> **Boundary:** SmartWorker is a runtime-neutral worker spec for the single
+> Main Agent to translate into its own runtime. It is not a queue, scheduler,
+> autonomous worker pool, second Main Agent, or multi-agent orchestration layer.
+
 A **SmartWorker** is a knowledge-requiring worker that the *single* Main
 Agent dispatches into a **separate context** to do recurring work, then
 returns only a synthesized result. It is **not** a second Main Agent and

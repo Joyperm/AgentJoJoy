@@ -1,5 +1,14 @@
 # Work Records
 
+> **Surface lifecycle: Cold Archive.**
+> Do not load this folder during Resume Check. Load a work record only when
+> `progress-tracker.md`, the owner, or the current task points to a specific
+> record.
+>
+> **Boundary:** Work records preserve selected completed or paused work
+> context. They are not active work items, queues, schedulers, claim/lease
+> systems, worker dispatch contracts, or multi-agent runtime state.
+
 This folder is the optional archive for durable work memory. It is a cold store,
 not a hot source.
 

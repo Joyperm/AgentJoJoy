@@ -5,9 +5,10 @@ belong to the **template** versus the **user**. Used by upgrade flows
 to decide what is safe to overwrite when a newer template version is
 pulled in.
 
-If you are upgrading a workspace from one AgentJoJoy version to
-another (manually or via the canonical upgrade prompt in `README.md`),
-respect these rules.
+If you are upgrading a workspace from one AgentJoJoy version to another,
+respect these rules. Get the canonical upgrade prompt from the remote public
+README or target release README instead of relying on the local root
+`README.md`; onboarded workspaces may remove that bootstrap file.
 
 ---
 
@@ -21,11 +22,13 @@ deliberately.
 
 - `CLAUDE.md` (workspace root)
 - `AGENTS.md` (workspace root)
-- `AgentJoJoy/agent-rules/*` — all rule files (SPEC, intake-flow, workflow-notes, workspace-model, file-ownership, ai-workflow-rules)
-- `AgentJoJoy/agent-templates/*` — reusable snippets
+- `AgentJoJoy/agent-rules/*` — all rule files (SPEC, intake-flow, workspace-model, file-ownership, ai-workflow-rules)
+- `AgentJoJoy/agent-templates/*` — optional snippet library / portable inserts
 - `AgentJoJoy/skills/README.md`
 - `AgentJoJoy/skills/agentjojoy-core-practices/**/*` — core template skills
 - `AgentJoJoy/skills/grill-me/**/*` — core template skills
+- `AgentJoJoy/skills/pattern-detection/**/*` — core template skills
+- `AgentJoJoy/skills/lean-output/**/*` — core template skills
 - `AgentJoJoy/workflow-guide.md`
 - `AgentJoJoy/workflow-guide-th.md`
 - `AgentJoJoy/agent-records/README.md` — records folder guide
@@ -46,12 +49,17 @@ to one of these, the upgrade should propose a manual migration with
 explicit per-section approval — not a file overwrite.
 
 - `AgentJoJoy/agent-records/progress-tracker.md` — your daily work tracker
-- `AgentJoJoy/agent-records/setup-tracker.md` — your setup/workspace meta tracker
+- `AgentJoJoy/agent-records/setup-tracker.md` — temporary setup/onboarding tracker
+- `AgentJoJoy/agent-records/setup-history/` — cold setup/onboarding history
 - `AgentJoJoy/agent-records/work/*.md` — your detailed work records, except template/readme files
 - `AgentJoJoy/agent-context/*` — everything except files that explicitly say "Set during intake" templates with no user content yet (see Mixed below)
 - `AgentJoJoy/agent-records/decisions/*.md` — your project's decision log, except the format-guide `README.md`
-- `AgentJoJoy/skills/*` (except core template skills: `agentjojoy-core-practices/`, `grill-me/`, and `README.md`) — your custom project-specific skills
+- `AgentJoJoy/skills/*` (except core template skills: `agentjojoy-core-practices/`, `grill-me/`, `pattern-detection/`, `lean-output/`, and `README.md`) — your custom project-specific skills
 - The wrapped project folder itself (the sibling `<code-or-content>/` directory) — entirely off-limits to template upgrades
+- `README.md` (workspace root) — template-provided bootstrap scaffolding only.
+  After onboarding, move the README responsibility to `<project-folder>/README.md`
+  and remove or explicitly defer cleanup of the root scaffold with owner
+  approval.
 - Any block of text or code wrapped in `<!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->` and `<!-- AGENTJOJOY:AI-NO-OVERWRITE END -->` in any file (even inside Template-owned or Mixed files) — these blocks are strictly User-owned and must be skipped and preserved exactly as-is during upgrades.
 
 ---

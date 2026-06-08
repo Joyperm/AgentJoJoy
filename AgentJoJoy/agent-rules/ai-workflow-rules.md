@@ -188,6 +188,14 @@ This table is the **canonical definition** of the automation tiers. Other docs
 (`pattern-detection`, `agent-smartworkers/`) reference this section rather than
 restating it.
 
+Surface lifecycle boundary:
+- **SmartWorker** is an optional capability loaded only when separate-context
+  worker dispatch is justified.
+- **Work records / Work Item Envelopes** are cold archives for selected
+  completed or paused work, not active queues or worker contracts.
+- **Multi-agent orchestration incubator** material is dev-only research for a
+  separate future framework, not AgentJoJoy Original.
+
 | The repeated work is... | Tier | Runs where |
 |---|---|---|
 | Mechanical / deterministic (no judgment) | **Script / CLI / checklist / runbook** | outside the LLM |
@@ -594,7 +602,7 @@ Do not modify any of the above without explicit instruction.
 
 Update files when the underlying reality changes:
 - **`<workspace-root>/AgentJoJoy/agent-records/progress-tracker.md`** (work tracker) — after every meaningful work action (branch created, PR pushed, merge done, blocker found). Keep it a **concise summary** — the git log (incl. milestone commits) is the detailed trail; do not duplicate it into the tracker (SPEC-9.1.2).
-- **`AgentJoJoy/agent-records/setup-tracker.md`** (setup tracker) — when workspace structure changes or spec is amended
+- **`AgentJoJoy/agent-records/setup-tracker.md`** (temporary setup tracker) — while setup/onboarding is active; after setup completes, archive durable setup context under `AgentJoJoy/agent-records/setup-history/`, then clear mutable content inside the `AGENTJOJOY:ARCHIVE-THEN-CLEAR-AFTER-SETUP` marker back to placeholders
 - **`AgentJoJoy/agent-context/architecture.md`** — if I learn something new about the stack or invariants
 - **`AgentJoJoy/agent-context/standards.md`** — if team rules change
 - **`AgentJoJoy/agent-rules/workspace-model.md`** — if my workflow evolves (new gotchas, new tooling)

@@ -5,6 +5,14 @@ description: Output-brevity communication style — "smaller mouth, same brain".
 
 # Lean Output
 
+> **Surface lifecycle: Optional Behavior Style.**
+> Use only when the Lean Output toggle is ON or the owner asks for terse /
+> lean / brief output. This is an output-delivery style, not a separate
+> engagement mode.
+>
+> **Boundary:** Lean Output never reduces reasoning depth, verification,
+> safety/approval text, code precision, or teaching substance.
+
 A communication-style layer: say the same substance in fewer words. The win is
 **readability and speed first; token cost is a bonus.** It shrinks the "mouth",
 never the "brain".

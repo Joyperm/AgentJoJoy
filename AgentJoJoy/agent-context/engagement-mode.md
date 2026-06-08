@@ -1,5 +1,16 @@
 # Engagement Mode
 
+> **Surface lifecycle: Core Hot / Behavior Config.**
+> Read this during intake, Resume mode, and mode-switch requests. This
+> file owns workspace-level collaboration defaults (`execute` / `teach`)
+> and behavior toggles such as Teaching box and Lean Output.
+>
+> **Boundary:** this is not a persona file, skill router, project rule
+> source, runtime adapter, or safety-enforcement layer. It records how the
+> Main Agent collaborates and the owner's approval posture; canonical
+> safety gates remain in `agent-rules/` and cannot be weakened here unless
+> a workflow rule explicitly allows that carve-out.
+
 How the AI engages with the user during work. Set during intake;
 overridable per session.
 

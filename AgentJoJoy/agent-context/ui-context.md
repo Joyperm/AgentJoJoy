@@ -1,8 +1,8 @@
 # UI Context
 
-> 📋 **Optional template** — keep only if this project has a UI
-> (web, mobile, desktop). Skip for backend-only / CLI / library
-> projects. Personal cheatsheet of the UI stack and conventions.
+> Surface lifecycle: **Optional Project Context**. Keep/fill only if this
+> project has a UI (web, mobile, desktop). Skip backend-only, CLI, library, or
+> non-UI projects. Do not load during Resume Check or non-UI work.
 
 ---
 

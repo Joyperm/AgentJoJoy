@@ -1,9 +1,9 @@
 # Domain Language
 
-> 📋 **Optional template** — fill only when a project has important
-> terms, domain concepts, stakeholder vocabulary, or recurring
-> ambiguities. Leave this file blank-ish when the project does not need
-> a glossary.
+> Surface lifecycle: **Optional Project Context**. Fill only when a project has
+> important terms, domain concepts, stakeholder vocabulary, or recurring
+> ambiguities. Leave this file blank-ish when the project does not need a
+> glossary, and load it only when terminology matters to the current task.
 
 Use this file as AgentJoJoy's personal, project-facing language map.
 For existing team repos, team-owned docs and code remain the source of

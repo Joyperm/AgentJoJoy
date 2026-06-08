@@ -1,16 +1,28 @@
 ---
 name: pattern-detection
-description: Meta-skill that monitors the user's workflow pattern (using Recent Actions in AgentJoJoy/agent-records/progress-tracker.md and in-session memory). Triggers when the same multi-step workflow is performed 3+ times, then classifies the recurring work and routes it to the right automation tier (script / SmartWorker / Skill). Triggers: "repeated workflow", "same steps", "done this 3 times", "nudge to skill", "make a script", "create a subagent", "smartworker", "automate this", "pattern detection", "workflow pattern", "recurring action".
+description: Meta-skill that routes already-visible repeated workflow signals from the hot tracker, current session, or owner request. Triggers when the same multi-step workflow is performed 3+ times, then classifies the recurring work and routes it to the right automation tier (script / SmartWorker / Skill). Triggers: "repeated workflow", "same steps", "done this 3 times", "nudge to skill", "make a script", "create a subagent", "smartworker", "automate this", "pattern detection", "workflow pattern", "recurring action".
 ---
 
 # Pattern-Detection Meta-Skill
+
+> **Surface lifecycle: Optional Meta-Routine / Automation Router.**
+> Use when a repeated workflow signal is already visible in the hot
+> tracker, current session, or owner request. It routes recurrence to the
+> lightest tier: script, SmartWorker, or Skill.
+>
+> **Boundary:** this is not a background monitor, scheduler, automatic
+> automation creator, or SmartWorker creator by default. It should not add
+> tool calls to Resume Check just to hunt for patterns.
 
 Use this skill to detect recurring workflows, help the user identify manual repetitions, and route them to the right automation tier — a **script** (mechanical), a **SmartWorker** (knowledge-requiring, runs in a separate context), or a **Skill** (reusable SOP Main applies in-line). The old behavior of always nudging toward a Skill was too narrow; classify first, then nudge.
 
 ## When to Trigger Scan
 
-This is a passive meta-skill. The AI should run this scan silently:
-- At the start of a session (during or immediately after the Resume Check).
+This is a lightweight meta-routine. The AI should run it only from
+already-available context:
+- During or immediately after Resume Check **only if** the already-read
+  hot tracker makes a repeated pattern obvious. Do not spend extra
+  discovery calls just to hunt for patterns.
 - When updating or reviewing `AgentJoJoy/agent-records/progress-tracker.md`
   (specifically the `Recent Actions` list).
 - When the user performs the same action sequence 3 or more times within the active session.

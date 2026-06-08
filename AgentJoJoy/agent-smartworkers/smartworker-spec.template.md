@@ -1,5 +1,10 @@
 # SmartWorker Spec — <NAME>
 
+> **Surface lifecycle: Optional Capability.**
+> Create a real SmartWorker spec only when a concrete recurring task or
+> owner request justifies separate-context worker dispatch. Do not create
+> one during normal onboarding, Resume Check, or routine one-off work.
+>
 > Runtime-neutral canonical spec. Copy this skeleton to define a real
 > SmartWorker. Keep this layer free of vendor syntax — the Main Agent
 > translates the Governance zone into its own runtime's native subagent

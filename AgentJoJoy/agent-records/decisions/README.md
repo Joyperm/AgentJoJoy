@@ -58,6 +58,8 @@ considered and the deciding factors.>
 
 ## Cross-references
 
-When a decision is logged here, also note it in
-`AgentJoJoy/agent-records/setup-tracker.md` → "Resolved Decisions" with a link, so
-the setup tracker stays a complete index.
+When a decision is logged here during active setup, also note it in
+`AgentJoJoy/agent-records/setup-tracker.md` → "Resolved Decisions" with a
+link. After setup completes, preserve the setup-side index in
+`AgentJoJoy/agent-records/setup-history/`; do not copy it into
+`AgentJoJoy/agent-records/progress-tracker.md`.

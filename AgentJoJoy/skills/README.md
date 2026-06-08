@@ -2,6 +2,27 @@
 
 AgentJoJoy treats skills as two logical layers. The layer determines what a skill is allowed to influence, how it is discovered, and which source of truth wins when skills or rules overlap.
 
+## Communication Behavior Boundary
+
+`AgentJoJoy/agent-context/engagement-mode.md` owns the workspace's default
+collaboration behavior: `execute` vs `teach`, Teaching box, and Lean Output
+toggle. Skills do not own the default mode or persona.
+
+Skills are **triggered routines**:
+
+- `agentjojoy-core-practices` routes specific work types: debug, review,
+  post-mortem, and management-facing rewrites.
+- `grill-me` handles unsettled ideas and pressure-testing before
+  implementation.
+- `pattern-detection` routes visible repeated workflows to script,
+  SmartWorker, or Skill without becoming a background monitor.
+- `lean-output` is an optional delivery style; it compresses wording, not
+  diligence.
+
+No default `SOUL.md` / persona surface is part of the skill layer. Runtime
+persona adapters are optional and only used when a target runtime explicitly
+requires or benefits from one.
+
 ## Table of Skill Layers & Priority
 
 | Skill Area / Policy | Focus & Semantic Purpose | Key Sections |
@@ -66,9 +87,10 @@ Rules:
 ## SmartWorkers Are Not Skills
 
 SmartWorkers live under `AgentJoJoy/agent-smartworkers/`, not
-`AgentJoJoy/skills/`. Use them when recurring work needs project
-knowledge, inspection, or synthesis in a separate context before
-returning a result to the single Main Agent.
+`AgentJoJoy/skills/`. They are an **optional capability**, not a default
+runtime path. Use them only when recurring work needs project knowledge,
+inspection, or synthesis in a separate context before returning a result
+to the single Main Agent.
 
 Use a Project Skill when the repeated work is an in-line SOP the Main
 Agent should follow in its current context. Use a SmartWorker when the
@@ -76,7 +98,9 @@ work would otherwise spend too much Main Agent context but still
 requires judgment beyond a mechanical script.
 
 `pattern-detection` may route a 3+ repeat to a script, SmartWorker, or
-Skill; it should not assume every recurring workflow becomes a Skill.
+Skill; it should not assume every recurring workflow becomes a Skill, and
+it should not load SmartWorker mechanics unless SmartWorker is the selected
+or likely tier.
 
 ---
 

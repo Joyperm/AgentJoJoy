@@ -24,7 +24,7 @@ AgentJoJoy uses a **wrapper workspace**:
 JoySpace/
 ├─ CLAUDE.md / AGENTS.md          # workspace entry points
 ├─ AgentJoJoy/                    # AgentJoJoy-owned AI context
-│  ├─ agent-records/              # progress, setup, decisions, work records
+│  ├─ agent-records/              # hot tracker + decisions + cold records
 │  ├─ agent-rules/
 │  └─ skills/
 ├─ TeamRepo/                      # team-owned git repo

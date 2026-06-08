@@ -1,10 +1,15 @@
-# Progress Tracker — Setup / Workspace Meta
+# Setup Tracker — Temporary Setup / Onboarding
 
-> 📋 **Scope: workspace setup, AI workflow, spec amendments, onboarding milestones.**
+> 📋 **Scope: temporary setup/onboarding hot state.**
 >
 > This is NOT the daily-work tracker. For active branches, PRs,
 > worktrees, and tasks in flight, see
 > [`progress-tracker.md`](progress-tracker.md).
+>
+> After setup/onboarding is complete, archive durable setup context to
+> [`setup-history/`](setup-history/) and clear the mutable content inside
+> `AGENTJOJOY:ARCHIVE-THEN-CLEAR-AFTER-SETUP` markers. Do not copy setup
+> history into `progress-tracker.md`.
 >
 > Update this file when:
 > - The workspace structure changes (folders moved, restructured)
@@ -13,10 +18,20 @@
 > - AI workflow rules evolve
 > - Deferred decisions are made or revisited
 
-Source of truth for setup-side decisions. Update after every
-meaningful workspace/spec change.
+Temporary source of truth for setup-side decisions while setup is active.
+Archive durable setup history after completion.
 
 ---
+
+<!-- AGENTJOJOY:ARCHIVE-THEN-CLEAR-AFTER-SETUP BEGIN -->
+
+Content inside this marker is setup scratch state. When setup/onboarding is
+complete:
+
+1. Copy durable setup facts to `setup-history/YYYY-MM-DD-setup-history.md`.
+2. Keep significant decisions in `decisions/`.
+3. Clear the mutable sections below back to placeholders.
+4. Preserve these marker comments for future setup changes.
 
 ## Current Phase
 
@@ -56,3 +71,5 @@ _(not set yet)_
 ## Session Notes
 
 <!-- Add brief session notes here when setup/workflow changes happen. -->
+
+<!-- AGENTJOJOY:ARCHIVE-THEN-CLEAR-AFTER-SETUP END -->
