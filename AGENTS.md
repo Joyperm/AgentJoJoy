@@ -1,4 +1,4 @@
-﻿# AGENTS — Multi-Agent Entry Point
+# AGENTS — Multi-Agent Entry Point
 
 This file is intentionally thin. It is the entry point for any
 AI coding agent (Codex, Aider, Cursor agent mode, etc.) operating
@@ -26,7 +26,9 @@ rules.
   env-var *name*, never by value. Full:
   [`ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) →
   "Secret Intake Protocol".
-- **Commits & push need approval** — the only carve-out is opt-in
+- **Commits & push need approval — and a task instruction is not approval.**
+  "Fix it and commit" is the task definition, not the go signal: still show
+  the exact edit/command and wait for a separate go. The only carve-out is opt-in
   **Milestone Auto-Commit**: **DEFAULT OFF; Gemini must never auto-commit
   (always propose-and-approve); push always asks.** When enabled, **Claude/Codex
   only** may make *local* milestone commits on a plan the owner approved up
@@ -140,7 +142,7 @@ Available sources:
 - [`AgentJoJoy/skills/grill-me/SKILL.md`](AgentJoJoy/skills/grill-me/SKILL.md) — triggered thinking routine for brainstorming, planning, and pressure-testing ideas before implementation
 - [`AgentJoJoy/skills/pattern-detection/SKILL.md`](AgentJoJoy/skills/pattern-detection/SKILL.md) — optional meta-routine that routes visible repeated work to the right tier (script / SmartWorker / Skill); not a background monitor
 - [`AgentJoJoy/skills/lean-output/SKILL.md`](AgentJoJoy/skills/lean-output/SKILL.md) — optional output-brevity style ("smaller mouth, same brain"); active when the Lean Output toggle is on or on demand
-- [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — optional SmartWorker capability: single Main dispatches knowledge-requiring workers to a separate context only when justified (3-tier taxonomy; neutral spec + per-runtime binding; not multi-agent orchestration)
+- [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — optional SmartWorker capability: single Main dispatches knowledge-requiring workers to a separate context only when justified (3-tier taxonomy; neutral spec + per-runtime binding; not multi-agent orchestration); also holds the Loop Contract template for governed autonomous runs
 - [`AgentJoJoy/agent-hooks/`](AgentJoJoy/agent-hooks/) — optional Hook Enforcement Contracts: docs/templates only for owners who want to mechanize selected AgentJoJoy or project-specific gates; no active hooks/scripts/config ship by default
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — optional snippet library / portable inserts; load only when inserting or maintaining a snippet
 - [`AgentJoJoy/agent-records/`](AgentJoJoy/agent-records/) — progress tracker, temporary setup tracker, decisions, cold setup history, and optional cold work records

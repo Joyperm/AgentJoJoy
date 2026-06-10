@@ -60,6 +60,10 @@ explicit per-section approval — not a file overwrite.
   After onboarding, move the README responsibility to `<project-folder>/README.md`
   and remove or explicitly defer cleanup of the root scaffold with owner
   approval.
+- `CHANGELOG.md` / `LICENSE` (workspace root) — these are AgentJoJoy's own
+  template files, not the project's. After onboarding, move them under
+  `AgentJoJoy/` (with owner approval) so the workspace root stays free for
+  the project's own changelog/license.
 - Any block of text or code wrapped in `<!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->` and `<!-- AGENTJOJOY:AI-NO-OVERWRITE END -->` in any file (even inside Template-owned or Mixed files) — these blocks are strictly User-owned and must be skipped and preserved exactly as-is during upgrades.
 
 ---

@@ -1,4 +1,4 @@
-﻿# Changelog
+# Changelog
 
 All notable user-facing changes to AgentJoJoy. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the
@@ -9,6 +9,26 @@ For internal template-development history, see the private dev repo.
 ---
 
 ## [Unreleased]
+
+---
+
+## [v2.8.0] — 2026-06-10 — Governed Autonomous Runs
+
+### Added
+- **Loop Contracts — governed autonomous runs (optional)**: a SmartWorker can now run unattended (scheduled or kick-and-leave) under a **Loop Contract** (`AgentJoJoy/agent-smartworkers/loop-contract.template.md`): goal with machine-checkable definition of done, work tier (A Run-to-Done / B Deliver-to-Gate / C never-autonomous), read/write scope, budget and pacing caps, cross-run state anchors, a cross-run no-progress rule, and escalation. Core frame: the owner approves the envelope once — no human mid-run, async promotion afterwards. Activation requires all four preconditions (envelope approval, pacing controls, **mechanical gates proven by a live blocking pre-flight**, tier classification). AgentJoJoy ships no scheduler — the runtime's native cron/scheduled-tasks executes; the contract governs. Validated live on a real workspace before shipping.
+- **Hermes Agent runtime binding for Hook Contracts** (`AgentJoJoy/agent-hooks/runtime-bindings/hermes.md`): how to enforce gates on Hermes — `pre_tool_call` plugin vs shell hook vs gateway hooks, the activation chains that fail open and silently (hook consent, `plugins.enabled` opt-in, desktop-TUI shell-hook gap), decision mapping, and live-observed caveats (BOM-blocked context files, gating `execute_code` alongside `terminal`, runtime-cached skills going stale). All field names verified live on v0.16.0.
+
+### Changed
+- **Sharper governance-layer positioning**: the "What AgentJoJoy Is" section now states that AgentJoJoy is the context and governance layer *between the language model and the execution runtime* — it does not reason (the model) and does not execute (the runtime: Claude Code, Codex, Antigravity, and others); it supplies the rules, project context, and safety boundaries that constrain how any model and any runtime work together. Refines the v2.5.0 positioning wording; no behavior change.
+
+- **"A task instruction is not approval" rule hardening**: closed a live-observed rationalization gap where an agent treated the task wording itself ("fix it, then commit") as the approval and executed gated operations without proposing first. `ai-workflow-rules.md` (canonical), SPEC-1.1, `AGENTS.md`, and `CLAUDE.md` now state explicitly that a request naming a gated operation is the task definition, not the go signal — the show-the-exact-command-and-wait step still applies. Companion rule: verify a request's premise before "fixing" (report a non-existent typo/bug instead of inventing a change).
+- **Root namespace handoff now covers `CHANGELOG.md` / `LICENSE`**: after onboarding, the template's changelog and license move under `AgentJoJoy/` (with owner approval), extending the v2.7.0 root-README handoff so the workspace root stays free for the project's own files. Updated README "After Onboarding", `file-ownership.md`, and the intake handoff/completion checklist.
+
+### Fixed
+- **Packaged files no longer carry a UTF-8 BOM**: the release packager's dev-only-strip step wrote stripped files with a BOM (PowerShell 5.1 `Set-Content -Encoding UTF8` behavior), so nine packaged files — including `AGENTS.md` and `CLAUDE.md` — shipped with an invisible `U+FEFF`. Some runtimes treat invisible unicode in context files as a prompt-injection signal and **block the file entirely** (observed live on Hermes: `Context file AGENTS.md blocked: invisible_unicode_U+FEFF`), silently disabling the workspace rules. Stripped files are now written BOM-less, and a new packaging check fails the release if any packaged `.md` carries a BOM.
+- **Critical Rules reference in `CLAUDE.md`**: Rule 1's scoped-exception note referenced "Rules 7–9" while the list ends at Rule 8; it now points generically at the exception rules at the end of the list, and the exception-rule numbering was made consistent.
+- **SPEC-4.5 vs SPEC-1.8 consistency**: SPEC-4.5 ("no `git commit` during implementation") now explicitly carves out owner-approved SPEC-1.8 milestone commits and the Pillar II SOP commit-milestone discipline, so a strict reading no longer conflicts with milestone auto-commit.
+- **Engagement-mode autonomy citation**: the File Modification checkbox cited SPEC-1.1; it now correctly states it is a stricter-than-SPEC-1.3 opt-in (SPEC-1.3 allows free in-scope edits), and the section header no longer claims the defaults exactly match the rule files. Default stays checked (safer).
 
 ---
 

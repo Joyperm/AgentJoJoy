@@ -27,7 +27,7 @@ overridable per session.
 
 ## Autonomy Configuration
 
-These settings define what the AI is allowed to do autonomously. By default, this is pre-configured with safe, strict defaults matching `ai-workflow-rules.md`. You can manually toggle these checkboxes to adjust the trust level.
+These settings define what the AI is allowed to do autonomously. By default, this is pre-configured with safe defaults at or stricter than `ai-workflow-rules.md` / `workflow-spec.md`. You can manually toggle these checkboxes to adjust the trust level.
 
 > **Boundary — not toggleable (always-on):** core safety gates (push/commit/merge
 > approval, secrets, AI Trust Boundary, command blacklists, AI-NO-OVERWRITE
@@ -37,7 +37,7 @@ These settings define what the AI is allowed to do autonomously. By default, thi
 
 <!-- AGENTJOJOY:AI-NO-OVERWRITE BEGIN -->
 - **File Modification:**
-  - [x] Requires approval before editing any codebase files (SPEC-1.1)
+  - [x] Requires approval before editing any codebase files (stricter than SPEC-1.3, which allows free in-scope edits; uncheck to follow SPEC-1.3)
 
 - **Command Execution:**
   - [x] Requires approval before running state-changing commands (e.g. git checkout, npm install)

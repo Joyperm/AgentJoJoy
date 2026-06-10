@@ -1,4 +1,4 @@
-﻿# Workspace Model & Operational Notes
+# Workspace Model & Operational Notes
 
 How AgentJoJoy separates personal AI context from project code and operational guidelines for running tasks safely.
 

@@ -1,4 +1,4 @@
-﻿# Workflow Specification — Worktree-Based Personal Workflow
+# Workflow Specification — Worktree-Based Personal Workflow
 
 Canonical, verifiable rules. This file is the source of truth for
 *what* the workflow is. Project-specific operational notes live in
@@ -24,7 +24,9 @@ priority and meaning.
 
 ### SPEC-1.1 — Requires explicit per-action approval
 The AI shows the exact command and waits for the user before any state- or
-remote-changing operation; prior approval never carries over. **Canonical list**
+remote-changing operation; prior approval never carries over. A task
+instruction that names the operation ("…then commit") is the task
+definition, not the approval — the show-and-wait step still applies. **Canonical list**
 (git local/remote, GitHub/PR, destructive filesystem, package/build/migration,
 runtime/environment actions, and CRITICAL BLACKLIST items): `ai-workflow-rules.md`
 → Pillar I "Ask Before You Execute".
@@ -230,7 +232,10 @@ loop → 4.10 Merge → 4.11 Cleanup
 - The AI proposes edits, then writes files (file edits are not in the
   same category as git operations — see SPEC-1 for the approval
   taxonomy).
-- The AI does not run `git commit` during implementation.
+- The AI does not run `git commit` during implementation, except local
+  milestone commits under an owner-approved SPEC-1.8 milestone plan (or
+  the SOP commit-milestone discipline in `ai-workflow-rules.md` →
+  Pillar II, which itself follows SPEC-1.1/SPEC-1.8 approval rules).
 
 ### SPEC-4.6 Verification
 - Before any push or PR, the AI runs the project's verification

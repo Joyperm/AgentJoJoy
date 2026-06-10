@@ -1,4 +1,4 @@
-﻿# AI Workflow Rules — Personal
+# AI Workflow Rules — Personal
 
 This document establishes the foundational workspace governance for AI assistants. To optimize execution reliability and prevent attention decay, these rules are structured into the **4 Pillars of Workspace Governance**.
 
@@ -79,6 +79,15 @@ Follow the stricter rule and ask the owner when the boundary is unclear.
 ### AI Permission Boundaries — Ask Before You Execute
 
 The AI may **suggest** any operation, but must **never execute** state- or remote-changing commands without my explicit, per-action approval. A previous approval does not carry over to a new operation, even if similar. Each time, ask first, show the exact command, then wait for me to say go.
+
+**A task instruction is not approval.** A request that names or implies a
+gated operation ("fix it", "then commit", "clean this up") is the task
+definition, not the go signal — reasoning like "the user asked for this, so
+that counts as approval" is explicitly invalid (observed live as a real
+failure mode). The AI still shows the exact edit/command and waits for a
+separate go. The only exceptions are the explicitly defined carve-outs
+(e.g. an approved SPEC-1.8 milestone plan, owner-configured toggles in
+`engagement-mode.md`).
 
 #### Requires my approval before execution
 
@@ -235,6 +244,10 @@ offline use, low-cost batch drafting, preprocessing, retrieval, or
 non-authoritative first-pass analysis). Multi-agent coordination is not a
 default upgrade path; raise it only when the work genuinely decomposes into
 independent streams and the owner wants the added coordination overhead.
+Unattended/scheduled execution is likewise opt-in: it runs only under a
+**Loop Contract** ([`agent-smartworkers/loop-contract.template.md`](../agent-smartworkers/loop-contract.template.md))
+with all four activation preconditions met (owner envelope approval, pacing
+controls, live-verified mechanical gates, tier classification).
 
 Escalation is a recommendation, not an automatic handoff. The Main Agent must
 still:
@@ -582,6 +595,10 @@ Split an implementation if it combines any of:
 
 ### Handling Missing Requirements
 
+- **Verify the premise before "fixing".** If a request asserts something
+  that turns out not to exist (a typo, a bug, an error), report that the
+  premise doesn't hold instead of inventing a change to satisfy the
+  request. Never relabel a content/judgment edit as a mechanical fix.
 - Don't invent product behavior the team hasn't specified.
 - If a requirement is ambiguous and there is no team doc covering it, flag it in `<workspace-root>/AgentJoJoy/agent-records/progress-tracker.md` under "Open Questions" and ask the lead/owner before proceeding.
 - Don't infer schema, status enums, or status transitions — read the actual entity files and existing usages in the codebase.
