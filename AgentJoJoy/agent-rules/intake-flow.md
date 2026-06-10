@@ -1,4 +1,4 @@
-﻿# Intake Flow
+# Intake Flow
 
 Canonical onboarding flow for turning a fresh AgentJoJoy wrapper into a
 usable personal AI workspace.
@@ -341,6 +341,9 @@ project folder, not beside `AgentJoJoy/`, `CLAUDE.md`, and `AGENTS.md`.
   documentation as the root README in an onboarded workspace.
 - Do not move the bootstrap README content verbatim into the project folder;
   rewrite the project README for the actual project.
+- In the same handoff, propose moving the template's root `CHANGELOG.md` and
+  `LICENSE` under `AgentJoJoy/` — they describe AgentJoJoy, not the project,
+  and the root namespace belongs to the project after onboarding.
 
 Mark uncertain guesses explicitly:
 
@@ -556,6 +559,9 @@ project folder, not beside `AgentJoJoy/`, `CLAUDE.md`, and `AGENTS.md`.
   documentation as the root README in an onboarded workspace.
 - Do not move the bootstrap README content verbatim into the project folder;
   rewrite the project README for the actual project.
+- In the same handoff, propose moving the template's root `CHANGELOG.md` and
+  `LICENSE` under `AgentJoJoy/` — they describe AgentJoJoy, not the project,
+  and the root namespace belongs to the project after onboarding.
 
 Use `<!-- AI guess: ... -->` for uncertain inferences.
 
@@ -761,7 +767,9 @@ Intake is complete when:
 - `AgentJoJoy/agent-records/progress-tracker.md` reflects current active work state.
 - A project README exists at `<project-folder>/README.md`, or the owner
   explicitly chose to defer it. The workspace-root `README.md` bootstrap
-  scaffold has a removal/cleanup decision recorded.
+  scaffold has a removal/cleanup decision recorded, and the template's root
+  `CHANGELOG.md` / `LICENSE` have a move-under-`AgentJoJoy/` decision
+  recorded (moved or explicitly deferred).
 - Remaining unknowns are listed under Open Questions.
 - The first milestone, first slice, and verification signal are
   recorded.

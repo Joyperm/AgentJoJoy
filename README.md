@@ -19,12 +19,16 @@ Use it to:
 
 ## What AgentJoJoy Is
 
-AgentJoJoy is a governance layer, not an agent runtime.
+AgentJoJoy is the context and governance layer between the language model and
+the execution runtime. It does not reason — that is the model — and it does not
+execute — that is the runtime (Claude Code, Codex, Antigravity, and others). It
+supplies the rules, project context, and safety boundaries that constrain how
+any model and any runtime work together.
 
-It provides portable, human-readable contracts that help humans and AI agents
-work safely across tools, providers, and projects: workflow rules and safety
-gates, onboarding/intake context, SmartWorkers, Hook Enforcement Contracts, and
-optional local/alternative-provider fields.
+In practice it provides portable, human-readable contracts: workflow rules and
+safety gates, onboarding/intake context, SmartWorkers, Loop Contracts for
+governed autonomous runs, Hook Enforcement Contracts, and optional
+local/alternative-provider fields.
 
 ## What AgentJoJoy Is Not
 
@@ -70,7 +74,8 @@ Already have an AgentJoJoy workspace? Use the [Upgrading](#upgrading) flow inste
 - **AI-NO-OVERWRITE Protection** — protects custom configurations and codebase sections from being changed by the AI or lost during upgrades.
 - **Portable skills** — `SKILL.md` routines for debugging, review, root-cause analysis, stakeholder updates, and design interviews.
 - **SmartWorker framework** — when recurring work needs knowledge (not just a script), the single Main Agent dispatches a worker into a separate context and gets back a synthesized result, keeping its own context clean; a runtime-neutral spec maps to each agent's native subagent mechanism. Not multi-agent orchestration.
-- **Hook Enforcement Contracts** — optional docs/templates for owners who want to mechanize selected AgentJoJoy or project-specific gates in Claude Code, Codex, or Antigravity; no hook scripts/configs are active by default.
+- **Loop Contracts (governed autonomous runs)** — run a SmartWorker unattended under an owner-approved contract: machine-checkable definition of done, work tiers (deliver-an-artifact / deliver-to-a-gate / never-autonomous), strict write scope, budget and pacing caps, and escalation rules. The owner approves the envelope once; no human sits in the loop. Activation requires mechanically enforced gates proven by a live blocking pre-flight — AgentJoJoy ships no scheduler; your runtime's native cron/scheduled-tasks executes, the contract governs.
+- **Hook Enforcement Contracts** — optional docs/templates for owners who want to mechanize selected AgentJoJoy or project-specific gates in Claude Code, Codex, Antigravity, or Hermes; no hook scripts/configs are active by default.
 
 ---
 
@@ -125,12 +130,17 @@ AgentJoJoy routes each task to a small context bundle instead of asking the AI t
 
 ### After Onboarding
 
-The workspace-root `README.md` is bootstrap scaffolding. Once onboarding
-finishes, the project README should live inside the real project folder:
+The workspace-root `README.md` is bootstrap scaffolding, and the root
+`CHANGELOG.md` / `LICENSE` are AgentJoJoy's own files — they describe the
+template, not your project. Once onboarding finishes, hand the workspace
+root over to the project: the project README lives inside the real project
+folder, and the template's changelog and license move under `AgentJoJoy/`:
 
 ```text
 <workspace-root>/
 ├─ AgentJoJoy/
+│  ├─ CHANGELOG.md   ← template changelog (moved from root)
+│  └─ LICENSE        ← template license (moved from root)
 ├─ CLAUDE.md
 ├─ AGENTS.md
 └─ <project-folder>/
@@ -140,7 +150,8 @@ finishes, the project README should live inside the real project folder:
 For existing projects, keep the project's own README if it already exists. If
 it does not, create `<project-folder>/README.md` from project facts instead of
 moving AgentJoJoy product text into it. After that, remove or explicitly defer
-cleanup of the root bootstrap README.
+cleanup of the root bootstrap README. Your project's own changelog and
+license, if any, then own the root namespace.
 
 This keeps daily git work focused on the real project folder. Existing
 projects usually already have their own remote and README; AgentJoJoy remains a
@@ -212,8 +223,8 @@ See [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspa
 - [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) — **Consolidated Workspace & Operations Model** merging layout specifications, operating commands, and git-sync policies (Merge, Rebase, Squash & Rebase) into a single unified reference.
 - [`AgentJoJoy/workflow-guide.md`](AgentJoJoy/workflow-guide.md) — English onboarding manual.
 - [`AgentJoJoy/workflow-guide-th.md`](AgentJoJoy/workflow-guide-th.md) — Thai onboarding manual.
-- [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — SmartWorker framework: runtime-neutral spec + template for Main-dispatched knowledge workers (not multi-agent orchestration).
-- [`AgentJoJoy/agent-hooks/`](AgentJoJoy/agent-hooks/) — optional Hook Enforcement Contracts: docs/templates only; owners choose whether, where, and how to implement any hook.
+- [`AgentJoJoy/agent-smartworkers/`](AgentJoJoy/agent-smartworkers/) — SmartWorker framework: runtime-neutral spec + template for Main-dispatched knowledge workers, plus the Loop Contract template for governed autonomous runs (not multi-agent orchestration).
+- [`AgentJoJoy/agent-hooks/`](AgentJoJoy/agent-hooks/) — optional Hook Enforcement Contracts: docs/templates only with per-runtime binding notes; owners choose whether, where, and how to implement any hook.
 - [`AgentJoJoy/agent-templates/`](AgentJoJoy/agent-templates/) — optional snippet library and portable inserts, loaded only when needed.
 - [`AgentJoJoy/agent-records/decisions/`](AgentJoJoy/agent-records/decisions/) — key decisions log.
 

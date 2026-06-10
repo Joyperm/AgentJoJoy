@@ -1,4 +1,4 @@
-﻿# Technical Precedents
+# Technical Precedents
 
 > Surface lifecycle: **Triggered Project Memory**. Read this file for debug,
 > environment, tooling, and known-workaround tasks, or when the active tracker

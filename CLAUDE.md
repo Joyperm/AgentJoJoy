@@ -1,4 +1,4 @@
-﻿# AgentJoJoy Workspace
+# AgentJoJoy Workspace
 
 This is a generic workspace template for working with AI assistants
 (Claude Code, Cursor, etc.) on a project. The actual project content
@@ -133,10 +133,13 @@ These are set during intake and stored here. Update if they change.
 ## Critical Rules
 
 1. **Ask before any git push / pull / commit / merge / branch switch.**
-   (Scoped exceptions: Rules 7–9 below.) The AI may suggest commands and
+   (Scoped exceptions: the numbered exception rules at the end of this
+   list, Rule 7 onward.) The AI may suggest commands and
    explain effects, but must wait for
    the user to say go before executing anything that changes git
-   state or talks to a remote. Full list in
+   state or talks to a remote. A task instruction that names the
+   operation ("…then commit") is the task definition, not the
+   approval — still show the exact command and wait. Full list in
     [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md)
     → "Pillar I: Permission Boundaries & Core Safety Gates".
 
@@ -334,7 +337,7 @@ or the current diff.
 | [`AgentJoJoy/agent-rules/ai-workflow-rules.md`](AgentJoJoy/agent-rules/ai-workflow-rules.md) | AI permission boundaries and the 4 Pillars of Workspace Governance |
 | [`AgentJoJoy/agent-rules/intake-flow.md`](AgentJoJoy/agent-rules/intake-flow.md) | Detailed Path 1 / Path 2 onboarding flow and completion checklist. |
 | [`AgentJoJoy/agent-rules/workspace-model.md`](AgentJoJoy/agent-rules/workspace-model.md) | Wrapper ownership model, operational notes, paths, gotchas, and worktree workflow. |
-| [`AgentJoJoy/agent-smartworkers/README.md`](AgentJoJoy/agent-smartworkers/README.md) | Optional SmartWorker capability — when/how the single Main Agent dispatches knowledge-requiring workers to a separate context only when justified (3-tier taxonomy script/SmartWorker/Skill; runtime-neutral spec + per-runtime binding). Not multi-agent orchestration. |
+| [`AgentJoJoy/agent-smartworkers/README.md`](AgentJoJoy/agent-smartworkers/README.md) | Optional SmartWorker capability — when/how the single Main Agent dispatches knowledge-requiring workers to a separate context only when justified (3-tier taxonomy script/SmartWorker/Skill; runtime-neutral spec + per-runtime binding). Also home of the Loop Contract template for governed autonomous runs. Not multi-agent orchestration. |
 | [`AgentJoJoy/agent-hooks/README.md`](AgentJoJoy/agent-hooks/README.md) | Optional Hook Enforcement Contracts / runtime adapter — docs/templates only, no active hooks/scripts/config; owners choose whether to mechanize selected AgentJoJoy or project-specific gates. |
 | [`AgentJoJoy/agent-context/standards.md`](AgentJoJoy/agent-context/standards.md) | Project standards quick reference |
 | [`AgentJoJoy/agent-context/architecture.md`](AgentJoJoy/agent-context/architecture.md) | Project stack, boundaries, invariants (optional — coding projects) |

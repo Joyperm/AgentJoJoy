@@ -134,6 +134,37 @@ separate and fails safe). Good fits = summarize / classify / compress / retrieve
 secret handling, high-blast-radius tool execution, schema-critical multi-step
 tool calls.
 
+## Autonomous loops (optional) — a scheduled SmartWorker under a contract
+
+A SmartWorker may run **unattended** (scheduled, or kicked off and left
+alone). AgentJoJoy does not ship a scheduler — the runtime's native
+cron/scheduled-tasks is the loop executor; AgentJoJoy provides the
+**Loop Contract** ([`loop-contract.template.md`](loop-contract.template.md)):
+the run's anchor document defining goal + machine-checkable done, tier,
+read/write scope, budgets, cross-run state, no-progress rule, and
+escalation.
+
+Core frame — **human at the envelope, not in the loop**: the owner approves
+the contract once before the run; the run completes and delivers with zero
+mid-run interaction; for gated tiers the owner promotes the result
+asynchronously afterwards.
+
+Work tiers (classify at setup; when in doubt classify down):
+
+| Tier | Output | Human touchpoint |
+|---|---|---|
+| **A — Run-to-Done** | new artifact (research, report, draft) | envelope approval only; owner curates afterwards |
+| **B — Deliver-to-Gate** | change to real project state | + async promotion gate (branch/PR/queue — never direct writes) |
+| **C — Never autonomous** | strategic choices, semantic judgment, remote writes, money/live actions | human always — carve out as an owner step |
+
+**Activation requires all four, or the loop does not turn on:** owner
+envelope approval · pacing controls (budgets + schedule window) ·
+**mechanical gates proven by a live blocking pre-flight** (enforcement
+layers commonly fail open and silently — see the runtime binding notes in
+[`../agent-hooks/runtime-bindings/`](../agent-hooks/runtime-bindings/)) ·
+tier classification. A task instruction is not approval; the contract is
+the run's only authority.
+
 ## Triggers — when to propose creating a SmartWorker
 
 The trigger and routing logic lives in **one place**: the
@@ -159,3 +190,5 @@ a worker.
 - `README.md` — this file.
 - `smartworker-spec.template.md` — the runtime-neutral skeleton to copy
   when creating a real SmartWorker.
+- `loop-contract.template.md` — the contract skeleton for running a
+  SmartWorker unattended (autonomous loops; optional).

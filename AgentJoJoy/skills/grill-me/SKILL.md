@@ -1,4 +1,4 @@
-﻿---
+---
 name: grill-me
 description: Rigorous design interview for open-ended plans, ideas, projects, workflows, architecture, tooling, product direction, research, writing, or strategy. Use when starting something new, when a plan is vague or unsettled, when assumptions need pressure-testing, or when the owner asks to brainstorm, grill me, challenge this, think this through, map options, ask one question at a time, or reach shared understanding before building. For review of an already-written plan, PR, diff, design, or proposal, prefer agentjojoy-core-practices.
 ---
