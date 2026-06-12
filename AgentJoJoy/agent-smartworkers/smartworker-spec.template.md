@@ -47,7 +47,22 @@ NOT flood Main's context.>
 
 **tier:** `<inherit | light | strong>`  <!-- REQUIRED. No default.
   light = read/search-heavy; strong = heavy reasoning; inherit = match Main.
-  Norm: prefer light. -->
+  Norm: prefer light. A tier is an execution slot, not a permanent truth
+  about capability — see the calibration field below. -->
+
+**calibration:** `<optional but required before BATCH/unattended use on a new
+  work type — list of (work type → tier → pilot result + date). A tier is not
+  suitable for a work type until a small pilot batch passed the owner's
+  quality threshold on that work type. Run the pilot, record the pass here;
+  re-calibrate when the model behind the tier changes.>`
+
+**concurrency:** `<optional — for batch fan-out: max parallel workers per
+  batch + provider rate-limit note. Default 1 (sequential). Parallel dispatch
+  is allowed ONLY for calibrated work types, with disjoint write targets per
+  worker and a per-batch (not per-worker) budget ceiling. No subtask runs
+  twice: single assignment via a dispatch manifest (a real file when the
+  batch is unattended or may outlive one session), retry only
+  confirmed-failed items, prefer overwrite-by-key outputs over appends.>`
 
 **permission:** `<read-only (default) | read+write | +command/terminal>`
   <!-- Start read-only. Escalate only if the task requires it AND the
