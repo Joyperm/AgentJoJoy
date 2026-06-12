@@ -93,6 +93,63 @@ the most restrictive option each vendor allows:
   needs. `light` for read/search-heavy work; `strong` for heavy
   reasoning; `inherit` to match Main.
 
+## Calibration gate — a tier must earn each work type
+
+`tier` (and `model-capability assumption`) are **execution slots, not
+permanent truths**: a tier that handles one work type well can fail badly on
+another, and the model behind a slot changes over time. So before a worker
+tier is trusted with a **new class of work** — especially batch or unattended
+runs — run a **calibration pilot**:
+
+1. Take a small representative sample of the work (a few items, not the
+   whole batch).
+2. Run it on the candidate tier; the owner (or a defined check) reviews the
+   output against an explicit quality threshold.
+3. **Pass** → record it in the spec's `calibration` field (work type → tier →
+   result + date) and proceed. **Fail** → step the tier up and re-pilot.
+4. Re-calibrate when the underlying model changes (runtime update, provider
+   switch) — a pass is evidence about a specific model, not the slot name.
+
+This is the capability twin of the mechanical-gate rule ("a gate is not
+installed until a live pre-flight shows it blocking"): *a tier is not
+suitable until a pilot shows it passing.*
+
+## Parallel fan-out — batch dispatch of same-shaped subtasks
+
+When a task decomposes into **many same-shaped, independent subtasks**
+(N files to review, N nodes to rewrite), the Main Agent may dispatch
+**multiple workers concurrently** instead of one at a time. This stays fully
+inside the single-Main model: workers never talk to each other — the Main
+dispatches, collects, and reviews (star topology, not a peer mesh).
+
+Rules (all five):
+
+1. **Calibrate first.** Never parallelize an uncalibrated work type —
+   parallel slop is just slop produced faster.
+2. **Concurrency cap** comes from the spec's `concurrency` field: owner-set
+   maximum + the provider's rate limits. Default is sequential.
+3. **Disjoint write targets** — each worker writes only its own output
+   (its node/file/report); no two parallel workers share a write path.
+4. **Budget is per-batch, not per-worker** — N parallel workers multiply
+   cost; the cap must bound the whole batch, and outputs remain untrusted
+   drafts the Main reviews before acting.
+5. **Single assignment + idempotent outputs** — no subtask runs twice.
+   Each subtask is assigned to **exactly one worker**; before any dispatch
+   or retry, the Main consults its **dispatch manifest** (item → worker →
+   status: pending / dispatched / done / failed). Retry only items
+   **confirmed failed** — a silent or timed-out worker may have finished,
+   so verify the item's actual output first. On resume (new session,
+   context reset), reconcile the manifest against the **real artifacts on
+   disk** before dispatching the remainder. Prefer **overwrite-by-key**
+   outputs (each item writes to its own deterministic path) over appends —
+   a duplicated overwrite is harmless; a duplicated append corrupts.
+   The manifest must be a **real file** when the batch is unattended or
+   large enough to outlive one session; for a small same-session batch, a
+   declared dispatch plan in the Main's context is enough.
+
+The same rules apply when a Loop Contract's run fans out internally
+(declare the cap in the contract's budgets section).
+
 ## Owner control & protection (two zones)
 
 Every SmartWorker spec has two zones. The owner can always overwrite

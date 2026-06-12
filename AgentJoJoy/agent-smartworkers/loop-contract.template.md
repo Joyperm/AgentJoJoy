@@ -26,6 +26,12 @@
 > met this run, a NO-RESULT report in the run-report folder is a *successful,
 > complete run*. Inventing weak output to satisfy the goal is a contract
 > violation (premise rule).
+>
+> **The run report must open with a Contract Restate**: the worker's own
+> 2-sentence summary of this contract's write scope and definition of done.
+> A report without it does not satisfy the done condition. (Asking for a
+> restate in chat gets skipped — observed live; putting it in the artifact
+> makes it checkable.)
 
 ## 2. Tier
 
@@ -64,7 +70,11 @@
 
 > This contract + the output folders + the latest run report. The worker
 > derives "what was already done" from anchors, not from conversation
-> memory.
+> memory. These anchors are also the **duplicate-work guard**: before
+> doing an item, check the actual artifact state — if the anchors show it
+> done, skip it, never re-do it. The definition-of-done check must be
+> idempotent (verifiable from artifact state alone), so a re-entered or
+> retried run converges instead of repeating work.
 
 ## 7. No-progress rule (cross-run Rule of Two)
 
@@ -95,7 +105,6 @@
 
 ```
 Read <path-to-this-contract> and execute exactly one run under that
-contract. Before doing anything else, restate the contract's write scope
-and definition of done in two sentences. The contract is the only
-authority for this run.
+contract. The contract is the only authority for this run. Remember: the
+run report must open with the Contract Restate required by section 1.
 ```

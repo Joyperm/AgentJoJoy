@@ -12,6 +12,18 @@ For internal template-development history, see the private dev repo.
 
 ---
 
+## [v2.9.0] — 2026-06-12 — Batch Discipline
+
+### Added
+- **SmartWorker calibration gate**: `tier` / capability labels are now framed as *execution slots, not permanent truths* — before a tier is trusted with a new class of work (especially batch/unattended runs), a small calibration pilot must pass the owner's quality threshold, recorded in the spec's new `calibration` field and re-run when the underlying model changes. The capability twin of the mechanical-gate rule ("a tier is not suitable until a pilot shows it passing"). Motivated and validated by live downstream usage before shipping.
+- **SmartWorker parallel fan-out**: the Main Agent may dispatch multiple workers concurrently for many same-shaped independent subtasks (new optional `concurrency` spec field) — star topology under the single Main, never a peer mesh. Five rules: calibrate first, owner-set concurrency cap + provider rate limits, disjoint write targets per worker, a per-batch (not per-worker) budget ceiling, and single assignment + idempotent outputs (dispatch manifest, retry only confirmed-failed items, reconcile against real artifacts on resume, prefer overwrite-by-key over appends — no subtask runs twice). Applies equally when a Loop Contract's run fans out internally.
+- **Loop Contract duplicate-work guard**: the cross-run state anchors section now states explicitly that anchors are the duplicate-work guard — a worker checks actual artifact state before doing an item and never re-does what the anchors show as done; the definition-of-done check must be idempotent so a retried or re-entered run converges instead of repeating work.
+
+### Changed
+- **Loop Contract template: Contract Restate moved into the run report**: the kickoff prompt's "restate before doing anything" instruction was skipped in both live trial runs (chat-level asks are decorative); the restate is now a required opening section of the run report itself, making it part of the machine-checkable done condition.
+
+---
+
 ## [v2.8.0] — 2026-06-10 — Governed Autonomous Runs
 
 ### Added
